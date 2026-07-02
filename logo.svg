@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" fill="none" stroke="#151515" stroke-linecap="round">
+  <circle cx="150" cy="150" r="112" stroke-width="3"/>
+  <ellipse cx="150" cy="150" rx="74" ry="112" stroke-width="2"/>
+  <ellipse cx="150" cy="150" rx="37" ry="112" stroke-width="2"/>
+  <line x1="150" y1="38" x2="150" y2="262" stroke-width="2"/>
+  <path d="M53 100 Q150 116 247 100" stroke-width="2"/>
+  <path d="M53 200 Q150 216 247 200" stroke-width="2"/>
+  <text x="150" y="192" text-anchor="middle" font-family="'Cormorant Garamond', Georgia, serif" font-size="120" font-weight="500" fill="#151515" stroke="none">ZS</text>
+</svg>

@@ -67,8 +67,15 @@ a { color: inherit; }
 
 /* ---- Hero ---- */
 .hero {
-  padding: 9rem 0 7rem;
+  padding: 6rem 0 7rem;
   text-align: center;
+}
+.hero-emblem {
+  width: 13rem;
+  height: 13rem;
+  color: var(--z-black);
+  margin: 0 auto 3rem;
+  display: block;
 }
 .eyebrow {
   font-size: 1.25rem;
