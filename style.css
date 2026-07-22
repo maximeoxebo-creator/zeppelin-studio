@@ -131,6 +131,65 @@ h2 { font-size: clamp(3rem, 5vw, 4.4rem); margin-bottom: 1.8rem; }
   margin: 2.4rem 0;
   font-size: 1.5rem;
 }
+.doc strong { font-weight: 500; color: var(--z-black); }
+
+/* ---- Table of contents ---- */
+.toc {
+  border: 1px solid var(--z-line);
+  background: #fbfbfa;
+  padding: 2rem 2.4rem;
+  margin: 2.8rem 0 1rem;
+}
+.toc p {
+  font-size: 1.2rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--z-muted);
+  margin-bottom: 1rem;
+}
+.toc ul { list-style: none; padding: 0; margin: 0; columns: 2; column-gap: 3rem; }
+.toc li { margin-bottom: 0.5rem; break-inside: avoid; }
+.toc a { text-decoration: none; border-bottom: 1px solid var(--z-line); color: var(--z-charcoal); }
+.toc a:hover { border-color: var(--z-black); color: var(--z-black); }
+
+/* ---- Setting reference tables ---- */
+.spec {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.4rem 0 2.4rem;
+  font-size: 1.45rem;
+}
+.spec th, .spec td {
+  text-align: left;
+  vertical-align: top;
+  padding: 0.9rem 1.2rem;
+  border-bottom: 1px solid var(--z-line);
+}
+.spec th {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  font-size: 1.2rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--z-muted);
+}
+.spec td:first-child { white-space: nowrap; font-weight: 500; color: var(--z-black); }
+.spec-wrap { overflow-x: auto; }
+
+/* ---- Steps / anchored blocks ---- */
+.doc h2[id], .doc h3[id] { scroll-margin-top: 2rem; }
+.tag {
+  display: inline-block;
+  font-size: 1.15rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--z-muted);
+  border: 1px solid var(--z-line);
+  padding: 0.2rem 0.8rem;
+  border-radius: 999px;
+  margin-left: 0.8rem;
+  vertical-align: middle;
+}
 
 /* ---- Buttons ---- */
 .btn {

@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="fr">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Documentation — Zeppelin Studio</title>
-  <meta name="description" content="Documentation du thème Zeppelin : installation, personnalisation, sections et bonnes pratiques.">
+  <meta name="description" content="Zeppelin theme documentation: installation, customization, and configuration guides for the advanced sections — product color variants, glassmorphism sections and alternate product pages.">
   <link rel="icon" type="image/svg+xml" href="/logo.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -23,7 +23,7 @@
       Zeppelin Studio
     </a>
     <nav class="nav">
-      <a href="/">Accueil</a>
+      <a href="/">Home</a>
       <a href="/docs">Documentation</a>
       <a href="/support">Support</a>
     </nav>
@@ -32,39 +32,169 @@
   <main class="doc">
     <div class="wrap">
       <p class="eyebrow">Documentation</p>
-      <h1>Thème Zeppelin</h1>
-      <p class="lead">Tout ce qu'il faut pour installer, configurer et personnaliser votre thème.</p>
+      <h1>Zeppelin theme</h1>
+      <p class="lead">Everything you need to install, configure, and customize your theme — including step-by-step guides for the more advanced sections.</p>
 
-      <h2>Installation</h2>
+      <nav class="toc" aria-label="Table of contents">
+        <p>On this page</p>
+        <ul>
+          <li><a href="#install">Installation</a></li>
+          <li><a href="#customize">Customization basics</a></li>
+          <li><a href="#variants">Product color variants</a></li>
+          <li><a href="#alt-products">Alternate product pages</a></li>
+          <li><a href="#glass">Glassmorphism sections</a></li>
+          <li><a href="#scatter">Scattered images</a></li>
+          <li><a href="#mobile-sizes">Mobile text &amp; button sizes</a></li>
+          <li><a href="#colors">Title vs. body colors</a></li>
+          <li><a href="#best">Best practices</a></li>
+          <li><a href="#help">Need help?</a></li>
+        </ul>
+      </nav>
+
+      <h2 id="install">Installation</h2>
       <ol>
-        <li>Depuis l'admin Shopify, ouvrez <strong>Boutique en ligne → Thèmes</strong>.</li>
-        <li>Cliquez sur <strong>Importer</strong> et sélectionnez le fichier <code>.zip</code> du thème.</li>
-        <li>Une fois importé, cliquez sur <strong>Publier</strong> pour l'activer, ou <strong>Personnaliser</strong> pour l'éditer d'abord.</li>
+        <li>In the Shopify admin, open <strong>Online Store → Themes</strong>.</li>
+        <li>Click <strong>Add theme → Upload zip file</strong> and select the theme <code>.zip</code>.</li>
+        <li>Once imported, click <strong>Publish</strong> to make it live, or <strong>Customize</strong> to edit it first.</li>
       </ol>
       <div class="callout">
-        Le message « Les mises à jour ne sont pas prises en charge pour les thèmes chargés » est normal pour tout thème installé manuellement : il n'affecte pas le fonctionnement.
+        The message “Updates are not supported for themes uploaded manually” is normal for any manually installed theme. It does not affect how the theme works.
       </div>
 
-      <h2>Personnalisation</h2>
-      <p>Toute la configuration se fait dans l'éditeur de thème Shopify, sans toucher au code.</p>
-      <h3>Couleurs &amp; typographie</h3>
-      <p>Dans <strong>Paramètres du thème</strong>, ajustez les schémas de couleurs, les polices de titre et de corps, ainsi que les échelles de taille.</p>
+      <h2 id="customize">Customization basics</h2>
+      <p>Everything is configured in the Shopify theme editor — no code required.</p>
+      <h3>Colors &amp; typography</h3>
+      <p>Under <strong>Theme settings</strong>, adjust color schemes, heading and body fonts, and the type scale. Zeppelin ships with <strong>Fraunces</strong> (headings) and <strong>DM Sans</strong> (body), self-hosted for speed.</p>
       <h3>Sections</h3>
-      <p>Ajoutez, réorganisez et configurez les sections depuis l'éditeur : bannières, collections en vedette, texte enrichi, colonnes multiples, témoignages, lookbook, et bien d'autres.</p>
-      <h3>En-tête &amp; pied de page</h3>
-      <p>Logo, menu de navigation, icônes (recherche, compte, panier) et blocs de pied de page se règlent dans leurs groupes de sections respectifs.</p>
+      <p>Add, reorder, and configure sections from the editor: banners, featured collections, rich text, multicolumn, testimonials, lookbook, and many more. Every section has padding controls and mobile-specific behavior where relevant.</p>
+      <h3>Header &amp; footer</h3>
+      <p>Logo, navigation menu, icons (search, account, cart), and footer blocks are set in their respective section groups.</p>
+      <div class="callout">
+        The editor caches section schemas per session. After a theme update, fully close and reopen the editor (or hard-refresh with <code>Cmd/Ctrl + Shift + R</code>) so new settings appear.
+      </div>
 
-      <h2>Bonnes pratiques</h2>
+      <h2 id="variants">Product color variants <span class="tag">Advanced</span></h2>
+      <p>The product page reacts live when a customer switches color, with no page reload. When set up correctly, changing the color swatch updates the gallery, the title area, and the price in place.</p>
+
+      <h3>How it works</h3>
       <ul>
-        <li>Utilisez des images au bon ratio (portrait 3:4 pour les produits) pour un rendu net.</li>
-        <li>Activez les animations d'apparition au défilement pour un effet éditorial subtil.</li>
-        <li>Testez toujours sur mobile après une modification de mise en page.</li>
+        <li><strong>Color swatches</strong> — enable swatches in the main product section. Each variant’s color becomes a clickable chip instead of a dropdown.</li>
+        <li><strong>Per-color media filtering</strong> — assign each product image to a color in Shopify (the image’s <em>“Media by variant / color”</em> association). When a color is selected, the gallery filters to show only that color’s media. Images with no color assigned always stay visible.</li>
+        <li><strong>Live text update</strong> — the product title, eyebrow, and description update instantly when the variant changes, so color-specific copy stays in sync.</li>
       </ul>
 
-      <h2>Une question ?</h2>
-      <p>Si vous ne trouvez pas la réponse ici, l'équipe répond directement.</p>
+      <h3>Setup checklist</h3>
+      <ol>
+        <li>In the product admin, add a <strong>Color</strong> (or equivalent) option with your variants.</li>
+        <li>Upload the product images, then use <strong>“Select media by variant”</strong> to attach each image to its color.</li>
+        <li>In the theme editor, open the product section and enable <strong>color swatches</strong> and <strong>filter gallery by color</strong>.</li>
+        <li>Preview the page and click through each swatch to confirm the gallery filters correctly.</li>
+      </ol>
+      <div class="callout">
+        If images don’t filter when switching color, the media isn’t associated with a variant in the product admin. Filtering is driven entirely by that association — the theme reads it automatically.
+      </div>
+
+      <h2 id="alt-products">Alternate product pages <span class="tag">Advanced</span></h2>
+      <p>Zeppelin includes ready-made <strong>alternate product templates</strong> so different products can have a completely independent layout and content — each anchored to its own product.</p>
+
+      <h3>Why use them</h3>
+      <p>The default <code>product</code> template drives every product. When you want one product (or a group) to have its own eyebrow, description block, and collapsible tabs — without affecting the rest of the catalog — assign it an alternate template instead of editing the shared one.</p>
+
+      <h3>Available templates</h3>
+      <div class="spec-wrap">
+        <table class="spec">
+          <thead><tr><th>Template</th><th>What it’s for</th></tr></thead>
+          <tbody>
+            <tr><td>Default</td><td>The standard product layout, applied to every product unless overridden.</td></tr>
+            <tr><td>Minimal</td><td>Pared-back layout for simple products.</td></tr>
+            <tr><td>Editorial</td><td>Story-driven layout with more room for narrative.</td></tr>
+            <tr><td>Product 1–10</td><td>Ten independent templates, each pre-built with an eyebrow block, a description block, and four collapsible tabs (Materials, Shipping &amp; Returns, Dimensions, Care).</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>How to assign a template to a product</h3>
+      <ol>
+        <li>Open the product in <strong>Products</strong> in the Shopify admin.</li>
+        <li>In the right sidebar, find the <strong>Theme template</strong> selector.</li>
+        <li>Choose an alternate template (e.g. <code>product.1</code>, <code>minimal</code>, <code>editorial</code>) and save.</li>
+        <li>Open that product in the theme editor — you’re now editing <em>only</em> that template. Its eyebrow, description, and tab content are unique to the products using it.</li>
+      </ol>
+      <div class="callout">
+        Each <code>Product 1–10</code> template is fully independent. Editing one never changes another, so you can give up to ten products (or ten product families) their own bespoke page.
+      </div>
+
+      <h2 id="glass">Glassmorphism (liquid-glass) sections <span class="tag">Advanced</span></h2>
+      <p>Zeppelin includes a family of frosted-glass sections — <strong>Glass Hero, Glass Cards, Glass Key figures, Glass Testimonial,</strong> and <strong>Glass CTA</strong> — plus an optional glass panel on the Scattered images section and a glass toggle on the Marquee. They layer a translucent, blurred panel over a background image or color.</p>
+
+      <h3>Common settings</h3>
+      <div class="spec-wrap">
+        <table class="spec">
+          <thead><tr><th>Setting</th><th>What it does</th></tr></thead>
+          <tbody>
+            <tr><td>Show panel</td><td>Toggles the frosted panel on or off. With it off, text sits directly on the background.</td></tr>
+            <tr><td>Panel opacity</td><td>How opaque the glass is. Lower = more of the background shows through; higher = more legible text.</td></tr>
+            <tr><td>Panel shape</td><td>Rounded or square corners on the glass panel.</td></tr>
+            <tr><td>Background type</td><td>Image or solid color behind the glass.</td></tr>
+            <tr><td>Panel text color</td><td>Global color for all panel text.</td></tr>
+            <tr><td>Title / eyebrow / subtitle color</td><td>Optional per-element overrides on top of the global text color.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Getting a clean glass effect</h3>
+      <ul>
+        <li>Use a background image with enough contrast behind the panel — busy, high-contrast photos read best through frosted glass.</li>
+        <li>Keep panel opacity high enough that text stays legible (start around the mid-range and adjust).</li>
+        <li>The blur is applied automatically. For accessibility, the panel falls back to a near-solid background when a visitor’s device requests reduced transparency.</li>
+      </ul>
+      <div class="callout">
+        The global cookie banner also uses the liquid-glass style and can be toggled in <strong>Theme settings</strong>.
+      </div>
+
+      <h2 id="scatter">Scattered images <span class="tag">Advanced</span></h2>
+      <p>This section places images freely across the canvas with a subtle parallax on scroll, plus a centered headline. Each image is a block you position independently.</p>
+      <div class="spec-wrap">
+        <table class="spec">
+          <thead><tr><th>Per-image setting</th><th>What it does</th></tr></thead>
+          <tbody>
+            <tr><td>Position X / Y</td><td>Places the image on desktop, as a percentage of the canvas.</td></tr>
+            <tr><td>Position X / Y (mobile)</td><td>Independent placement for mobile, so images don’t overlap on small screens.</td></tr>
+            <tr><td>Width</td><td>Image size (rem). On mobile it’s additionally capped relative to the viewport.</td></tr>
+            <tr><td>Parallax</td><td>How much the image drifts on scroll.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>An optional frosted-glass panel can sit behind the centered text (with its own opacity and shape controls) — see <a href="#glass" style="border-bottom:1px solid currentColor;text-decoration:none;">Glassmorphism sections</a>.</p>
+      <div class="callout">
+        Set the desktop positions first, then switch the editor preview to mobile and set the mobile X/Y for each image — the two are independent, so a mobile layout won’t disturb your desktop composition.
+      </div>
+
+      <h2 id="mobile-sizes">Mobile text &amp; button sizes</h2>
+      <p>Sections like the Slideshow, Image/video banner, Categories, and Marquee expose separate <strong>mobile size</strong> controls for headings, body text, and buttons.</p>
+      <p>Mobile sizes work as a <strong>multiplier</strong> on top of the desktop size: 100% means “same as desktop,” higher enlarges, lower shrinks — for mobile only. The desktop size always applies first, so you only touch the mobile control when small screens need a tweak.</p>
+
+      <h2 id="colors">Title vs. body colors</h2>
+      <p>Sections with both a heading and running text — such as <strong>Before/After, Lookbook,</strong> and <strong>Countdown</strong> — have separate color settings:</p>
+      <ul>
+        <li><strong>Title color</strong> applies only to the heading.</li>
+        <li><strong>Body / text color</strong> applies only to the running text.</li>
+        <li><strong>Eyebrow color</strong> is independent and defaults to your accent color.</li>
+      </ul>
+      <p>Leaving a color empty keeps the theme’s default for that element.</p>
+
+      <h2 id="best">Best practices</h2>
+      <ul>
+        <li>Use images at the right ratio (portrait 3:4 for products) for crisp rendering.</li>
+        <li>Enable scroll-reveal animations for a subtle editorial feel.</li>
+        <li>Always test on mobile after changing a layout.</li>
+        <li>Your saved content is safe across theme updates — settings and uploaded images persist.</li>
+      </ul>
+
+      <h2 id="help">Need help?</h2>
+      <p>If you can’t find the answer here, the team replies directly.</p>
       <div class="btn-row">
-        <a class="btn" href="/support">Contacter le support</a>
+        <a class="btn" href="/support">Contact support</a>
       </div>
     </div>
   </main>
