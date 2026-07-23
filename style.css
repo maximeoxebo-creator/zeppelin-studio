@@ -203,18 +203,17 @@ h2 { font-size: clamp(3rem, 5vw, 4.4rem); margin-bottom: 1.8rem; }
   inset: 0;
   z-index: -1;
   background:
-    radial-gradient(120% 90% at 12% 18%, #e8d9c4 0%, transparent 55%),
-    radial-gradient(130% 100% at 88% 22%, #c9d3d0 0%, transparent 55%),
-    radial-gradient(140% 120% at 70% 100%, #b7a894 0%, transparent 60%),
-    linear-gradient(135deg, #201f1d 0%, #35322d 45%, #4a4038 100%);
+    radial-gradient(45% 60% at 15% 20%, #c97b4a 0%, transparent 60%),
+    radial-gradient(50% 55% at 85% 15%, #3f6f8f 0%, transparent 60%),
+    radial-gradient(55% 60% at 78% 88%, #8a4f6d 0%, transparent 62%),
+    radial-gradient(50% 55% at 25% 92%, #4a7a5c 0%, transparent 62%),
+    linear-gradient(135deg, #16151a 0%, #1e1d24 50%, #14161c 100%);
 }
 .glass-focus__bg::after {
   content: "";
   position: absolute;
   inset: 0;
-  background:
-    repeating-linear-gradient(115deg, rgba(255,255,255,.05) 0 2px, transparent 2px 26px),
-    radial-gradient(60% 50% at 80% 10%, rgba(255,255,255,.14), transparent 60%);
+  background: radial-gradient(70% 60% at 82% 8%, rgba(255,255,255,.16), transparent 55%);
   mix-blend-mode: screen;
 }
 .glass-focus .wrap { padding-top: 6.5rem; padding-bottom: 6.5rem; }
