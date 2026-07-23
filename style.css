@@ -328,6 +328,7 @@ h2 { font-size: clamp(3rem, 5vw, 4.4rem); margin-bottom: 1.8rem; }
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(24rem, 1fr));
   gap: 2rem;
+  align-items: start;
 }
 .glass-panel {
   padding: 3rem 2.6rem;
@@ -351,19 +352,25 @@ h2 { font-size: clamp(3rem, 5vw, 4.4rem); margin-bottom: 1.8rem; }
   margin-bottom: 1.4rem;
 }
 .glass-panel--square { border-radius: 0; }
-.glass-panel__list { list-style: none; padding: 0; margin: 1.6rem 0 0; }
+.glass-panel__list { list-style: none; padding: 0; margin: 1.8rem 0 0; }
 .glass-panel__list li {
-  display: flex;
-  gap: 1rem;
-  align-items: baseline;
-  color: rgba(255,255,255,.9);
-  font-size: 1.5rem;
-  padding: 0.5rem 0;
+  color: rgba(255,255,255,.82);
+  font-size: 1.45rem;
+  line-height: 1.5;
+  padding: 1rem 0;
   border-top: 1px solid rgba(255,255,255,.16);
 }
-.glass-panel__list li:first-child { border-top: 0; }
-.glass-panel__list b { font-weight: 500; color: #fff; min-width: 12rem; display: inline-block; }
-.glass-focus .btn-row { margin-top: 3.6rem; }
+.glass-panel__list li:first-child { border-top: 0; padding-top: 0; }
+.glass-panel__list b {
+  display: block;
+  font-weight: 500;
+  color: #fff;
+  font-size: 1.2rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 0.3rem;
+}
+.glass-focus .btn-row { margin-top: 3.6rem; justify-content: center; }
 .glass-focus .btn--ghost { color: #fbfbfa; border-color: rgba(255,255,255,.6); background: rgba(255,255,255,0.06); }
 .glass-focus .btn--ghost:hover { background: #fbfbfa; color: var(--z-black); }
 @media (prefers-reduced-transparency: reduce) {
