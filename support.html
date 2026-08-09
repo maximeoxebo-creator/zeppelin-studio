@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Support — Zeppelin Studio</title>
-  <meta name="description" content="Zeppelin theme support. Contact the Zeppelin Studio team with any question.">
+  <title>Contact — Zeppelin Studio</title>
+  <meta name="description" content="Talk to the Zeppelin Studio team. Installation, customisation, unexpected behaviour — every message is read by the studio.">
   <link rel="icon" type="image/svg+xml" href="/logo.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/style.css">
 </head>
 <body>
@@ -25,37 +25,213 @@
     <nav class="nav">
       <a href="/">Home</a>
       <a href="/docs">Documentation</a>
-      <a href="/support">Support</a>
+      <a href="/support" aria-current="page">Contact</a>
     </nav>
   </header>
 
-  <main class="doc">
+  <main class="contact">
     <div class="wrap">
-      <p class="eyebrow">Support</p>
-      <h1>We’re here to help.</h1>
-      <p class="lead">A question about installation, a customization, or unexpected behavior? Write to us directly — every message is read by the studio.</p>
-
-      <div class="contact-box">
-        <p style="margin-bottom:1rem;color:var(--z-muted);font-size:1.35rem;letter-spacing:.08em;text-transform:uppercase;">By email</p>
-        <a class="email" href="mailto:contact.zeppelin.studio@gmail.com">contact.zeppelin.studio@gmail.com</a>
-        <p style="margin-top:1.6rem;">Reply within 1–2 business days. For a faster turnaround, include your store name and, if possible, a screenshot of the issue.</p>
+      <div class="contact__head">
+        <p class="eyebrow">Contact</p>
+        <h1>Tell us what you’re building.</h1>
+        <p class="lead">Installation, a setting that won’t behave, a customisation you have in mind — write to us. Every message is read by the studio, and answered by the person who wrote the code.</p>
       </div>
 
-      <h2>Before you write</h2>
-      <p>The <a href="/docs" style="border-bottom:1px solid currentColor;text-decoration:none;">documentation</a> covers installation and most common settings — you might find the answer in seconds.</p>
+      <div class="contact__layout">
+        <!--
+          L'action reste un gabarit tant que le point de collecte n'est pas
+          créé. Le script le détecte et bascule alors sur le client mail du
+          visiteur, champs déjà remplis : la page est donc utile dès
+          maintenant, sans dépendre d'un service tiers.
+        -->
+        <form
+          class="cform"
+          action="https://formspree.io/f/REMPLACER_PAR_VOTRE_ID"
+          method="POST"
+          data-cform
+          data-mailto="contact.zeppelin.studio@gmail.com"
+          novalidate
+        >
+          <div class="cform__grid">
+            <div class="cfield">
+              <label for="cf-name">Your name</label>
+              <input id="cf-name" name="name" type="text" autocomplete="name" placeholder="Jane Mercier" required>
+            </div>
 
-      <h2>What helps us help you</h2>
-      <ul>
-        <li>The store name and the theme in question.</li>
-        <li>The page or section where the problem appears.</li>
-        <li>A screenshot or a short description of the expected result.</li>
-      </ul>
+            <div class="cfield">
+              <label for="cf-email">Email</label>
+              <input id="cf-email" name="email" type="email" autocomplete="email" placeholder="jane@studio.com" required>
+            </div>
+
+            <div class="cfield">
+              <label for="cf-store">Store URL · optional</label>
+              <input id="cf-store" name="store" type="text" autocomplete="url" placeholder="yourstore.myshopify.com">
+            </div>
+
+            <div class="cfield">
+              <label for="cf-topic">Subject</label>
+              <select id="cf-topic" name="topic">
+                <option>Installation</option>
+                <option>A setting or a section</option>
+                <option>Something looks wrong</option>
+                <option>Customisation request</option>
+                <option>Licence &amp; invoicing</option>
+                <option>Something else</option>
+              </select>
+            </div>
+
+            <div class="cfield cfield--full">
+              <label for="cf-message">Message</label>
+              <textarea id="cf-message" name="message" placeholder="The page or section concerned, what you expected, and what happens instead."></textarea>
+            </div>
+          </div>
+
+          <div class="cform__pot" aria-hidden="true">
+            <label for="cf-company">Leave this field empty</label>
+            <input id="cf-company" name="_gotcha" type="text" tabindex="-1" autocomplete="off">
+          </div>
+
+          <div class="cform__foot">
+            <button type="submit" class="btn">Send the message</button>
+            <p class="cform__note">We answer within one to two business days.</p>
+          </div>
+
+          <p class="cform__status" data-cform-status role="status" aria-live="polite" hidden></p>
+        </form>
+
+        <aside class="contact__aside">
+          <div class="ccard">
+            <h2>By email</h2>
+            <div class="cmail">
+              <a class="cmail__value" href="mailto:contact.zeppelin.studio@gmail.com">contact.zeppelin.studio@gmail.com</a>
+              <button type="button" class="btn btn--ghost ccopy" data-copy="contact.zeppelin.studio@gmail.com">Copy address</button>
+            </div>
+          </div>
+
+          <div class="ccard">
+            <h2>Response time</h2>
+            <p class="cdelay"><b>1–2</b> <span>business days, Monday to Friday</span></p>
+          </div>
+
+          <div class="ccard">
+            <h2>What helps us help you</h2>
+            <ul>
+              <li>The store name and the theme in question.</li>
+              <li>The page or section where the problem appears.</li>
+              <li>A screenshot, or the result you expected.</li>
+            </ul>
+          </div>
+
+          <div class="ccard">
+            <h2>Before you write</h2>
+            <p>The documentation covers installation and most settings — the answer is often a few seconds away.</p>
+            <div class="btn-row" style="margin-top:2rem;">
+              <a class="btn btn--ghost" href="/docs">Read the documentation</a>
+            </div>
+          </div>
+        </aside>
+      </div>
     </div>
   </main>
 
   <footer class="site-foot">
     <div class="wrap">© <span id="y"></span> Zeppelin Studio · <a href="mailto:contact.zeppelin.studio@gmail.com">contact.zeppelin.studio@gmail.com</a></div>
   </footer>
-  <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
+
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    /* Copie de l'adresse. L'API presse-papiers n'est offerte qu'en contexte
+       sécurisé ; en son absence on se rabat sur une sélection classique. */
+    document.querySelectorAll('[data-copy]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var texte = b.getAttribute('data-copy');
+        var initial = b.textContent;
+        var fini = function () {
+          b.textContent = 'Copied';
+          setTimeout(function () { b.textContent = initial; }, 1800);
+        };
+        if (navigator.clipboard && window.isSecureContext) {
+          navigator.clipboard.writeText(texte).then(fini, function () {});
+          return;
+        }
+        var z = document.createElement('textarea');
+        z.value = texte;
+        z.style.cssText = 'position:fixed;left:-9999px';
+        document.body.appendChild(z);
+        z.select();
+        try { document.execCommand('copy'); fini(); } catch (e) {}
+        z.remove();
+      });
+    });
+
+    /* Envoi du formulaire.
+       Deux chemins : si un point de collecte est configuré, on envoie en
+       arrière-plan et l'on reste sur la page ; sinon on compose un message
+       dans le client mail du visiteur avec ce qu'il a saisi. Dans les deux
+       cas il n'a pas à ressaisir quoi que ce soit. */
+    (function () {
+      var f = document.querySelector('[data-cform]');
+      if (!f) return;
+      var etat = f.querySelector('[data-cform-status]');
+      var bouton = f.querySelector('button[type="submit"]');
+      var configure = f.getAttribute('action').indexOf('REMPLACER_PAR_VOTRE_ID') === -1;
+
+      function dire(texte, ok) {
+        etat.textContent = texte;
+        etat.className = 'cform__status cform__status--' + (ok ? 'ok' : 'ko');
+        etat.hidden = false;
+      }
+
+      function manquant() {
+        var vides = [];
+        [['cf-name', 'your name'], ['cf-email', 'your email'], ['cf-message', 'a message']].forEach(function (p) {
+          if (!f.querySelector('#' + p[0]).value.trim()) vides.push(p[1]);
+        });
+        var mail = f.querySelector('#cf-email').value.trim();
+        if (mail && mail.indexOf('@') < 1) vides.push('a valid email address');
+        return vides;
+      }
+
+      f.addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (f.querySelector('#cf-company').value) return;   // robot
+
+        var vides = manquant();
+        if (vides.length) {
+          dire('Still missing: ' + vides.join(', ') + '.', false);
+          return;
+        }
+
+        var d = new FormData(f);
+
+        if (!configure) {
+          var corps =
+            'Name: ' + d.get('name') + '\n' +
+            'Email: ' + d.get('email') + '\n' +
+            'Store: ' + (d.get('store') || '—') + '\n\n' +
+            d.get('message');
+          window.location.href =
+            'mailto:' + f.getAttribute('data-mailto') +
+            '?subject=' + encodeURIComponent('[Zeppelin] ' + d.get('topic')) +
+            '&body=' + encodeURIComponent(corps);
+          dire('Your mail app should be opening, with everything already filled in. If nothing happens, write to us at ' + f.getAttribute('data-mailto') + '.', true);
+          return;
+        }
+
+        bouton.setAttribute('aria-busy', 'true');
+        fetch(f.getAttribute('action'), { method: 'POST', body: d, headers: { Accept: 'application/json' } })
+          .then(function (r) {
+            if (!r.ok) throw new Error();
+            f.reset();
+            dire('Message sent. We’ll get back to you within one to two business days.', true);
+          })
+          .catch(function () {
+            dire('The message could not be sent. Write to us directly at ' + f.getAttribute('data-mailto') + '.', false);
+          })
+          .then(function () { bouton.removeAttribute('aria-busy'); });
+      });
+    })();
+  </script>
 </body>
 </html>

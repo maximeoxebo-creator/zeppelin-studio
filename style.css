@@ -1,7 +1,7 @@
 /* ============================================================
    Zeppelin Studio — site vitrine
    Minimal · éditorial · verre discret
-   Cormorant Garamond (titres) + DM Sans (texte)
+   Fraunces (titres) + DM Sans (texte) — mêmes fontes que le thème
    ============================================================ */
 :root {
   --z-bg: #f5f5f3;
@@ -53,10 +53,10 @@ body::before {
 
 /* ---- Typographie ---- */
 h1, h2, h3 {
-  font-family: 'Cormorant Garamond', Georgia, serif;
-  font-weight: 500;
-  letter-spacing: 0.005em;
-  line-height: 1.08;
+  font-family: 'Fraunces', Georgia, serif;
+  font-weight: 300;
+  letter-spacing: -0.035em;
+  line-height: 1.02;
   color: var(--z-ink);
 }
 a { color: inherit; }
@@ -94,7 +94,8 @@ a { color: inherit; }
   display: flex;
   align-items: center;
   gap: 1rem;
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Fraunces', Georgia, serif;
+  font-weight: 300;
   font-size: 2.2rem;
   letter-spacing: 0.02em;
   color: var(--z-ink);
@@ -370,46 +371,302 @@ h2 {
   .glass-panel { background: rgba(255, 255, 255, 0.92); -webkit-backdrop-filter: none; backdrop-filter: none; }
 }
 
-/* ---- Boutons ---- */
+/* ---- Boutons ----
+   Pilule pleine dont le fond monte au survol : le geste du thème, repris
+   ici pour que le site et le produit se ressemblent. */
 .btn {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.8rem;
-  padding: 1.35rem 2.8rem;
+  min-height: 5rem;
+  padding: 0 2.8rem;
+  border: 1px solid var(--z-ink);
+  border-radius: 999px;
   background: var(--z-ink);
   color: var(--z-bg);
   text-decoration: none;
-  font-size: 1.3rem;
-  letter-spacing: 0.08em;
+  font-size: 1.2rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  border-radius: 999px;
-  transition: opacity .2s ease, transform .2s ease;
+  cursor: pointer;
+  transition:
+    color 420ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 460ms cubic-bezier(0.22, 1, 0.36, 1);
 }
-.btn:hover { opacity: 0.88; transform: translateY(-1px); }
+.btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: var(--z-bg);
+  transform: translate3d(0, 101%, 0);
+  transition: transform 620ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.btn:hover { color: var(--z-ink); transform: translateY(-2px); }
+.btn:hover::before { transform: translate3d(0, 0, 0); }
+.btn:focus-visible { outline: 2px solid var(--z-ink); outline-offset: 3px; }
+
 .btn--ghost {
   background: transparent;
   color: var(--z-ink);
-  border: 1px solid var(--z-hair);
+  border-color: rgba(23, 24, 28, 0.24);
 }
-.btn--ghost:hover { background: rgba(23, 24, 28, 0.04); opacity: 1; }
+.btn--ghost::before { background: var(--z-ink); }
+.btn--ghost:hover { color: var(--z-bg); border-color: var(--z-ink); }
 .btn-row { margin-top: 3.2rem; display: flex; gap: 1.2rem; flex-wrap: wrap; }
 
-/* ---- Support ---- */
-.contact-box {
-  margin-top: 3.2rem;
-  padding: 3.2rem;
-  background: var(--z-panel);
+/* ============================================================
+   Page contact
+   Deux colonnes : le formulaire sur une plaque de verre, et une
+   colonne d'appui — adresse, délais, ce qu'il faut joindre.
+   ============================================================ */
+
+.contact {
+  padding: 4rem 0 7rem;
+}
+
+.contact__head {
+  max-width: 62rem;
+  margin-bottom: clamp(3.6rem, 6vw, 6rem);
+}
+
+.contact__head h1 {
+  font-size: clamp(4.4rem, 8vw, 8.4rem);
+  margin-bottom: 2rem;
+}
+
+.contact__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  gap: clamp(2rem, 3.5vw, 4rem);
+  align-items: start;
+}
+
+/* ---- Plaque du formulaire ---- */
+
+.cform {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(2.6rem, 3.5vw, 4rem);
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.42);
+  box-shadow:
+    0 16px 40px rgba(23, 24, 28, 0.16),
+    0 2px 8px rgba(23, 24, 28, 0.08),
+    inset 0 1px 1.5px rgba(255, 255, 255, 0.95),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+  -webkit-backdrop-filter: blur(30px) saturate(190%);
+  backdrop-filter: blur(30px) saturate(190%);
+}
+
+/* L'arête spéculaire du haut : c'est elle qui donne l'épaisseur. */
+.cform::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.12) 26%, transparent 52%);
+}
+
+.cform > * { position: relative; z-index: 1; }
+
+.cform__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.8rem;
+}
+
+.cfield { display: flex; flex-direction: column; gap: 0.7rem; }
+.cfield--full { grid-column: 1 / -1; }
+
+.cfield label {
+  font-size: 1.15rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--z-muted);
+}
+
+.cfield input,
+.cfield select,
+.cfield textarea {
+  width: 100%;
+  padding: 1.3rem 1.6rem;
+  border: 1px solid rgba(23, 24, 28, 0.14);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.6);
+  font-family: inherit;
+  font-size: 1.55rem;
+  line-height: 1.5;
+  color: var(--z-ink);
+  transition: border-color 240ms ease, background 240ms ease;
+}
+
+.cfield textarea { min-height: 15rem; resize: vertical; }
+
+.cfield input:focus,
+.cfield select:focus,
+.cfield textarea:focus {
+  outline: none;
+  border-color: rgba(23, 24, 28, 0.5);
+  background: rgba(255, 255, 255, 0.85);
+}
+
+.cfield input::placeholder,
+.cfield textarea::placeholder { color: rgba(23, 24, 28, 0.32); }
+
+/* Le pot de miel : invisible pour l'œil, laissé au robot. */
+.cform__pot {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.cform__foot {
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+  flex-wrap: wrap;
+  margin-top: 2.4rem;
+}
+
+.cform__note {
+  font-size: 1.3rem;
+  color: var(--z-muted);
+  margin: 0;
+}
+
+/* Message de retour : la teinte porte le sens, pas seulement une icône. */
+.cform__status {
+  margin-top: 1.8rem;
+  padding: 1.3rem 1.6rem;
+  border-radius: 12px;
+  font-size: 1.45rem;
+  line-height: 1.5;
+}
+.cform__status[hidden] { display: none; }
+.cform__status--ok {
+  background: rgba(23, 24, 28, 0.05);
+  color: var(--z-ink);
+  border: 1px solid rgba(23, 24, 28, 0.12);
+}
+.cform__status--ko {
+  background: rgba(166, 60, 50, 0.08);
+  color: #8c2f27;
+  border: 1px solid rgba(166, 60, 50, 0.24);
+}
+
+.btn[aria-busy="true"] { opacity: 0.6; pointer-events: none; }
+
+/* ---- Colonne d'appui ---- */
+
+.contact__aside { display: flex; flex-direction: column; gap: 1.6rem; }
+
+.ccard {
+  padding: 2.6rem;
+  border-radius: var(--z-radius);
+  background: var(--z-panel-soft);
   box-shadow: var(--z-shadow), var(--z-hairline);
   -webkit-backdrop-filter: var(--z-blur);
   backdrop-filter: var(--z-blur);
-  border-radius: var(--z-radius);
 }
-.contact-box .email {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 3rem;
+
+.ccard h2 {
+  font-size: 1.15rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-family: 'DM Sans', sans-serif;
+  color: var(--z-muted);
+  margin-bottom: 1.4rem;
+}
+
+.ccard p { font-size: 1.5rem; line-height: 1.6; color: var(--z-body); }
+
+.ccard ul { list-style: none; padding: 0; margin: 0; }
+.ccard li {
+  font-size: 1.45rem;
+  line-height: 1.55;
+  color: var(--z-body);
+  padding: 1.1rem 0;
+  border-top: 1px solid var(--z-hair);
+}
+.ccard li:first-child { border-top: 0; padding-top: 0; }
+.ccard li:last-child { padding-bottom: 0; }
+
+/* ---- Adresse et copie ---- */
+
+.cmail { display: flex; flex-direction: column; gap: 1.2rem; }
+
+/* L'adresse fait trente-quatre signes sans espace : à 2,4 rem elle
+   dépassait la colonne et se coupait au milieu d'un mot. Le corps est
+   calé pour qu'elle tienne d'un seul tenant, et la coupure n'intervient
+   qu'en dernier recours, sur les écrans les plus étroits. */
+.cmail__value {
+  font-family: 'Fraunces', Georgia, serif;
+  font-weight: 300;
+  font-size: clamp(1.5rem, 1.55vw, 1.9rem);
+  line-height: 1.35;
+  letter-spacing: -0.01em;
   color: var(--z-ink);
   text-decoration: none;
-  border-bottom: 1px solid var(--z-ink);
+  border-bottom: 1px solid rgba(23, 24, 28, 0.28);
+  padding-bottom: 0.4rem;
+  align-self: flex-start;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  transition: border-color 240ms ease;
+}
+.cmail__value:hover { border-color: var(--z-ink); }
+
+.ccopy {
+  align-self: flex-start;
+  min-height: 3.8rem;
+  padding: 0 1.8rem;
+  font-size: 1.1rem;
+  letter-spacing: 0.14em;
+}
+
+/* ---- Délai de réponse ---- */
+
+.cdelay {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+}
+.cdelay b {
+  font-family: 'Fraunces', Georgia, serif;
+  font-weight: 300;
+  font-size: 3.6rem;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--z-ink);
+}
+.cdelay span { font-size: 1.4rem; color: var(--z-muted); }
+
+@media (prefers-reduced-transparency: reduce) {
+  .cform, .ccard {
+    background: rgba(255, 255, 255, 0.94);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
+
+@media (max-width: 860px) {
+  .contact__layout { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 560px) {
+  .cform__grid { grid-template-columns: 1fr; }
 }
 
 /* ---- Footer ---- */
