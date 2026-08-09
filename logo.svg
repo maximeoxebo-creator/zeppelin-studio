@@ -1,16 +1,21 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
   <!--
-    Monogramme plutôt que pictogramme. Le dirigeable, essayé d'abord,
-    s'écrase en tache indistincte sous 40 px — or la marque est surtout
-    vue à 24 px, dans l'en-tête et dans l'onglet. La lettre tient à
-    toutes les tailles, et elle dit ce qu'est la maison : un studio dont
-    l'identité est typographique.
+    Ce fichier ne sert que d'icône d'onglet — l'en-tête porte sa propre
+    copie en ligne. Il est donc dessiné pour 16 px : la lettre occupe
+    presque toute la surface, et le filet est épaissi pour ne pas
+    disparaître à cette taille.
 
-    La pile de polices descend jusqu'à une serif système : dans l'onglet
-    du navigateur, aucune police web n'est chargée.
+    Les couleurs suivent le thème du navigateur : une encre à #151515
+    serait quasi invisible sur un onglet sombre.
   -->
-  <text x="24" y="33" text-anchor="middle"
+  <style>
+    .ink { fill: #151515; stroke: #151515; }
+    @media (prefers-color-scheme: dark) {
+      .ink { fill: #f5f5f3; stroke: #f5f5f3; }
+    }
+  </style>
+  <text class="ink" x="24" y="34" text-anchor="middle" stroke="none"
         font-family="Fraunces, Georgia, 'Times New Roman', serif"
-        font-size="34" font-weight="300" fill="#151515">Z</text>
-  <path d="M13 39.5 H35" stroke="#151515" stroke-width="1.3" stroke-linecap="round"/>
+        font-size="44" font-weight="400">Z</text>
+  <path class="ink" d="M9 42 H39" fill="none" stroke-width="3" stroke-linecap="round"/>
 </svg>

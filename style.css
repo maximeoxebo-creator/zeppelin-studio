@@ -132,7 +132,12 @@ a { color: inherit; }
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding-block: 12rem 8rem;
+  /* Le retrait bas vaut environ le double du haut : le bloc de texte,
+     centré dans ce qu'il reste, remonte d'autant et laisse respirer
+     l'indice de défilement, ancré au bas de la section. Les deux suivent
+     la hauteur de la fenêtre — à retrait fixe, l'indice passait sous la
+     ligne de flottaison sur un portable de 720 px. */
+  padding-block: clamp(7rem, 14vh, 12rem) clamp(8.5rem, 19vh, 17rem);
   position: relative;
 }
 .hero h1 {
@@ -162,10 +167,10 @@ a { color: inherit; }
 .scroll-cue {
   position: absolute;
   left: 50%;
-  bottom: 3.2rem;
+  bottom: 4.4rem;
   transform: translateX(-50%);
   width: 1px;
-  height: 5.6rem;
+  height: 4.8rem;
   overflow: hidden;
   background: rgba(23, 24, 28, 0.12);
 }
@@ -749,12 +754,58 @@ h2 {
   .glass-grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 600px) {
-  .site-head { flex-direction: column; gap: 1rem; padding: 1.4rem; top: 0.8rem; }
-  .nav { gap: 1.6rem; }
+  .site-head { flex-direction: column; gap: 0.4rem; padding: 1.2rem 1.4rem; top: 0.8rem; }
   .hero { padding: 6rem 0 4rem; }
   .glass-focus .wrap { padding: 4rem 2.2rem; }
   .toc ul { columns: 1; }
   .doc h2 { padding-top: 2.8rem; margin-top: 3.6rem; }
+
+  /* Les liens du menu ne faisaient que 22 px de haut : sous le doigt,
+     c'est en dessous de ce qu'on peut viser sans se tromper. Le retrait
+     vertical les porte à quarante-quatre sans changer leur dessin. */
+  .nav { gap: 0.6rem; }
+  .nav a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 4.4rem;
+    padding-inline: 1rem;
+  }
+  .site-foot a {
+    display: inline-block;
+    padding-block: 1.1rem;
+  }
+
+  /* Même règle pour les autres listes de liens : sommaire de la
+     documentation, adresse de contact, marque de l'en-tête. Tout ce qui
+     se touche au doigt vise les quarante-quatre pixels. */
+  .toc a {
+    display: inline-block;
+    padding-block: 1.1rem;
+  }
+
+  .brand { min-height: 4.4rem; }
+
+  .cmail__value { padding-block: 0.9rem 1.1rem; }
+  .ccopy { min-height: 4.4rem; }
+
+  /* Le surtitre passait sur deux lignes et son filet restait seul à
+     gauche, détaché du texte. En étroit il s'efface : le titre suffit à
+     ouvrir la page. */
+  .eyebrow--rule::before { display: none; }
+  .eyebrow--rule { gap: 0; }
+  .eyebrow { font-size: 1.1rem; letter-spacing: 0.18em; }
+
+  /* Deux boutons de largeurs différentes empilés donnent un escalier.
+     Ils prennent la même, bornée pour ne pas s'étirer d'un bord à
+     l'autre sur les grands téléphones. */
+  .hero .btn-row {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+  .hero .btn {
+    width: min(100%, 30rem);
+  }
 }
 
 
