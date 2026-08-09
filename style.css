@@ -10,12 +10,19 @@
   --z-muted: #85868d;
   --z-hair: rgba(23, 24, 28, 0.09);
 
-  /* Verre discret */
-  --z-panel: rgba(255, 255, 255, 0.66);
-  --z-panel-soft: rgba(255, 255, 255, 0.5);
-  --z-blur: saturate(140%) blur(20px);
-  --z-shadow: 0 1px 2px rgba(23, 24, 28, 0.04), 0 14px 40px rgba(23, 24, 28, 0.07);
-  --z-hairline: inset 0 0 0 1px rgba(255, 255, 255, 0.55), inset 0 0 0 1.5px rgba(23, 24, 28, 0.04);
+  /* Verre — même recette que le thème sur fond clair : teinte basse,
+     flou large, saturation poussée et un soupçon de clarté. C'est le
+     filtre qui fait le verre, pas l'opacité du fond ; une plaque très
+     opaque n'est plus du verre mais du papier calque. Les arêtes
+     spéculaires donnent l'épaisseur. */
+  --z-panel: linear-gradient(155deg, rgba(255, 255, 255, 0.46) 0%, rgba(255, 255, 255, 0.26) 46%, rgba(255, 255, 255, 0.38) 100%);
+  --z-panel-soft: linear-gradient(155deg, rgba(255, 255, 255, 0.36) 0%, rgba(255, 255, 255, 0.18) 46%, rgba(255, 255, 255, 0.3) 100%);
+  --z-blur: blur(30px) saturate(190%) brightness(1.06);
+  --z-shadow: 0 1px 2px rgba(23, 24, 28, 0.05), 0 18px 48px rgba(23, 24, 28, 0.1);
+  --z-hairline:
+    inset 0 1px 0 rgba(255, 255, 255, 0.85),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.5),
+    inset 0 -28px 56px -28px rgba(23, 24, 28, 0.06);
 
   /* Rythme */
   --z-radius: 18px;
@@ -162,6 +169,16 @@ h2 {
   gap: 1.6rem;
   margin-top: 4rem;
 }
+/* Quatre familles de sections : la grille passe à quatre colonnes, puis
+   à deux avant de s'empiler — trois colonnes pour quatre cartes laisse
+   une orpheline sur le second rang. */
+.grid--4 { grid-template-columns: repeat(4, 1fr); }
+/* Les sections de texte sont bridées à la largeur de lecture ; quatre
+   cartes y tiendraient dans 155 px chacune, où chaque nom de section
+   passerait à la ligne. Celle-ci reprend donc la largeur pleine. */
+.section-line--wide .wrap { max-width: var(--z-max); }
+@media (max-width: 1040px) { .grid--4 { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 620px) { .grid--4 { grid-template-columns: 1fr; } }
 .card {
   background: var(--z-panel-soft);
   box-shadow: var(--z-shadow), var(--z-hairline);
@@ -318,14 +335,16 @@ h2 {
   overflow: hidden;
   padding: 2.8rem;
   border-radius: 20px;
-  background: rgba(255, 255, 255, 0.42);
+  background: var(--z-panel);
+  /* Ces panneaux-ci reposent sur une photographie : l'ombre portée est
+     plus franche que sur le fond clair du reste du site, sans quoi ils
+     paraissent posés à plat dessus. */
   box-shadow:
     0 16px 40px rgba(23, 24, 28, 0.16),
     0 2px 8px rgba(23, 24, 28, 0.08),
-    inset 0 1px 1.5px rgba(255, 255, 255, 0.95),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.5);
-  -webkit-backdrop-filter: blur(30px) saturate(190%);
-  backdrop-filter: blur(30px) saturate(190%);
+    var(--z-hairline);
+  -webkit-backdrop-filter: var(--z-blur);
+  backdrop-filter: var(--z-blur);
   color: var(--z-body);
 }
 .glass-panel::before {
@@ -455,14 +474,10 @@ h2 {
   overflow: hidden;
   padding: clamp(2.6rem, 3.5vw, 4rem);
   border-radius: 22px;
-  background: rgba(255, 255, 255, 0.42);
-  box-shadow:
-    0 16px 40px rgba(23, 24, 28, 0.16),
-    0 2px 8px rgba(23, 24, 28, 0.08),
-    inset 0 1px 1.5px rgba(255, 255, 255, 0.95),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.5);
-  -webkit-backdrop-filter: blur(30px) saturate(190%);
-  backdrop-filter: blur(30px) saturate(190%);
+  background: var(--z-panel);
+  box-shadow: var(--z-shadow), var(--z-hairline);
+  -webkit-backdrop-filter: var(--z-blur);
+  backdrop-filter: var(--z-blur);
 }
 
 /* L'arête spéculaire du haut : c'est elle qui donne l'épaisseur. */
