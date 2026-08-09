@@ -1,7 +1,16 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" fill="none" stroke="#151515" stroke-linecap="round">
-  <circle cx="150" cy="150" r="112" stroke-width="3"/>
-  <ellipse cx="150" cy="150" rx="74" ry="112" stroke-width="2"/>
-  <path d="M53 100 Q150 116 247 100" stroke-width="2"/>
-  <path d="M53 200 Q150 216 247 200" stroke-width="2"/>
-  <text x="150" y="192" text-anchor="middle" font-family="'Cormorant Garamond', Georgia, serif" font-size="120" font-weight="500" fill="#151515" stroke="none">ZS</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
+  <!--
+    Monogramme plutôt que pictogramme. Le dirigeable, essayé d'abord,
+    s'écrase en tache indistincte sous 40 px — or la marque est surtout
+    vue à 24 px, dans l'en-tête et dans l'onglet. La lettre tient à
+    toutes les tailles, et elle dit ce qu'est la maison : un studio dont
+    l'identité est typographique.
+
+    La pile de polices descend jusqu'à une serif système : dans l'onglet
+    du navigateur, aucune police web n'est chargée.
+  -->
+  <text x="24" y="33" text-anchor="middle"
+        font-family="Fraunces, Georgia, 'Times New Roman', serif"
+        font-size="34" font-weight="300" fill="#151515">Z</text>
+  <path d="M13 39.5 H35" stroke="#151515" stroke-width="1.3" stroke-linecap="round"/>
 </svg>
