@@ -86,11 +86,11 @@ a { color: inherit; }
   z-index: 50;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   padding: 1.2rem 2rem;
-  max-width: var(--z-max);
+  max-width: calc(100% - 3.2rem);
   margin: 1.2rem auto 0;
-  width: calc(100% - 3.2rem);
+  width: fit-content;
   background: var(--z-panel);
   box-shadow: var(--z-shadow), var(--z-hairline);
   -webkit-backdrop-filter: var(--z-blur);

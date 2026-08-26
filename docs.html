@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Documentation — Zeppelin Studio</title>
-  <meta name="description" content="Zeppelin theme documentation: installation, customization, and configuration guides for the advanced sections — product color variants, glassmorphism sections and alternate product pages.">
+  <meta name="description" content="Opaline theme documentation: installation, customization, and step-by-step guides for the advanced sections — cinematic hero, liquid-glass panels, colourways, product colour variants, and alternate product and collection templates.">
   <link rel="icon" type="image/svg+xml" href="/logo.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,13 +13,6 @@
 </head>
 <body>
   <header class="site-head">
-    <a class="brand" href="/">
-      <svg class="brand__mark" viewBox="0 0 48 48" fill="none" aria-hidden="true">
-        <text x="24" y="33" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="34" font-weight="300" fill="currentColor">Z</text>
-        <path d="M13 39.5 H35" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
-      </svg>
-      Zeppelin Studio
-    </a>
     <nav class="nav">
       <a href="/">Home</a>
       <a href="/docs">Documentation</a>
@@ -30,7 +23,7 @@
   <main class="doc">
     <div class="wrap">
       <p class="eyebrow">Documentation</p>
-      <h1>Zeppelin theme</h1>
+      <h1>Opaline theme</h1>
       <p class="lead">Everything you need to install, configure, and customize your theme — including step-by-step guides for the more advanced sections.</p>
 
       <nav class="toc" aria-label="Table of contents">
@@ -38,12 +31,17 @@
         <ul>
           <li><a href="#install">Installation</a></li>
           <li><a href="#customize">Customization basics</a></li>
-          <li><a href="#variants">Product color variants</a></li>
+          <li><a href="#cinematic">Cinematic hero</a></li>
+          <li><a href="#glass">Liquid-glass sections</a></li>
+          <li><a href="#colourways">Colourways</a></li>
+          <li><a href="#variants">Product colour variants</a></li>
           <li><a href="#alt-products">Alternate product pages</a></li>
-          <li><a href="#glass">Glassmorphism sections</a></li>
-          <li><a href="#scatter">Scattered images</a></li>
+          <li><a href="#alt-collections">Alternate collection pages</a></li>
+          <li><a href="#showcase">Floating showcase</a></li>
           <li><a href="#mobile-sizes">Mobile text &amp; button sizes</a></li>
-          <li><a href="#colors">Title vs. body colors</a></li>
+          <li><a href="#colors">Title vs. body colours</a></li>
+          <li><a href="#languages">Languages</a></li>
+          <li><a href="#motion">Motion &amp; accessibility</a></li>
           <li><a href="#best">Best practices</a></li>
           <li><a href="#help">Need help?</a></li>
         </ul>
@@ -61,52 +59,170 @@
 
       <h2 id="customize">Customization basics</h2>
       <p>Everything is configured in the Shopify theme editor — no code required.</p>
-      <h3>Colors &amp; typography</h3>
-      <p>Under <strong>Theme settings</strong>, adjust color schemes, heading and body fonts, and the type scale. Zeppelin ships with <strong>Fraunces</strong> (headings) and <strong>DM Sans</strong> (body), self-hosted for speed.</p>
+      <h3>Colours &amp; typography</h3>
+      <p>Under <strong>Theme settings</strong>, adjust colour schemes, heading and body fonts, and the type scale. Opaline ships with <strong>Fraunces</strong> (headings) and <strong>DM Sans</strong> (body), both served from the Shopify font library.</p>
       <h3>Sections</h3>
-      <p>Add, reorder, and configure sections from the editor: banners, featured collections, rich text, multicolumn, testimonials, lookbook, and many more. Every section has padding controls and mobile-specific behavior where relevant.</p>
+      <p>Add, reorder, and configure sections from the editor. Every section has padding controls, and mobile-specific behaviour where it matters. The sections written for this theme are:</p>
+      <div class="spec-wrap">
+        <table class="spec">
+          <thead><tr><th>Section</th><th>What it does</th></tr></thead>
+          <tbody>
+            <tr><td>Cinematic hero</td><td>Full-height image or video opening, with the header laid over it.</td></tr>
+            <tr><td>Colourways</td><td>A colour switcher that changes the photography and the background wash together.</td></tr>
+            <tr><td>Before / After</td><td>A drag handle over two photographs.</td></tr>
+            <tr><td>Technical drawings</td><td>Dimensioned diagrams and compatibility pictograms, grouped by shape.</td></tr>
+            <tr><td>Timeline</td><td>A chronology that advances as the reader descends.</td></tr>
+            <tr><td>Stacked chapters</td><td>Cards that pile up, then release one by one.</td></tr>
+            <tr><td>Sticky story</td><td>A pinned visual beside text that scrolls past it.</td></tr>
+            <tr><td>Inlaid statement</td><td>Photographs set inline inside a running sentence.</td></tr>
+            <tr><td>Manifesto</td><td>A statement revealed line by line.</td></tr>
+            <tr><td>Duo panel</td><td>Two media side by side, with a glass badge.</td></tr>
+            <tr><td>Editorial grid</td><td>Image tiles with labels, chips and optional glass.</td></tr>
+            <tr><td>Editorial collage</td><td>A captioned mosaic of images with parallax.</td></tr>
+            <tr><td>Floating showcase</td><td>Pieces placed freely on the canvas, drifting on scroll.</td></tr>
+            <tr><td>Product mosaic</td><td>A grid of product tiles with a promotional panel set in glass.</td></tr>
+            <tr><td>Drag rail</td><td>A rail of cards the visitor drags sideways.</td></tr>
+            <tr><td>Index list</td><td>A numbered list that reads like a table of contents.</td></tr>
+            <tr><td>Split quote</td><td>A quotation beside a full-height photograph.</td></tr>
+            <tr><td>Testimonials</td><td>Customer quotes on glass cards.</td></tr>
+            <tr><td>Press</td><td>Publication logos and coverage.</td></tr>
+            <tr><td>Closing statement</td><td>A full-bleed finale before the footer.</td></tr>
+            <tr><td>Scrolling text</td><td>A marquee whose speed follows the scroll, with optional glass.</td></tr>
+            <tr><td>Countdown</td><td>Days, hours and minutes, for a dated release.</td></tr>
+            <tr><td>Promotional popup</td><td>A glass panel asking for an e-mail or handing over a promo code.</td></tr>
+            <tr><td>Age verifier</td><td>A gate before entry, for what the law requires.</td></tr>
+            <tr><td>Stock alert</td><td>Collects an e-mail to notify when a product is back in stock.</td></tr>
+            <tr><td>Quick View</td><td>Product details in a panel, without leaving the page.</td></tr>
+            <tr><td>Product recommendations</td><td>Related products, driven by Shopify’s recommendations.</td></tr>
+            <tr><td>FAQ</td><td>Questions and answers in an accordion.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>The standard Shopify sections are also included and restyled to match: image/video banner, media and text side by side, featured collection, multiple columns, editorial text, contact form, e-mail banner, announcement bar and divider.</p>
       <h3>Header &amp; footer</h3>
-      <p>Logo, navigation menu, icons (search, account, cart), and footer blocks are set in their respective section groups.</p>
+      <p>Logo, navigation menu, icons (search, account, cart), and footer blocks are set in their respective section groups. The header exposes its own padding controls for desktop and mobile separately.</p>
       <div class="callout">
         The editor caches section schemas per session. After a theme update, fully close and reopen the editor (or hard-refresh with <code>Cmd/Ctrl + Shift + R</code>) so new settings appear.
       </div>
 
-      <h2 id="variants">Product color variants <span class="tag">Advanced</span></h2>
-      <p>The product page reacts live when a customer switches color, with no page reload. When set up correctly, changing the color swatch updates the gallery, the title area, and the price in place.</p>
+      <h2 id="cinematic">Cinematic hero <span class="tag">Advanced</span></h2>
+      <p>The cinematic hero is the theme’s opening statement: a full-height image or video with the header laid transparently over it, so the media runs edge to edge from the very top of the page.</p>
+
+      <h3>Media</h3>
+      <p>Set an <strong>Image</strong>, and optionally a <strong>Mobile image</strong> — a portrait crop of the same scene, so a wide cinematic frame doesn’t become a thin strip on a phone. A <strong>Video</strong> replaces the image when set.</p>
+      <p>Autoplaying video is costly on a phone and some browsers refuse it outright, so <strong>Play the video on mobile</strong> is off by default. Leave it off and the mobile image is used instead.</p>
+
+      <h3>Framing and atmosphere</h3>
+      <div class="spec-wrap">
+        <table class="spec">
+          <thead><tr><th>Setting</th><th>What it does</th></tr></thead>
+          <tbody>
+            <tr><td>Height</td><td>How much of the screen the hero fills.</td></tr>
+            <tr><td>Darkening</td><td>A scrim over the media, so light photography can still carry white text.</td></tr>
+            <tr><td>Slow zoom</td><td>How far the media drifts while the hero is on screen. Zero holds it still.</td></tr>
+            <tr><td>Film grain overlay</td><td>A fine grain over the media, for a photographic rather than digital feel.</td></tr>
+            <tr><td>Alignment</td><td>Where the headline block sits within the frame.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Content</h3>
+      <p>Beyond the overline, heading, text and two buttons, the hero carries three optional extras:</p>
+      <ul>
+        <li>A <strong>product capsule</strong> — pick a product and it appears as a small card over the media, with its own label, title and link.</li>
+        <li>A <strong>scroll indicator</strong> with its own label, hinting that the page continues.</li>
+        <li><strong>Corner text</strong>, left and right — for a season, a place, a collection number.</li>
+      </ul>
+      <div class="callout">
+        The header sits transparent over the hero, then takes on its own background once the visitor scrolls past it, so navigation stays legible over the content underneath. The same behaviour applies to any full-bleed section, such as the Colourways stage.
+      </div>
+
+      <h2 id="glass">Liquid-glass sections <span class="tag">Advanced</span></h2>
+      <p>Liquid glass is a system rather than a single section: a translucent, blurred panel with specular edges, layered over photography. It appears in <strong>Colourways, Stacked chapters, Duo panel, Editorial grid, Product mosaic, Closing statement, Inlaid statement, Testimonials, Timeline, Scrolling text, Promotional popup</strong> and the footer newsletter.</p>
+
+      <h3>Where you can switch it on and off</h3>
+      <div class="spec-wrap">
+        <table class="spec">
+          <thead><tr><th>Section</th><th>Setting</th></tr></thead>
+          <tbody>
+            <tr><td>Editorial grid</td><td><strong>Liquid glass effect (labels + chips)</strong> — with it off, labels sit directly on the image.</td></tr>
+            <tr><td>Product mosaic</td><td><strong>Liquid glass effect (promo block)</strong>, plus <strong>Panel shape</strong> (rounded or square) and separate <strong>Panel text</strong>, <strong>Title</strong> and <strong>Subtitle</strong> colours.</td></tr>
+            <tr><td>Scrolling text</td><td><strong>Liquid glass effect</strong> on the moving band.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>In the other sections the glass is part of the design and needs no setting — what you control is the media behind it and the text colour on top.</p>
+
+      <div class="callout">
+        The theme does not ship its own cookie banner — Shopify provides one
+        under <strong>Settings → Customer privacy</strong>. What the theme adds is
+        <strong>Frosted glass on the cookie banner</strong> in Theme settings, which
+        dresses Shopify’s banner to match the rest of the glass.
+      </div>
+
+      <h3>Getting a clean glass effect</h3>
+      <ul>
+        <li>Busy, high-contrast photographs read best through frosted glass. A flat, near-white image gives the panel nothing to refract.</li>
+        <li>Watch the text colour against the photograph you chose, not against the panel — a light photograph needs dark text on the glass, a dark one needs light text.</li>
+        <li>The blur is applied automatically; there is no opacity slider to tune. The panels are calibrated to stay legible over both light and dark imagery.</li>
+      </ul>
+
+      <h2 id="colourways">Colourways <span class="tag">Advanced</span></h2>
+      <p>Colourways shows one range in several finishes. The visitor clicks a swatch and the photograph, the background wash and the glass panel change together.</p>
+      <h3>Setting it up</h3>
+      <ol>
+        <li>Add a <strong>Colourway</strong> block for each finish you carry — up to six.</li>
+        <li>Give each block its <strong>Image</strong> (the whole range in that finish reads better than a single piece), a <strong>Name</strong> and a short <strong>Note</strong>.</li>
+        <li>Set the <strong>Swatch</strong> colour — this is the chip the visitor clicks.</li>
+        <li>Set the <strong>Background wash</strong> — the section’s background tints towards this colour when that finish is active. A pale version of the swatch works best.</li>
+      </ol>
+      <h3>Framing</h3>
+      <p><strong>Visual size</strong> offers three settings: <em>Contained</em> keeps the page gutter, <em>Edge to edge</em> and <em>Full screen</em> pull the stage out to the full width of the window. The two wider settings use <strong>Visual height</strong> instead of a fixed ratio, and it is capped on small screens so the swatches stay reachable without scrolling.</p>
+      <div class="callout">
+        The first block is the one shown when the page loads. Put your signature finish first.
+      </div>
+
+      <h2 id="variants">Product colour variants <span class="tag">Advanced</span></h2>
+      <p>The product page reacts live when a customer switches colour, with no page reload. Changing the swatch updates the gallery and the price in place.</p>
 
       <h3>How it works</h3>
       <ul>
-        <li><strong>Color swatches</strong> — enable swatches in the main product section. Each variant’s color becomes a clickable chip instead of a dropdown.</li>
-        <li><strong>Per-color media filtering</strong> — assign each product image to a color in Shopify (the image’s <em>“Media by variant / color”</em> association). When a color is selected, the gallery filters to show only that color’s media. Images with no color assigned always stay visible.</li>
-        <li><strong>Live text update</strong> — the product title, eyebrow, and description update instantly when the variant changes, so color-specific copy stays in sync.</li>
+        <li><strong>Colour swatches</strong> — turn on <strong>Enable swatches</strong> in the product section. Each variant’s colour becomes a clickable chip instead of a dropdown, and <strong>Swatch shape</strong> sets whether the chips are round or square.</li>
+        <li><strong>Per-colour media filtering</strong> — turn on <strong>Filter media by variant</strong>, then associate each product image with a colour in Shopify. When a colour is selected the gallery shows only that colour’s media; images with no colour assigned always stay visible.</li>
       </ul>
 
       <h3>Setup checklist</h3>
       <ol>
-        <li>In the product admin, add a <strong>Color</strong> (or equivalent) option with your variants.</li>
-        <li>Upload the product images, then use <strong>“Select media by variant”</strong> to attach each image to its color.</li>
-        <li>In the theme editor, open the product section and enable <strong>color swatches</strong> and <strong>filter gallery by color</strong>.</li>
-        <li>Preview the page and click through each swatch to confirm the gallery filters correctly.</li>
+        <li>In the product admin, add a <strong>Colour</strong> (or equivalent) option with your variants.</li>
+        <li>Upload the product images, then use Shopify’s media-by-variant association to attach each image to a colour.</li>
+        <li>In the theme editor, enable swatches and media filtering on the product section.</li>
+        <li>Preview the product and click through each colour to confirm the gallery follows.</li>
       </ol>
-      <div class="callout">
-        If images don’t filter when switching color, the media isn’t associated with a variant in the product admin. Filtering is driven entirely by that association — the theme reads it automatically.
-      </div>
 
       <h2 id="alt-products">Alternate product pages <span class="tag">Advanced</span></h2>
-      <p>Zeppelin includes ready-made <strong>alternate product templates</strong> so different products can have a completely independent layout and content — each anchored to its own product.</p>
+      <p>Opaline includes ready-made <strong>alternate product templates</strong> so different products can have a completely independent layout and content.</p>
 
       <h3>Why use them</h3>
-      <p>The default <code>product</code> template drives every product. When you want one product (or a group) to have its own eyebrow, description block, and collapsible tabs — without affecting the rest of the catalog — assign it an alternate template instead of editing the shared one.</p>
+      <p>The default <code>product</code> template drives every product. When you want one product (or a family) to have its own overline, sections and collapsible tabs — without affecting the rest of the catalog — assign it an alternate template instead of editing the shared one.</p>
 
       <h3>Available templates</h3>
       <div class="spec-wrap">
         <table class="spec">
           <thead><tr><th>Template</th><th>What it’s for</th></tr></thead>
           <tbody>
-            <tr><td>Default</td><td>The standard product layout, applied to every product unless overridden.</td></tr>
-            <tr><td>Minimal</td><td>Pared-back layout for simple products.</td></tr>
+            <tr><td>Default</td><td>The standard layout, applied to every product unless overridden.</td></tr>
+            <tr><td>Technical</td><td>Dimensioned drawings and compatibility pictograms, in the manner of a specification sheet.</td></tr>
+            <tr><td>Compare</td><td>A drag handle over two photographs, for before/after or finish comparisons.</td></tr>
+            <tr><td>Story</td><td>A narrative sequence that walks through how the piece is made.</td></tr>
+            <tr><td>Craft</td><td>Material and process focus, with an inlaid statement and workshop imagery.</td></tr>
+            <tr><td>Chapters</td><td>Cards that stack, then release one by one as the reader descends.</td></tr>
+            <tr><td>Lookbook</td><td>Editorial imagery drifting at its own pace, with a colourway switcher.</td></tr>
             <tr><td>Editorial</td><td>Story-driven layout with more room for narrative.</td></tr>
-            <tr><td>Product 1–10</td><td>Ten independent templates, each pre-built with an eyebrow block, a description block, and four collapsible tabs (Materials, Shipping &amp; Returns, Dimensions, Care).</td></tr>
+            <tr><td>Launch</td><td>A countdown and a promotional banner, for a dated release.</td></tr>
+            <tr><td>Bundle</td><td>Cross-sell layout: a rail of companion pieces and recommendations.</td></tr>
+            <tr><td>Gift</td><td>Gifting angle, with promotional tiles and a reassurance block.</td></tr>
+            <tr><td>Trust</td><td>Reviews, guarantees and an FAQ before the footer.</td></tr>
+            <tr><td>Minimal</td><td>Pared-back layout for simple products.</td></tr>
           </tbody>
         </table>
       </div>
@@ -115,77 +231,109 @@
       <ol>
         <li>Open the product in <strong>Products</strong> in the Shopify admin.</li>
         <li>In the right sidebar, find the <strong>Theme template</strong> selector.</li>
-        <li>Choose an alternate template (e.g. <code>product.1</code>, <code>minimal</code>, <code>editorial</code>) and save.</li>
-        <li>Open that product in the theme editor — you’re now editing <em>only</em> that template. Its eyebrow, description, and tab content are unique to the products using it.</li>
+        <li>Choose an alternate template (for example <code>technical</code>, <code>compare</code> or <code>lookbook</code>) and save.</li>
+        <li>Open that product in the theme editor — you’re now editing <em>only</em> that template. Its content is unique to the products using it.</li>
       </ol>
       <div class="callout">
-        Each <code>Product 1–10</code> template is fully independent. Editing one never changes another, so you can give up to ten products (or ten product families) their own bespoke page.
+        Every alternate template is fully independent. Editing one never changes another, so each product family can have its own bespoke page while the rest of the catalog keeps the default layout.
       </div>
 
-      <h2 id="glass">Glassmorphism (liquid-glass) sections <span class="tag">Advanced</span></h2>
-      <p>Zeppelin includes a family of frosted-glass sections — <strong>Glass Hero, Glass Cards, Glass Key figures, Glass Testimonial,</strong> and <strong>Glass CTA</strong> — plus an optional glass panel on the Scattered images section and a glass toggle on the Marquee. They layer a translucent, blurred panel over a background image or color.</p>
+      <h2 id="alt-collections">Alternate collection pages <span class="tag">Advanced</span></h2>
+      <p>Collections work the same way. Alternate <strong>collection templates</strong> let one collection present its grid differently — more columns, another card ratio, a different title alignment — without touching the others.</p>
 
-      <h3>Common settings</h3>
+      <h3>Available templates</h3>
       <div class="spec-wrap">
         <table class="spec">
-          <thead><tr><th>Setting</th><th>What it does</th></tr></thead>
+          <thead><tr><th>Template</th><th>Grid</th><th>What it’s for</th></tr></thead>
           <tbody>
-            <tr><td>Show panel</td><td>Toggles the frosted panel on or off. With it off, text sits directly on the background.</td></tr>
-            <tr><td>Panel opacity</td><td>How opaque the glass is. Lower = more of the background shows through; higher = more legible text.</td></tr>
-            <tr><td>Panel shape</td><td>Rounded or square corners on the glass panel.</td></tr>
-            <tr><td>Background type</td><td>Image or solid color behind the glass.</td></tr>
-            <tr><td>Panel text color</td><td>Global color for all panel text.</td></tr>
-            <tr><td>Title / eyebrow / subtitle color</td><td>Optional per-element overrides on top of the global text color.</td></tr>
+            <tr><td>Default</td><td>4 columns, adaptive ratio</td><td>The standard grid, applied unless overridden.</td></tr>
+            <tr><td>Wide</td><td>3 columns, portrait</td><td>Fewer, taller cards with left-aligned names. Suits a short, considered range.</td></tr>
+            <tr><td>Gallery</td><td>4 columns, portrait, no gap</td><td>Tiles butted edge to edge, so the photography reads as one surface.</td></tr>
+            <tr><td>Compact</td><td>4 columns, square, tight gap</td><td>Small cards close together, and a longer page — for browsing at speed.</td></tr>
+            <tr><td>Minimal</td><td>4 columns, portrait</td><td>Grid stripped back to image and name, with prices hidden.</td></tr>
+            <tr><td>Editorial</td><td>2 columns, adaptive ratio</td><td>Large cards with left-aligned names, framed like a feature spread.</td></tr>
+            <tr><td>Showcase</td><td>2 columns, generous gap</td><td>Big cards with room around them, for a small hero range.</td></tr>
+            <tr><td>Dense</td><td>2 columns, square</td><td>Large square cards, with more products per page.</td></tr>
+            <tr><td>List</td><td>2 columns, landscape (1 on mobile)</td><td>A stacked, near-linear reading order rather than a grid.</td></tr>
           </tbody>
         </table>
       </div>
 
-      <h3>Getting a clean glass effect</h3>
-      <ul>
-        <li>Use a background image with enough contrast behind the panel — busy, high-contrast photos read best through frosted glass.</li>
-        <li>Keep panel opacity high enough that text stays legible (start around the mid-range and adjust).</li>
-        <li>The blur is applied automatically. For accessibility, the panel falls back to a near-solid background when a visitor’s device requests reduced transparency.</li>
-      </ul>
+      <h3>How to assign a template to a collection</h3>
+      <ol>
+        <li>Open the collection under <strong>Products → Collections</strong> in the Shopify admin.</li>
+        <li>In the right sidebar, find the <strong>Theme template</strong> selector.</li>
+        <li>Choose an alternate template (for example <code>gallery</code> or <code>editorial</code>) and save.</li>
+      </ol>
       <div class="callout">
-        The global cookie banner also uses the liquid-glass style and can be toggled in <strong>Theme settings</strong>.
+        The sections below the grid are the same across every collection template, so switching template changes how products are laid out — not the story the page tells underneath. Reorder or replace those sections per template if you want them to differ too.
       </div>
 
-      <h2 id="scatter">Scattered images <span class="tag">Advanced</span></h2>
-      <p>This section places images freely across the canvas with a subtle parallax on scroll, plus a centered headline. Each image is a block you position independently.</p>
+      <h3>Promotional tiles inside the grid</h3>
+      <p>The product grid accepts two kinds of block that sit <em>among</em> the products rather than after them:</p>
+      <ul>
+        <li><strong>Wide product</strong> — pick a product and a position, and its card spans two columns instead of one.</li>
+        <li><strong>Promo</strong> — an image or colour tile with its own overline, heading and button, placed at a chosen position and spanning one or two columns.</li>
+      </ul>
+      <p>Both take a <strong>position</strong> number, counted in grid cells, so you can drop a feature after the third product and another halfway down the page.</p>
+
+      <h2 id="showcase">Floating showcase <span class="tag">Advanced</span></h2>
+      <p>This section places images freely across the canvas with a subtle parallax on scroll, plus a centred headline. Each image is a block you position independently.</p>
       <div class="spec-wrap">
         <table class="spec">
           <thead><tr><th>Per-image setting</th><th>What it does</th></tr></thead>
           <tbody>
             <tr><td>Position X / Y</td><td>Places the image on desktop, as a percentage of the canvas.</td></tr>
             <tr><td>Position X / Y (mobile)</td><td>Independent placement for mobile, so images don’t overlap on small screens.</td></tr>
-            <tr><td>Width</td><td>Image size (rem). On mobile it’s additionally capped relative to the viewport.</td></tr>
+            <tr><td>Width / Width (mobile)</td><td>Image size, set separately for each.</td></tr>
+            <tr><td>Rotation</td><td>Tilts the image, for a pinned-up rather than pasted-in feel.</td></tr>
+            <tr><td>Layer</td><td>Whether the image passes in front of or behind the headline.</td></tr>
             <tr><td>Parallax</td><td>How much the image drifts on scroll.</td></tr>
+            <tr><td>Glass tag</td><td>An optional caption on a glass chip, pinned to the image.</td></tr>
+            <tr><td>Product</td><td>Link the image to a product, so the whole tile becomes shoppable.</td></tr>
           </tbody>
         </table>
       </div>
-      <p>An optional frosted-glass panel can sit behind the centered text (with its own opacity and shape controls) — see <a href="#glass" style="border-bottom:1px solid currentColor;text-decoration:none;">Glassmorphism sections</a>.</p>
       <div class="callout">
-        Set the desktop positions first, then switch the editor preview to mobile and set the mobile X/Y for each image — the two are independent, so a mobile layout won’t disturb your desktop composition.
+        Set the desktop positions first, then switch the editor preview to mobile and set the mobile X/Y and width for each image — the two are independent, so a mobile layout won’t disturb your desktop composition.
       </div>
 
       <h2 id="mobile-sizes">Mobile text &amp; button sizes</h2>
-      <p>Sections like the Slideshow, Image/video banner, Categories, and Marquee expose separate <strong>mobile size</strong> controls for headings, body text, and buttons.</p>
+      <p>Several sections expose separate <strong>mobile size</strong> controls, so small screens can be tuned without touching the desktop composition:</p>
+      <ul>
+        <li><strong>Image / video banner</strong> — overline, heading, text and button scale, each with a mobile counterpart, plus a dedicated mobile image.</li>
+        <li><strong>Product grid</strong> — columns, overline and title sizes, category-navigation size, and whether breadcrumbs show at all.</li>
+        <li><strong>Scrolling text</strong> — its own mobile font size.</li>
+        <li><strong>Multiple columns</strong> — mobile column count, and whether the columns become a swipeable rail.</li>
+        <li><strong>Header</strong> — padding above, below and inside, set separately for mobile.</li>
+      </ul>
       <p>Mobile sizes work as a <strong>multiplier</strong> on top of the desktop size: 100% means “same as desktop,” higher enlarges, lower shrinks — for mobile only. The desktop size always applies first, so you only touch the mobile control when small screens need a tweak.</p>
 
-      <h2 id="colors">Title vs. body colors</h2>
-      <p>Sections with both a heading and running text — such as <strong>Before/After, Lookbook,</strong> and <strong>Countdown</strong> — have separate color settings:</p>
+      <h2 id="colors">Title vs. body colours</h2>
+      <p>Sections with both a heading and running text expose separate colour settings rather than one blanket colour. <strong>Before / After</strong> is the fullest example, with independent background, overline, title and text colours.</p>
       <ul>
-        <li><strong>Title color</strong> applies only to the heading.</li>
-        <li><strong>Body / text color</strong> applies only to the running text.</li>
-        <li><strong>Eyebrow color</strong> is independent and defaults to your accent color.</li>
+        <li><strong>Title colour</strong> applies only to the heading.</li>
+        <li><strong>Body / text colour</strong> applies only to the running text.</li>
+        <li><strong>Overline colour</strong> is independent and defaults to your accent colour.</li>
       </ul>
-      <p>Leaving a color empty keeps the theme’s default for that element.</p>
+      <p>Leaving a colour empty keeps the theme’s default for that element, which follows the section’s colour scheme.</p>
+
+      <h2 id="languages">Languages</h2>
+      <p>Storefront text ships in five languages: <strong>English</strong> (default), <strong>French</strong>, <strong>German</strong>, <strong>Spanish</strong> and <strong>Italian</strong>. Every key is translated in all five — buttons, cart, search, forms, error messages.</p>
+      <p>The theme editor’s own labels are translated into English and French. Enable a language under <strong>Settings → Languages</strong> in the Shopify admin; the theme follows automatically.</p>
+
+      <h2 id="motion">Motion &amp; accessibility</h2>
+      <p>Motion in Opaline is tied to scroll position rather than to timers, so nothing plays behind the visitor’s back. Headlines are split into lines that rise into place, sections reveal as they enter view, and some visuals drift as they pass.</p>
+      <p>Visitors who ask their system to reduce motion get the same content with the movement removed — everything appears in place. This is honoured across the theme and needs no setting.</p>
+      <div class="callout">
+        Every image carries alternative text, falling back to a label from the block and then to your shop name when you haven’t set one in Shopify. Each page carries exactly one level-one heading.
+      </div>
 
       <h2 id="best">Best practices</h2>
       <ul>
         <li>Use images at the right ratio (portrait 3:4 for products) for crisp rendering.</li>
-        <li>Enable scroll-reveal animations for a subtle editorial feel.</li>
-        <li>Always test on mobile after changing a layout.</li>
+        <li>Prefer photography with depth behind glass panels — flat, near-white images give the glass nothing to work with.</li>
+        <li>Always test on mobile after changing a layout, especially sections with independent mobile positions.</li>
         <li>Your saved content is safe across theme updates — settings and uploaded images persist.</li>
       </ul>
 

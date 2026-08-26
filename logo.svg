@@ -1,9 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
   <!--
-    Ce fichier ne sert que d'icône d'onglet — l'en-tête porte sa propre
-    copie en ligne. Il est donc dessiné pour 16 px : la lettre occupe
-    presque toute la surface, et le filet est épaissi pour ne pas
-    disparaître à cette taille.
+    Ce fichier ne sert que d'icône d'onglet — l'en-tête ne porte plus de
+    marque depuis qu'il a été réduit à sa navigation. Il est donc dessiné
+    pour 16 px : la lettre occupe presque toute la surface, et le filet est
+    épaissi pour ne pas disparaître à cette taille.
+
+    Le monogramme est celui du studio, Zeppelin Studio — pas celui du
+    thème, qui s'appelle Opaline.
 
     Les couleurs suivent le thème du navigateur : une encre à #151515
     serait quasi invisible sur un onglet sombre.
