@@ -88,10 +88,8 @@
             <tr><td>Press</td><td>Publication logos and coverage.</td></tr>
             <tr><td>Closing statement</td><td>A full-bleed finale before the footer.</td></tr>
             <tr><td>Scrolling text</td><td>A marquee whose speed follows the scroll, with optional glass.</td></tr>
-            <tr><td>Countdown</td><td>Days, hours and minutes, for a dated release.</td></tr>
             <tr><td>Promotional popup</td><td>A glass panel asking for an e-mail or handing over a promo code.</td></tr>
             <tr><td>Age verifier</td><td>A gate before entry, for what the law requires.</td></tr>
-            <tr><td>Stock alert</td><td>Collects an e-mail to notify when a product is back in stock.</td></tr>
             <tr><td>Quick View</td><td>Product details in a panel, without leaving the page.</td></tr>
             <tr><td>Product recommendations</td><td>Related products, driven by Shopify’s recommendations.</td></tr>
             <tr><td>FAQ</td><td>Questions and answers in an accordion.</td></tr>
@@ -218,7 +216,7 @@
             <tr><td>Chapters</td><td>Cards that stack, then release one by one as the reader descends.</td></tr>
             <tr><td>Lookbook</td><td>Editorial imagery drifting at its own pace, with a colourway switcher.</td></tr>
             <tr><td>Editorial</td><td>Story-driven layout with more room for narrative.</td></tr>
-            <tr><td>Launch</td><td>A countdown and a promotional banner, for a dated release.</td></tr>
+            <tr><td>Launch</td><td>A promotional banner and a reassurance block, for a dated release.</td></tr>
             <tr><td>Bundle</td><td>Cross-sell layout: a rail of companion pieces and recommendations.</td></tr>
             <tr><td>Gift</td><td>Gifting angle, with promotional tiles and a reassurance block.</td></tr>
             <tr><td>Trust</td><td>Reviews, guarantees and an FAQ before the footer.</td></tr>
@@ -325,6 +323,8 @@
       <h2 id="motion">Motion &amp; accessibility</h2>
       <p>Motion in Opaline is tied to scroll position rather than to timers, so nothing plays behind the visitor’s back. Headlines are split into lines that rise into place, sections reveal as they enter view, and some visuals drift as they pass.</p>
       <p>Visitors who ask their system to reduce motion get the same content with the movement removed — everything appears in place. This is honoured across the theme and needs no setting.</p>
+      <p>The same holds when JavaScript is unavailable: the page ships in a state where nothing waits for a script to become visible. Your headlines, buttons and product information are there either way.</p>
+      <p>Every form field carries its own label, including the ones with no visible text — the label is hidden from view rather than replaced by an attribute, so screen readers and browser autofill both find it.</p>
       <div class="callout">
         Every image carries alternative text, falling back to a label from the block and then to your shop name when you haven’t set one in Shopify. Each page carries exactly one level-one heading.
       </div>
