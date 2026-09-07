@@ -578,6 +578,43 @@ h2 {
 
 .cfield textarea { min-height: 15rem; resize: vertical; }
 
+/* Televersement d'une capture : Shopify demande de pouvoir documenter un
+   probleme par un fichier. Le champ natif ne se met pas en forme comme les
+   autres — on habille le conteneur et on laisse le bouton du navigateur, qui
+   reste comprehensible et accessible au clavier. */
+.cfield input[type="file"] {
+  padding: 1.1rem 1.2rem;
+  font-size: 1.3rem;
+  color: var(--z-muted);
+  cursor: pointer;
+}
+
+.cfield input[type="file"]::file-selector-button {
+  margin-inline-end: 1.2rem;
+  padding: 0.7rem 1.4rem;
+  border: 1px solid rgba(23, 24, 28, 0.18);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.8);
+  font-family: inherit;
+  font-size: 1.2rem;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+}
+
+.cfield__hint {
+  text-transform: none;
+  letter-spacing: 0;
+  font-weight: 400;
+  opacity: 0.7;
+}
+
+.cfield__help {
+  margin: 0;
+  font-size: 1.2rem;
+  line-height: 1.5;
+  color: var(--z-muted);
+}
+
 .cfield input:focus,
 .cfield select:focus,
 .cfield textarea:focus {

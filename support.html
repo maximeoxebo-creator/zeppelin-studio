@@ -38,6 +38,7 @@
         <form
           class="cform"
           action="https://formspree.io/f/mnpapkzp"
+          enctype="multipart/form-data"
           method="POST"
           data-cform
           data-mailto="contact.zeppelin.studio@gmail.com"
@@ -75,7 +76,16 @@
               <label for="cf-message">Message</label>
               <textarea id="cf-message" name="message" placeholder="The page or section concerned, what you expected, and what happens instead."></textarea>
             </div>
+
+            <div class="cfield cfield--full">
+              <label for="cf-file">Screenshot or file <span class="cfield__hint">(optional)</span></label>
+              <input id="cf-file" name="attachment" type="file" accept="image/*,.pdf,.txt,.zip">
+              <p class="cfield__help">A screenshot of the problem helps us answer faster. Up to 10 MB.</p>
+            </div>
           </div>
+
+          <input type="hidden" name="_subject" value="Opaline — support request">
+          <input type="hidden" name="_autoresponse" value="Thank you for contacting Zeppelin Studio. We have received your message and will reply within one to two business days. If your store is down or checkout is affected, reply to this email with URGENT in the subject line.">
 
           <div class="cform__pot" aria-hidden="true">
             <label for="cf-company">Leave this field empty</label>
