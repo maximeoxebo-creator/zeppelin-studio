@@ -38,11 +38,14 @@
           <li><a href="#alt-products">Alternate product pages</a></li>
           <li><a href="#alt-collections">Alternate collection pages</a></li>
           <li><a href="#showcase">Floating showcase</a></li>
+          <li><a href="#comparison">Comparison slider</a></li>
           <li><a href="#mobile-sizes">Mobile text &amp; button sizes</a></li>
           <li><a href="#colors">Title vs. body colors</a></li>
           <li><a href="#languages">Languages</a></li>
           <li><a href="#motion">Motion &amp; accessibility</a></li>
           <li><a href="#best">Best practices</a></li>
+          <li><a href="#faq">Frequently asked questions</a></li>
+          <li><a href="#support">Support policy</a></li>
           <li><a href="#help">Need help?</a></li>
         </ul>
       </nav>
@@ -296,6 +299,23 @@
         Set the desktop positions first, then switch the editor preview to mobile and set the mobile X/Y and width for each image — the two are independent, so a mobile layout won’t disturb your desktop composition.
       </div>
 
+      <h2 id="comparison">Comparison slider</h2>
+      <p>A drag handle over two photographs, for a before-and-after or a finish-against-finish shot. The handle can be dragged, or moved with the arrow keys once focused.</p>
+      <div class="spec-wrap">
+        <table class="spec">
+          <thead><tr><th>Setting</th><th>What it does</th></tr></thead>
+          <tbody>
+            <tr><td>Format</td><td>The image ratio on desktop: 16:9, 4:3, 1:1, 21:9 or 9:16.</td></tr>
+            <tr><td>Mobile image format</td><td>The ratio below 990px, independent of the desktop one. <em>Same as desktop</em> keeps a single ratio everywhere; the default is square, which suits a phone better than a wide crop.</td></tr>
+            <tr><td>Heading alignment</td><td>Left, center or right. It moves the overline, its rule and the heading together.</td></tr>
+            <tr><td>Parallax effect</td><td>A slow drift of the images on scroll. It stops on its own for visitors who ask for reduced motion.</td></tr>
+            <tr><td>Initial position</td><td>Where the handle sits when the section first appears, as a percentage.</td></tr>
+            <tr><td>Before / After labels</td><td>The two glass chips pinned to each side. Leave one empty to hide it.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Overline, heading, text, their sizes and their colors work as they do elsewhere in the theme — see <a href="#colors">Title vs. body colors</a>.</p>
+
       <h2 id="mobile-sizes">Mobile text &amp; button sizes</h2>
       <p>Several sections expose separate <strong>mobile size</strong> controls, so small screens can be tuned without touching the desktop composition:</p>
       <ul>
@@ -336,6 +356,26 @@
         <li>Always test on mobile after changing a layout, especially sections with independent mobile positions.</li>
         <li>Your saved content is safe across theme updates — settings and uploaded images persist.</li>
       </ul>
+
+      <h2 id="faq">Frequently asked questions</h2>
+      <p><strong>Will my content survive a theme update?</strong><br>
+      Yes. Your settings, text and uploaded images live in your store, not in the theme files. Updating replaces the code and leaves your content in place.</p>
+      <p><strong>Why does a section look different on my phone?</strong><br>
+      Several sections carry their own mobile controls — image format, column count, text sizes, image positions. They are deliberately independent, so a phone layout can be tuned without disturbing the desktop composition. Switch the editor preview to mobile and check the section&rsquo;s mobile settings.</p>
+      <p><strong>The glass effect barely shows. What is wrong?</strong><br>
+      Nothing, most likely. Glass needs something to refract: photography with depth reads well, a flat near-white image gives the effect nothing to work with. The panels also turn solid on purpose when a visitor has asked their system for reduced transparency.</p>
+      <p><strong>How do I use one of the alternate product or collection pages?</strong><br>
+      Assign it in the admin, on the product or collection itself, under <em>Theme template</em>. Until a resource is assigned to a template, that template has nothing to display.</p>
+      <p><strong>Can I change the fonts?</strong><br>
+      Yes, in <em>Theme settings &rarr; Typography</em>. Opaline ships with Fraunces for headings and DM Sans for body text, both from the Shopify font library, and any pairing from that library can replace them.</p>
+      <p><strong>A setting I used to see has disappeared.</strong><br>
+      Some settings are retired when they stop doing anything useful &mdash; the comparison slider&rsquo;s width control, for one, produced the same result at every value on a phone. Retiring it changes nothing you had configured elsewhere.</p>
+
+      <h2 id="support">Support policy</h2>
+      <p><strong>What we cover.</strong> Bugs in the theme, questions about how a setting or a section works, and help understanding the documentation.</p>
+      <p><strong>How fast.</strong> We reply to every request within <strong>two business days</strong>. Critical faults &mdash; a broken layout on a live store, a checkout that cannot be reached &mdash; are handled immediately, ahead of anything else.</p>
+      <p><strong>What we do not cover.</strong> Custom development, third-party apps, and issues coming from Shopify itself rather than the theme. We will tell you plainly when a problem falls outside the theme, and point you to the right place.</p>
+      <p>Support is offered in English and French.</p>
 
       <h2 id="help">Need help?</h2>
       <p>If you can’t find the answer here, the team replies directly.</p>
