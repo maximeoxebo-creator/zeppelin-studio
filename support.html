@@ -225,15 +225,46 @@
            L'adresse de réponse, elle, est déduite du champ « email ». */
         d.set('_subject', '[Zeppelin] ' + d.get('topic'));
 
+        /* Un champ fichier vide envoie tout de meme une entree multipart, et
+           tous les points de collecte n'acceptent pas les pieces jointes. La
+           requete echouait alors, et le message ne partait pas — alors que le
+           visiteur n'avait rien joint. On retire l'entree quand elle est vide. */
+        var champFichier = f.querySelector('#cf-file');
+        var aFichier = !!(champFichier && champFichier.files && champFichier.files.length);
+        if (!aFichier) d.delete('attachment');
+
+        function envoyer(charge) {
+          return fetch(f.getAttribute('action'), {
+            method: 'POST', body: charge, headers: { Accept: 'application/json' }
+          }).then(function (r) { if (!r.ok) throw new Error(); });
+        }
+
+        function reussi(message) {
+          f.reset();
+          dire(message, true);
+        }
+
+        function echoue() {
+          dire('The message could not be sent. Write to us directly at ' + f.getAttribute('data-mailto') + '.', false);
+        }
+
         bouton.setAttribute('aria-busy', 'true');
-        fetch(f.getAttribute('action'), { method: 'POST', body: d, headers: { Accept: 'application/json' } })
-          .then(function (r) {
-            if (!r.ok) throw new Error();
-            f.reset();
-            dire('Message sent. We’ll get back to you within one to two business days.', true);
+        envoyer(d)
+          .then(function () {
+            reussi('Message sent. We’ll get back to you within one to two business days.');
           })
           .catch(function () {
-            dire('The message could not be sent. Write to us directly at ' + f.getAttribute('data-mailto') + '.', false);
+            /* Un envoi refuse alors qu'un fichier etait joint ne doit pas
+               couter son message au visiteur : on renvoie sans la piece, et on
+               lui dit ou l'adresser. */
+            if (!aFichier) { echoue(); return; }
+            var sansPiece = new FormData(f);
+            sansPiece.delete('attachment');
+            sansPiece.set('_subject', '[Zeppelin] ' + d.get('topic'));
+            return envoyer(sansPiece).then(function () {
+              reussi('Message sent — the file could not be attached, so please email it to '
+                + f.getAttribute('data-mailto') + ' if it helps.');
+            }).catch(echoue);
           })
           .then(function () { bouton.removeAttribute('aria-busy'); });
       });
