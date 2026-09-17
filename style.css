@@ -189,7 +189,10 @@ a { color: inherit; }
 @media (prefers-reduced-motion: reduce) {
   .scroll-cue i { animation: none; top: 0; height: 100%; opacity: 0.35; }
 }
-.hero p {
+/* Le surtitre est un paragraphe lui aussi : cette règle, plus spécifique que
+   `.eyebrow`, lui imposait le corps du texte d'accroche — 18,5 px au lieu de
+   12, et 11 sur mobile. Il garde sa propre taille. */
+.hero p:not(.eyebrow) {
   max-width: 52rem;
   margin: 0 auto;
   font-size: 1.85rem;
