@@ -86,7 +86,6 @@
           </div>
 
           <input type="hidden" name="_subject" value="Opaline — support request">
-          <input type="hidden" name="_autoresponse" value="Thank you for contacting Zeppelin Studio. We have received your message and will reply within one to two business days. If your store is down or checkout is affected, reply to this email with URGENT in the subject line.">
 
           <div class="cform__pot" aria-hidden="true">
             <label for="cf-company">Leave this field empty</label>
@@ -248,9 +247,29 @@
           }).then(function (r) { if (!r.ok) throw new Error(); });
         }
 
+        /* Accusé de réception : envoyé par /api/accuse une fois le message
+           accepté par Formspree. On retient les champs avant de vider le
+           formulaire. Si l'envoi échoue, la demande est déjà partie : on
+           n'annonce simplement pas de confirmation. */
+        var accuse = {
+          email: String(d.get('email') || ''),
+          name: String(d.get('name') || ''),
+          topic: String(d.get('topic') || ''),
+          _gotcha: String(d.get('_gotcha') || '')
+        };
+
         function reussi(message) {
           f.reset();
           dire(message, true);
+          fetch('/api/accuse', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(accuse)
+          })
+            .then(function (r) { return r.ok; }, function () { return false; })
+            .then(function (ok) {
+              if (ok) dire(message + ' A confirmation is on its way to ' + accuse.email + '.', true);
+            });
         }
 
         function echoue() {

@@ -1,0 +1,8 @@
+{
+  "name": "zeppelin-studio",
+  "private": true,
+  "description": "Site de Zeppelin Studio : documentation et support d'Opaline, et l'accusé de réception du formulaire.",
+  "dependencies": {
+    "nodemailer": "^6.9.16"
+  }
+}
