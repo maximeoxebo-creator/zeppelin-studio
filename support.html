@@ -56,8 +56,9 @@
             </div>
 
             <div class="cfield">
-              <label for="cf-store">Store URL · optional</label>
-              <input id="cf-store" name="store" type="text" autocomplete="url" placeholder="yourstore.myshopify.com">
+              <label for="cf-store">Store URL</label>
+              <input id="cf-store" name="store" type="text" autocomplete="url" placeholder="yourstore.myshopify.com" aria-describedby="cf-store-help" required>
+              <p class="cfield__help" id="cf-store-help">For example: yourstore.myshopify.com</p>
             </div>
 
             <div class="cfield">
@@ -73,8 +74,8 @@
             </div>
 
             <div class="cfield cfield--full">
-              <label for="cf-message">Message</label>
-              <textarea id="cf-message" name="message" placeholder="The page or section concerned, what you expected, and what happens instead."></textarea>
+              <label for="cf-message">Describe the problem</label>
+              <textarea id="cf-message" name="message" required placeholder="The page or section concerned, what you expected, and what happens instead."></textarea>
             </div>
 
             <div class="cfield cfield--full">
@@ -124,8 +125,16 @@
           </div>
 
           <div class="ccard">
+            <h2>Before you edit your theme</h2>
+            <ul>
+              <li>Duplicate your theme first, from Online Store &rarr; Themes &rarr; &hellip; &rarr; Duplicate. You can always return to the copy.</li>
+              <li>We don&rsquo;t write custom code for individual stores. For changes beyond the theme&rsquo;s settings, we recommend hiring a <a href="https://www.shopify.com/partners/directory" rel="nofollow noopener" target="_blank">Shopify Partner</a>.</li>
+            </ul>
+          </div>
+
+          <div class="ccard">
             <h2>Before you write</h2>
-            <p>The documentation covers installation and most settings — the answer is often a few seconds away.</p>
+            <p>The documentation covers installation and most settings — the answer is often a few seconds away. Our <a href="/docs#support">support policy</a> explains what we cover.</p>
             <div class="btn-row" style="margin-top:2rem;">
               <a class="btn btn--ghost" href="/docs">Read the documentation</a>
             </div>
@@ -186,7 +195,7 @@
 
       function manquant() {
         var vides = [];
-        [['cf-name', 'your name'], ['cf-email', 'your email'], ['cf-message', 'a message']].forEach(function (p) {
+        [['cf-name', 'your name'], ['cf-email', 'your email'], ['cf-store', 'your store URL'], ['cf-message', 'a description of the problem']].forEach(function (p) {
           if (!f.querySelector('#' + p[0]).value.trim()) vides.push(p[1]);
         });
         var mail = f.querySelector('#cf-email').value.trim();
@@ -210,7 +219,7 @@
           var corps =
             'Name: ' + d.get('name') + '\n' +
             'Email: ' + d.get('email') + '\n' +
-            'Store: ' + (d.get('store') || '—') + '\n\n' +
+            'Store: ' + d.get('store') + '\n\n' +
             d.get('message');
           window.location.href =
             'mailto:' + f.getAttribute('data-mailto') +

@@ -30,6 +30,8 @@
         <p>On this page</p>
         <ul>
           <li><a href="#customize">Customization basics</a></li>
+          <li><a href="#page-width">Page width</a></li>
+          <li><a href="#navigation">Navigation &amp; mega menu</a></li>
           <li><a href="#cinematic">Full-screen hero</a></li>
           <li><a href="#glass">Liquid-glass sections</a></li>
           <li><a href="#colorways">Colorways</a></li>
@@ -93,6 +95,56 @@
       <p>Logo, navigation menu, icons (search, account, cart), and footer blocks are set in their respective section groups. The header exposes its own padding controls for desktop and mobile separately.</p>
       <div class="callout">
         The editor caches section schemas per session. After a theme update, fully close and reopen the editor (or hard-refresh with <code>Cmd/Ctrl + Shift + R</code>) so new settings appear.
+      </div>
+
+      <h2 id="page-width">Page width</h2>
+      <p>Under <strong>Theme settings &rarr; Layout</strong>, <strong>Full width</strong> decides how far your content spreads on wide screens.</p>
+      <ul>
+        <li><strong>On</strong> (default) &mdash; the header, headings and product grids reach the edges of the screen, held only by the side margins. They stay lined up with full-bleed images and floating panels, on a large monitor as on a zoomed-out page.</li>
+        <li><strong>Off</strong> &mdash; content is held to a centered column. Set its maximum with <strong>Page width</strong>, from 1000 to 1400px.</li>
+      </ul>
+      <p>Full-bleed images and backgrounds stay edge to edge either way.</p>
+
+      <h2 id="navigation">Navigation &amp; mega menu</h2>
+      <p>The header shows the menu chosen in its <strong>Menu</strong> setting &mdash; your <em>Main menu</em> by default. <strong>Menu type</strong> decides how it opens on desktop:</p>
+      <div class="spec-wrap">
+        <table class="spec">
+          <thead><tr><th>Menu type</th><th>What it does</th></tr></thead>
+          <tbody>
+            <tr><td>Dropdown</td><td>A short list of links under the menu item.</td></tr>
+            <tr><td>Mega menu</td><td>A glass panel under the header, laid out from your menu&rsquo;s sub-levels.</td></tr>
+            <tr><td>Burger (drawer)</td><td>The whole menu slides in from the side, on desktop as on mobile.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Building a mega menu</h3>
+      <ol>
+        <li>In the Shopify admin, go to <strong>Content &rarr; Menus</strong> and open <strong>Main menu</strong>.</li>
+        <li>Add a top-level item &mdash; for example <em>Shop</em> &mdash; and link it to a collection.</li>
+        <li>Nest items beneath it by dragging them slightly to the right under <em>Shop</em>. Each one becomes a category of the panel; link it to its collection.</li>
+        <li>If a category needs its own links, nest a third level under it.</li>
+        <li>Save the menu, then in the theme editor set the header&rsquo;s <strong>Menu type</strong> to <strong>Mega menu</strong>.</li>
+      </ol>
+
+      <h3>How the panel arranges your categories</h3>
+      <p>You don&rsquo;t choose a layout: the panel adapts to what your menu contains.</p>
+      <div class="spec-wrap">
+        <table class="spec">
+          <thead><tr><th>Your menu</th><th>What visitors see</th></tr></thead>
+          <tbody>
+            <tr><td>Up to 6 categories</td><td>Cards with a picture &mdash; the collection image, or its first product&rsquo;s image when the collection has none. A category without either shows its initial.</td></tr>
+            <tr><td>7 categories or more</td><td>A compact list, thumbnail and name, arranged in columns across the full width.</td></tr>
+            <tr><td>Categories with links</td><td>Columns of links, spread evenly across the panel.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>The panel also shows the menu item&rsquo;s name and a <strong>View all</strong> link to its destination. Its pictures load the first time it opens, so they add nothing to the page load. On screens narrower than 1200px, the name moves above the categories to leave them the full width.</p>
+
+      <h3>Long menus</h3>
+      <p>When the menu no longer fits beside the logo, it moves to its own row under the logo and the icons. If it wouldn&rsquo;t fit on that row either, the header switches to the menu button, as it does on mobile. The choice is made before the page appears, so the header doesn&rsquo;t jump while the page loads.</p>
+      <div class="callout">
+        The mega menu works with the keyboard: <code>Tab</code> moves through the categories and their links, and <code>Esc</code> closes the panel and returns to its menu item.
       </div>
 
       <h2 id="cinematic">Full-screen hero <span class="tag">Advanced</span></h2>
@@ -355,6 +407,10 @@
       Nothing, most likely. Glass needs something to refract: photography with depth reads well, a flat near-white image gives the effect nothing to work with. The panels also turn solid on purpose when a visitor has asked their system for reduced transparency.</p>
       <p><strong>How do I use one of the alternate product or collection pages?</strong><br>
       Assign it in the admin, on the product or collection itself, under <em>Theme template</em>. Until a resource is assigned to a template, that template has nothing to display.</p>
+      <p><strong>How do I create a mega menu?</strong><br>
+      Nest items under a top-level item of your main menu, in <em>Content &rarr; Menus</em>, then set the header&rsquo;s <strong>Menu type</strong> to <strong>Mega menu</strong>. The panel arranges itself from what you nested &mdash; see <a href="#navigation">Navigation &amp; mega menu</a>.</p>
+      <p><strong>My content sits in a narrow column on a large screen.</strong><br>
+      Check <strong>Full width</strong> under <em>Theme settings &rarr; Layout</em>. Turned off, content is held to the <strong>Page width</strong> you set &mdash; see <a href="#page-width">Page width</a>.</p>
       <p><strong>Can I change the fonts?</strong><br>
       Yes, in <em>Theme settings &rarr; Typography</em>. Opaline ships with Fraunces for headings and DM Sans for body text, both from the Shopify font library, and any pairing from that library can replace them.</p>
       <p><strong>A setting I used to see has disappeared.</strong><br>
@@ -364,6 +420,8 @@
       <p><strong>What we cover.</strong> Bugs in the theme, questions about how a setting or a section works, and help understanding the documentation.</p>
       <p><strong>How fast.</strong> We reply to every request within <strong>two business days</strong>. Critical faults &mdash; a broken layout on a live store, a checkout that cannot be reached &mdash; are handled immediately, ahead of anything else.</p>
       <p><strong>What we do not cover.</strong> Custom development, third-party apps, and issues coming from Shopify itself rather than the theme. We will tell you plainly when a problem falls outside the theme, and point you to the right place.</p>
+      <p><strong>Before you edit.</strong> Duplicate your theme before changing its code or reworking its settings, from <em>Online Store &rarr; Themes</em>, then <em>&hellip; &rarr; Duplicate</em>. The copy lets you return to a working version at any time.</p>
+      <p><strong>Custom work.</strong> We don&rsquo;t write custom code for individual stores. For changes beyond what the theme&rsquo;s settings offer, we recommend hiring a <a href="https://www.shopify.com/partners/directory" rel="nofollow noopener" target="_blank">Shopify Partner</a>.</p>
       <p>Support is offered in English and French.</p>
 
       <h2 id="help">Need help?</h2>
