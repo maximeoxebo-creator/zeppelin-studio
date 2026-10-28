@@ -1,6 +1,7 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "buildCommand": "echo 'Redirection vers zeppelin-studio.zeppelin-apps.com'",
+  "outputDirectory": "site",
   "redirects": [
     {
       "source": "/(.*)",
