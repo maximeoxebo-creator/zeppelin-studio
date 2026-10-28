@@ -218,11 +218,20 @@ def pages(O, SECTIONS_DOC, GROUPES, slug):
 <section class="band">
   <div class="wrap">
     <div class="appel">
-      <div class="appel__panel glass">
-        <p class="eyebrow">Support</p>
+      <div class="appel__texte">
+        <p class="eyebrow eyebrow--light">Support</p>
         <h2>Need a hand?</h2>
-        <p>Write to the studio. Every message is answered by the people who built Opaline, within one to two business days.</p>
-        <a class="pill pill--dark" href="/support">Contact support</a>
+        <p>Write to the studio. Every message is answered by the people who built Opaline.</p>
+        <div class="appel__actions">
+          <a class="pill pill--light" href="/support">Contact support</a>
+          <a class="pill pill--ghost-light" href="/docs/faq">Read the FAQ</a>
+        </div>
+      </div>
+      <div class="appel__delai glass">
+        {icone('M6 8h20v13H14l-6 5v-5H6z')}
+        <span class="appel__libelle">Reply within</span>
+        <span class="appel__valeur">1–2 <em>business days</em></span>
+        <span class="appel__note">Monday to Friday, by email.</span>
       </div>
     </div>
   </div>

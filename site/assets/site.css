@@ -1785,30 +1785,72 @@ table.simple td:first-child {
   position: relative;
   overflow: hidden;
   display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
-  min-height: 44rem;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  gap: 4.8rem;
+  align-items: center;
+  padding: 6.4rem;
   border-radius: 3.2rem;
+  color: #f6f5f2;
   background:
     radial-gradient(60% 80% at 85% 20%, rgba(52, 46, 128, 0.5), transparent 62%),
     radial-gradient(60% 80% at 70% 100%, rgba(34, 58, 146, 0.45), transparent 62%),
     linear-gradient(135deg, #040817 0%, #0a1230 55%, #15225a 100%);
   isolation: isolate;
 }
-.appel__panel {
-  --glass-tint: 250, 249, 246;
-  --glass-alpha: 0.4;
-  align-self: center;
-  margin: 3.2rem;
-  padding: 4rem;
-  border-radius: 2.4rem;
-}
-.appel__panel h2 {
-  font-size: clamp(3.4rem, 4vw, 5.2rem);
+.appel__texte h2 {
+  color: #f6f5f2;
+  font-size: clamp(4rem, 5vw, 6.4rem);
   letter-spacing: -0.03em;
 }
-.appel__panel p {
-  margin: 1.6rem 0 2.8rem;
-  color: var(--charcoal);
+.appel__texte p:not(.eyebrow) {
+  max-width: 44ch;
+  margin: 1.6rem 0 3.2rem;
+  font-size: 1.7rem;
+  line-height: 1.6;
+  color: rgba(246, 245, 242, 0.75);
+}
+.appel__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+}
+/* Delai de reponse, sur un verre sombre */
+.appel__delai {
+  --glass-tint: 255, 255, 255;
+  --glass-alpha: 0.07;
+  display: grid;
+  gap: 0.8rem;
+  padding: 4rem;
+  border-color: rgba(255, 255, 255, 0.22);
+  border-radius: 2.6rem;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25), 0 30px 70px rgba(0, 0, 0, 0.3);
+}
+.appel__delai svg {
+  width: 4rem;
+  height: 4rem;
+  margin-bottom: 1.6rem;
+}
+.appel__libelle {
+  font-size: 1.1rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(246, 245, 242, 0.7);
+}
+.appel__valeur {
+  font-family: var(--serif);
+  font-size: clamp(4.4rem, 5vw, 6.4rem);
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+.appel__valeur em {
+  font-size: 0.42em;
+  letter-spacing: -0.01em;
+}
+.appel__note {
+  font-size: 1.45rem;
+  color: rgba(246, 245, 242, 0.7);
 }
 
 /* Pied de page riche */
@@ -2025,8 +2067,10 @@ table.simple td:first-child {
   .tile--c {
     grid-column: span 1;
   }
-  .appel__panel {
-    margin: 1.6rem;
+  .appel {
+    padding: 3.2rem 2.4rem;
+  }
+  .appel__delai {
     padding: 2.8rem;
   }
   .pied__inner {
