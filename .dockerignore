@@ -1,0 +1,6 @@
+node_modules
+outils
+.git
+.vercel
+*.zip
+.DS_Store

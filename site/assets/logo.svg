@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
+  <!--
+    Ce fichier ne sert que d'icône d'onglet — l'en-tête ne porte plus de
+    marque depuis qu'il a été réduit à sa navigation. Il est donc dessiné
+    pour 16 px : la lettre occupe presque toute la surface, et le filet est
+    épaissi pour ne pas disparaître à cette taille.
+
+    Le monogramme est celui du studio, Zeppelin Studio — pas celui du
+    thème, qui s'appelle Opaline.
+
+    Les couleurs suivent le thème du navigateur : une encre à #151515
+    serait quasi invisible sur un onglet sombre.
+  -->
+  <style>
+    .ink { fill: #151515; stroke: #151515; }
+    @media (prefers-color-scheme: dark) {
+      .ink { fill: #f5f5f3; stroke: #f5f5f3; }
+    }
+  </style>
+  <text class="ink" x="24" y="34" text-anchor="middle" stroke="none"
+        font-family="Fraunces, Georgia, 'Times New Roman', serif"
+        font-size="44" font-weight="400">Z</text>
+  <path class="ink" d="M9 42 H39" fill="none" stroke-width="3" stroke-linecap="round"/>
+</svg>

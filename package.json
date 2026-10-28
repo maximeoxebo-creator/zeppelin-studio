@@ -4,5 +4,12 @@
   "description": "Site de Zeppelin Studio : documentation et support d'Opaline, et l'accusé de réception du formulaire.",
   "dependencies": {
     "nodemailer": "^6.9.16"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "build": "python3 outils/build.py"
+  },
+  "engines": {
+    "node": ">=18"
   }
 }

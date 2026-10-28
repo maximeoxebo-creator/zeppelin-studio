@@ -1,5 +1,10 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "cleanUrls": true,
-  "trailingSlash": false
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "destination": "https://zeppelin-studio.zeppelin-apps.com/$1",
+      "permanent": true
+    }
+  ]
 }
