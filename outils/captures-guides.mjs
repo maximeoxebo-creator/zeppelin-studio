@@ -51,10 +51,13 @@ for (const [vp, nom, mob] of [[D, 'desktop', false], [M, 'mobile', true]]) {
 // Pastilles
 { const p = await page(D);
   await p.goto(B + '/products/alma22', { waitUntil: 'load' }); await p.waitForTimeout(1500);
+  // Du titre aux pastilles : le cadre commence au-dessus du nom du produit.
   const info = p.locator('.lf-product__info').first();
-  const v = p.locator('.lf-product__variants').first(); await v.scrollIntoViewIfNeeded(); await p.waitForTimeout(500);
-  const bi = await info.boundingBox(); const bv = await v.boundingBox();
-  await p.screenshot({ path: `${sortie}/guide-swatches-desktop.png`, clip: { x: bi.x, y: Math.max(0, bv.y - 220), width: bi.width, height: 420 } });
+  const t = p.locator('.lf-product__title').first(); await t.scrollIntoViewIfNeeded(); await p.waitForTimeout(500);
+  const v = p.locator('.lf-product__variants').first();
+  const bi = await info.boundingBox(); const bt = await t.boundingBox(); const bv = await v.boundingBox();
+  const haut = Math.max(0, bt.y - 32);
+  await p.screenshot({ path: `${sortie}/guide-swatches-desktop.png`, clip: { x: bi.x, y: haut, width: bi.width, height: bv.y + bv.height + 16 - haut } });
   ok('swatches'); await p.close(); }
 
 // Mega menu

@@ -212,6 +212,32 @@
     });
   }
 
+  /* ---- Accueil : filtres et rail des sections ---- */
+  var rail = document.querySelector('[data-rail]');
+  if (rail) {
+    document.querySelectorAll('[data-filtres] button').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var cat = b.getAttribute('data-filtre');
+        document.querySelectorAll('[data-filtres] button').forEach(function (x) {
+          x.setAttribute('aria-pressed', String(x === b));
+        });
+        rail.querySelectorAll('[data-cat]').forEach(function (c) {
+          c.hidden = cat !== 'all' && c.getAttribute('data-cat') !== cat;
+        });
+        rail.scrollTo({ left: 0, behavior: 'smooth' });
+      });
+    });
+    var pas = function (sens) {
+      var carte = rail.querySelector('.rail__card:not([hidden])');
+      var largeur = carte ? carte.getBoundingClientRect().width + 16 : 360;
+      rail.scrollBy({ left: sens * largeur * 2, behavior: 'smooth' });
+    };
+    var prec = document.querySelector('[data-rail-prev]');
+    var suiv = document.querySelector('[data-rail-next]');
+    if (prec) prec.addEventListener('click', function () { pas(-1); });
+    if (suiv) suiv.addEventListener('click', function () { pas(1); });
+  }
+
   document.querySelectorAll('[data-year]').forEach(function (n) {
     n.textContent = new Date().getFullYear();
   });

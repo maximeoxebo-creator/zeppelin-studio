@@ -10,6 +10,7 @@ GUIDES = [
     {'slug': 'quick-view', 'titre': 'Quick view & quick add'},
     {'slug': 'color-variants', 'titre': 'Color variants & swatches'},
     {'slug': 'navigation', 'titre': 'Navigation & mega menu'},
+    {'slug': 'cinematic-intro', 'titre': 'Cinematic intro'},
     {'slug': 'templates', 'titre': 'Alternate templates'},
     {'slug': 'liquid-glass', 'titre': 'Liquid glass'},
     {'slug': 'mobile', 'titre': 'Mobile layouts'},
@@ -118,59 +119,108 @@ def pages(O, SECTIONS_DOC, GROUPES, slug):
     vign = lambda h: f'/img/sections/{h}-desktop.webp'
 
     # ── Accueil ──
+    import contenu as C
+    cle_cat = {titre: cle for cle, titre, _ in C.CATEGORIES}
+    loupe = '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="6.5" stroke="currentColor" stroke-width="1.5"/><path d="M16 16l4.5 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>'
+    noms = [n for _, _, n, _ in SECTIONS_DOC]
+    ruban = ''.join(f'<li>{e(n)}</li>' for n in noms + noms)
+    filtres = '<button type="button" aria-pressed="true" data-filtre="all">All</button>' + ''.join(
+        f'<button type="button" aria-pressed="false" data-filtre="{cle}">{e(titre)}</button>' for cle, titre, _ in C.CATEGORIES)
+    # Les captures en bandeau (en-tete, barre d'annonce) se recadrent au
+    # centre et finiraient identiques : l'en-tete montre sa navigation.
+    cadrage = {'header': ' style="object-position: left bottom"'}
+    cartes = ''.join(
+        f'<a class="rail__card glass" href="/docs/sections/{sl}" data-cat="{cle_cat.get(cat, "")}">'
+        f'<div class="rail__img"><img src="{vign(h)}" alt="" loading="lazy"{cadrage.get(h, "")}></div>'
+        f'<span class="rail__cat">{e(cat)}</span><span class="rail__name">{e(n)}</span></a>'
+        for h, sl, n, cat in SECTIONS_DOC)
     accueil = f'''
-<div class="home">
-  <section class="hero">
-    <div>
-      <p class="eyebrow">Opaline · Version {e(v)}</p>
-      <h1>The Opaline theme, <em>documented.</em></h1>
-      <p class="hero__lead">Install, set up and shape your store with Opaline. Every section, every setting and every feature, explained step by step with screenshots from the demo store.</p>
-      <div class="hero__actions">
-        <a class="pill pill--dark" href="/docs">Read the documentation</a>
-        <a class="pill pill--line" href="/support">Contact support</a>
+<section class="cine">
+  <div class="cine__bg"><img src="/img/home/hero.webp" alt="" width="2200" height="1477" fetchpriority="high"></div>
+  <div class="cine__veil"></div>
+  <div class="cine__inner">
+    <div class="cine__copy">
+      <p class="eyebrow eyebrow--light">Opaline · Shopify theme · Version {e(v)}</p>
+      <h1 class="cine__title">Every detail,<br><em>documented.</em></h1>
+      <p class="cine__lead">Install, set up and shape your store with Opaline. Every section and every setting, explained step by step with screenshots from the demo store.</p>
+      <button type="button" class="cine__search glass" data-search-open>{loupe}<span>Search {nb_sections} sections, every setting and guide</span><kbd>⌘K</kbd></button>
+      <div class="cine__actions">
+        <a class="pill pill--light" href="/docs">Start with the documentation</a>
+        <a class="pill pill--ghost-light" href="/support">Contact support</a>
       </div>
     </div>
-    <div class="hero__visual">
-      <div class="hero__frame glass"><img src="{vign('lf-hero-cinematic')}" alt="The Opaline demo store home page" width="1440" height="900"></div>
-      <div class="hero__badge glass"><b>{nb_sections}</b> sections documented, with screenshots</div>
+    <div class="cine__stage" aria-hidden="true">
+      <div class="device device--desk glass"><div class="device__bar"><i></i><i></i><i></i><span>Opaline demo store</span></div><div class="device__screen"><img src="{vign('lf-hero-cinematic')}" alt=""></div></div>
+      <div class="device device--phone"><img src="/img/sections/lf-hero-cinematic-mobile.webp" alt=""></div>
+      <span class="float-chip glass" style="top:0;right:12%">Liquid glass</span>
+      <span class="float-chip glass" style="top:46%;left:-4%;animation-delay:-2s"><b>+</b>Quick add</span>
+      <span class="float-chip glass" style="bottom:6%;left:20%;animation-delay:-4s">{nb_sections} sections</span>
     </div>
-  </section>
+  </div>
+  <div class="cine__ribbon" aria-hidden="true"><ul>{ruban}</ul></div>
+</section>
 
-  <section class="home-section">
-    <p class="eyebrow">Start here</p>
-    <h2>Everything in four places</h2>
-    <div class="cards">
-      {carte('/docs/install', 'Get started', 'Install Opaline', 'Add the theme from the Shopify Theme Store, preview it, and publish when you are ready.')}
-      {carte('/docs/guides/product-page', 'Guides', 'Learn the key features', 'The product page, quick view, color swatches, the mega menu and liquid glass.')}
-      {carte('/docs/settings/colors', 'Theme settings', 'Set the store-wide style', 'Colors, fonts, page width, product cards and animations.')}
-      {carte('/docs/sections/full-screen-hero', 'Sections', f'{nb_sections} sections', 'What each section does, how to add it, and every setting it offers.')}
+<section class="band">
+  <div class="wrap">
+    <div class="band__head">
+      <div><p class="eyebrow">Get started</p><h2>From install to launch, <em>in three steps.</em></h2></div>
+      <p class="band__intro">Opaline is set up entirely in the Shopify theme editor. No code, and every change previews before it goes live.</p>
     </div>
-  </section>
+    <ol class="trio">
+      <li class="glass"><span class="trio__n">01</span><h3>Install</h3><p>Add Opaline from the Theme Store and try it on your own products before you buy.</p><a class="lien-fleche" href="/docs/install">Install Opaline</a></li>
+      <li class="glass"><span class="trio__n">02</span><h3>Shape</h3><p>Set your colors and fonts, then compose each page from {nb_sections} sections and their blocks.</p><a class="lien-fleche" href="/docs/theme-editor">Use the theme editor</a></li>
+      <li class="glass"><span class="trio__n">03</span><h3>Launch</h3><p>Check your pages on desktop and mobile with our checklist, then publish.</p><a class="lien-fleche" href="/docs/launch-checklist">Before you go live</a></li>
+    </ol>
+  </div>
+</section>
 
-  <section class="home-section">
-    <p class="eyebrow">Sections</p>
-    <h2>A few of the sections</h2>
-    <div class="cards">
-      {carte('/docs/sections/statement-with-images', 'Storytelling', 'Statement with images', 'Product photos set between the words of a sentence.', vign('lf-inlay'))}
-      {carte('/docs/sections/duo-panel', 'Heroes & banners', 'Duo panel', 'A photograph beside a colored panel with an inset image and a badge.', vign('lf-duo'))}
-      {carte('/docs/sections/technical-drawings', 'Products', 'Technical drawings', 'Dimensions by shape and size, with compatible uses.', vign('lf-blueprint'))}
-      {carte('/docs/sections/colorways', 'Products', 'Colorways', 'Each finish on its own backdrop, switched with a swatch.', vign('lf-colorways'))}
-      {carte('/docs/sections/scrolling-product-row', 'Products', 'Scrolling product row', 'Products to swipe or drag, with collection tabs.', vign('lf-drag-rail'))}
-      {carte('/docs/sections/manifesto', 'Storytelling', 'Manifesto', 'A statement whose words light up as visitors scroll.', vign('lf-manifesto'))}
+<section class="band" style="padding-top:0">
+  <div class="wrap">
+    <div class="band__head">
+      <div><p class="eyebrow">Sections</p><h2>{nb_sections} sections, <em>one signature.</em></h2></div>
+      <div class="filtres" data-filtres>{filtres}</div>
     </div>
-  </section>
+    <div class="rail" data-rail>{cartes}</div>
+    <div class="rail__nav"><button type="button" class="glass" data-rail-prev aria-label="Previous sections">←</button><button type="button" class="glass" data-rail-next aria-label="Next sections">→</button></div>
+  </div>
+</section>
 
-  <section class="home-section">
-    <p class="eyebrow">In numbers</p>
-    <h2>Built for Shopify Online Store 2.0</h2>
-    <div class="stats">
-      <div class="stat glass"><b>{nb_sections}</b><span>sections, each with its own settings</span></div>
-      <div class="stat glass"><b>{len(GROUPES)}</b><span>groups of theme settings</span></div>
-      <div class="stat glass"><b>5</b><span>storefront languages: English, French, German, Spanish, Italian</span></div>
-      <div class="stat glass"><b>1–2</b><span>business days to answer every support request</span></div>
+<section class="sombre">
+  <div class="sombre__bg"><img src="/img/home/fondue.webp" alt="" loading="lazy"></div>
+  <div class="wrap">
+    <div class="band__head">
+      <div><p class="eyebrow eyebrow--light">Guides</p><h2>The features <em>behind the look.</em></h2></div>
+      <p class="band__intro">Step-by-step guides for what makes Opaline different, with the exact name of every setting.</p>
     </div>
-  </section>
-</div>'''
+    <div class="bento">
+      <a class="tile tile--a glass" href="/docs/guides/quick-view"><div class="tile__img"><img src="/img/guides/quick-view-desktop.webp" alt="" loading="lazy"></div><span class="tile__kicker">Guide</span><span class="tile__title">Quick view &amp; quick add</span><p>Shop from any product card, in a panel of liquid glass.</p></a>
+      <a class="tile tile--b glass" href="/docs/guides/product-page"><div class="tile__img"><img src="/img/guides/product-carousel-mobile.webp" alt="" loading="lazy"></div><span class="tile__kicker">Guide</span><span class="tile__title">Product page</span><p>Stacked or carousel gallery, thumbnails, swatches.</p></a>
+      <a class="tile tile--c glass" href="/docs/guides/cinematic-intro"><div class="tile__img"><img src="/img/guides/cinematic-intro-desktop.webp" alt="" loading="lazy"></div><span class="tile__kicker">Guide</span><span class="tile__title">Cinematic intro</span></a>
+      <a class="tile tile--c glass" href="/docs/guides/navigation"><div class="tile__img"><img src="/img/guides/mega-menu-desktop.webp" alt="" loading="lazy"></div><span class="tile__kicker">Guide</span><span class="tile__title">Mega menu</span></a>
+      <a class="tile tile--c glass" href="/docs/guides/color-variants"><div class="tile__img"><img src="/img/guides/swatches-desktop.webp" alt="" loading="lazy"></div><span class="tile__kicker">Guide</span><span class="tile__title">Color swatches</span></a>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <div class="chiffres">
+      <div><b>{nb_sections}</b><span>sections, each documented with its settings</span></div>
+      <div><b>{len(GROUPES)}</b><span>groups of theme settings</span></div>
+      <div><b>5</b><span>storefront languages</span></div>
+      <div><b>1–2</b><span>business days to answer support</span></div>
+    </div>
+    <div class="appel">
+      <div class="appel__bg"><img src="/img/home/macro.webp" alt="" loading="lazy"></div>
+      <div class="appel__panel glass">
+        <p class="eyebrow">Support</p>
+        <h2>Need a hand?</h2>
+        <p>Write to the studio. Every message is answered by the people who built Opaline, within one to two business days.</p>
+        <a class="pill pill--dark" href="/support">Contact support</a>
+      </div>
+    </div>
+  </div>
+</section>'''
     ajoute('/', 'Opaline', 'Documentation and support for Opaline, the Shopify theme by Zeppelin Studio.', accueil, 'Home', mise='plain', toc=False)
 
     # ── Introduction ──
@@ -414,6 +464,28 @@ def pages(O, SECTIONS_DOC, GROUPES, slug):
     corps += '<h2>The transparent header</h2><p>On the home page, <strong>Transparent header on the home page</strong> lays the header over the opening image. With <strong>Frosted glass effect (liquid glass)</strong>, it turns into frosted glass once visitors scroll past the <strong>Scroll threshold</strong>. All header settings are listed on the <a href="/docs/sections/header">Header</a> page.</p>'
     corps += '</div>'
     ajoute('/docs/guides/navigation', 'Navigation & mega menu', 'Menu types, building a mega menu and the transparent header in Opaline.', corps, 'Guide')
+
+    # ── Guide : intro cinematique ──
+    entete = O['schemas']['header']['settings']
+    debut = next(i for i, x in enumerate(entete) if x.get('type') == 'header' and 'intro' in str(O['trad'](x.get('content'))).lower())
+    fin = next((i for i in range(debut + 1, len(entete)) if entete[i].get('type') == 'header'), len(entete))
+    corps = tete('Cinematic intro', 'Open your store with a short logo animation: your logo appears over frosted glass, a photograph or a solid color, then gives way to the page.', [('Docs', '/docs'), ('Guides', None)], 'Guide')
+    corps += figure('cinematic-intro', 'The intro over frosted glass: the logo holds for a moment, then the page appears.', dossier='guides', alt='Opaline cinematic intro')
+    corps += '<div class="prose">'
+    corps += '<h2>Turn it on</h2>'
+    corps += etapes([
+        'In the theme editor, click <strong>Header</strong> in the sidebar.',
+        'Scroll to <strong>Cinematic intro</strong> and turn on <strong>Enable the cinematic intro</strong>.',
+        'Choose the <strong>Intro backdrop</strong>: frosted glass over the page, a photograph, or a solid color.',
+        'Set the <strong>Logo size</strong>, <strong>Logo color</strong> and how long it <strong>Hold</strong>s, then decide when to <strong>Show</strong> it.',
+        'Click <strong>Save</strong>.',
+    ])
+    corps += '<h2>Settings</h2>' + O['tableau'](entete[debut + 1:fin], 'Cinematic intro')
+    corps += '<h2>Good to know</h2>'
+    corps += note('The intro uses the logo of the header. Set it under <strong>Header &gt; Logo header</strong> first; a transparent PNG or SVG works best.')
+    corps += note('Visitors who ask their device to reduce motion skip the intro. Showing it once per session keeps returning visitors from waiting on every page.', 'tip')
+    corps += '</div>'
+    ajoute('/docs/guides/cinematic-intro', 'Cinematic intro', 'How to set up the cinematic logo intro of the Opaline header.', corps, 'Guide')
 
     # ── Guide : gabarits ──
     corps = tete('Alternate templates', 'Give one product or one collection its own page layout without changing the others.', [('Docs', '/docs'), ('Guides', None)], 'Guide')

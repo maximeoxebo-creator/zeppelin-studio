@@ -260,7 +260,7 @@ def etapes(liste):
 
 
 def figure(nom, legende='', dossier='sections', seul=False, alt=''):
-    """Une capture ordinateur, et son pendant telephone s'il existe."""
+    """La capture ordinateur dans un navigateur, et le telephone pose dessus."""
     bureau = f'/img/{dossier}/{nom}-desktop.webp'
     tel = f'/img/{dossier}/{nom}-mobile.webp'
     a_bureau = os.path.exists(os.path.join(SITE, bureau[1:]))
@@ -271,17 +271,17 @@ def figure(nom, legende='', dossier='sections', seul=False, alt=''):
     parties = []
     if a_bureau:
         parties.append(
-            f'<div class="shot__desk-wrap"><span class="shot__tag">Desktop</span>'
+            f'<div class="shot__desk-wrap">'
             f'<button type="button" class="shot__zoom" data-zoom="{bureau}" data-alt="{e(alt)}" aria-label="Enlarge the desktop screenshot">'
-            f'<div class="shot__desk"><img src="{bureau}" alt="{e(alt)} — desktop" loading="lazy"></div></button></div>')
+            f'<div class="shot__desk"><div class="shot__chrome" aria-hidden="true"><i></i><i></i><i></i><span>Opaline demo store</span></div>'
+            f'<div class="shot__view"><img src="{bureau}" alt="{e(alt)} — desktop" loading="lazy"></div></div></button></div>')
     if a_tel:
         parties.append(
-            f'<div class="shot__phone-wrap"><span class="shot__tag">Mobile</span>'
+            f'<div class="shot__phone-wrap">'
             f'<button type="button" class="shot__zoom" data-zoom="{tel}" data-alt="{e(alt)}" aria-label="Enlarge the mobile screenshot">'
             f'<div class="shot__phone"><img src="{tel}" alt="{e(alt)} — mobile" loading="lazy"></div></button></div>')
-    simple = ' shot__stage--single' if len(parties) == 1 else ''
     cap = f'<figcaption>{legende}</figcaption>' if legende else ''
-    return f'<figure class="shot"><div class="shot__stage glass{simple}">{"".join(parties)}</div>{cap}</figure>'
+    return f'<figure class="shot"><div class="shot__stage glass">{"".join(parties)}</div>{cap}</figure>'
 
 
 def image(chemin, alt, legende=''):
@@ -336,11 +336,12 @@ def barre_laterale(actuel):
             if not vu_sections:
                 out.append('<div class="sidebar__group"><p class="sidebar__title">Sections</p>')
                 vu_sections = True
-            out.append(f'<p class="sidebar__sub">{e(titre[11:])}</p><ul>')
+            ouvert = ' open' if any(u == actuel for _, u in liens) else ''
+            out.append(f'<details{ouvert}><summary>{e(titre[11:])}<small>{len(liens)}</small></summary><ul>')
             for t, u in liens:
                 cur = ' aria-current="page"' if u == actuel else ''
                 out.append(f'<li><a href="{u}"{cur}>{e(t)}</a></li>')
-            out.append('</ul>')
+            out.append('</ul></details>')
             continue
         if vu_sections:
             out.append('</div>')
@@ -383,7 +384,7 @@ def ids_titres(corps):
 ICONE_LOUPE = '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="6.5" stroke="currentColor" stroke-width="1.5"/><path d="M16 16l4.5 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>'
 
 
-def gabarit(*, titre, description, chemin, contenu_html, mise='docs', toc=None, fil=None):
+def gabarit(*, titre, description, chemin, contenu_html, mise='docs', toc=None, fil=None, classe=''):
     """La page entiere : en-tete de verre, contenu, pied de page."""
     plein_titre = f'{titre} — Opaline documentation' if chemin != '/' else 'Opaline — Documentation & support by Zeppelin Studio'
     nav_actif = lambda p: ' aria-current="page"' if (chemin == p or (p != '/' and chemin.startswith(p) and p != '/docs')) else ''
@@ -412,10 +413,13 @@ def gabarit(*, titre, description, chemin, contenu_html, mise='docs', toc=None, 
         '<ul class="search__results" data-search-results></ul></div></div>'
     )
     pied = (
-        '<footer class="site-footer"><div class="site-footer__inner glass">'
-        f'<span>© <span data-year>2026</span> Zeppelin Studio · Opaline {e(VERSION)}</span>'
-        '<nav aria-label="Footer"><a href="/docs">Documentation</a><a href="/docs/faq">FAQ</a>'
-        '<a href="/support">Support</a><a href="mailto:contact.zeppelin.studio@gmail.com">contact.zeppelin.studio@gmail.com</a></nav>'
+        '<footer class="pied"><div class="pied__inner glass">'
+        '<div class="pied__brand"><a class="brand" href="/"><img class="brand__mark" src="/assets/logo.svg" alt="" width="30" height="30"><span class="brand__name">Zeppelin Studio</span></a>'
+        '<p>Opaline is an editorial Shopify theme by Zeppelin Studio: large photography, fine serif headings and liquid glass.</p></div>'
+        '<div><h3>Get started</h3><ul><li><a href="/docs">Introduction</a></li><li><a href="/docs/install">Install Opaline</a></li><li><a href="/docs/theme-editor">Theme editor</a></li><li><a href="/docs/update">Update</a></li></ul></div>'
+        '<div><h3>Guides</h3><ul><li><a href="/docs/guides/product-page">Product page</a></li><li><a href="/docs/guides/quick-view">Quick view</a></li><li><a href="/docs/guides/cinematic-intro">Cinematic intro</a></li><li><a href="/docs/guides/liquid-glass">Liquid glass</a></li></ul></div>'
+        '<div><h3>Help</h3><ul><li><a href="/docs/faq">FAQ</a></li><li><a href="/docs/changelog">What’s new</a></li><li><a href="/support">Contact support</a></li><li><a href="mailto:contact.zeppelin.studio@gmail.com">Email us</a></li></ul></div>'
+        f'<div class="pied__bas"><span>© <span data-year>2026</span> Zeppelin Studio</span><span>Opaline {e(VERSION)} · Built for Shopify Online Store 2.0</span></div>'
         '</div></footer>'
     )
     if mise == 'docs':
@@ -445,7 +449,7 @@ def gabarit(*, titre, description, chemin, contenu_html, mise='docs', toc=None, 
         '<link rel="stylesheet" href="/fonts/fonts.css">'
         '<link rel="stylesheet" href="/assets/site.css">'
         '<script src="/assets/site.js" defer></script>'
-        f'</head><body>{entete}{corps}{pied}{recherche}</body></html>'
+        f'</head><body class="{classe}">{entete}{corps}{pied}{recherche}</body></html>'
     )
 
 
@@ -476,7 +480,8 @@ def publie(chemin, titre, description, corps_html, categorie, mise='docs', avec_
     if mise == 'docs':
         corps_html += pagination(chemin)
     page = gabarit(titre=titre, description=description, chemin=chemin, contenu_html=corps_html,
-                   mise=mise, toc=toc if (avec_toc and len(toc) > 2) else None)
+                   mise=mise, toc=toc if (avec_toc and len(toc) > 2) else None,
+                   classe='is-home' if chemin == '/' else '')
     texte = re.sub(r'\s+', ' ', html.unescape(re.sub(r'<[^>]+>', ' ', corps_html)))
     PAGES.append((chemin, page, titre, categorie, texte, ' · '.join(t for _, _, t in toc)))
 
@@ -504,6 +509,16 @@ def page_section(h, sl, nom, categorie, prec_suiv=None):
     s = SCHEMAS[h]
     desc = contenu.DESCRIPTIONS.get(h, '')
     corps = [entete_page(nom, desc, [('Docs', '/docs'), ('Sections', None), (categorie, None)], categorie)]
+    n_reg = len([x for x in s.get('settings', []) if x.get('id')])
+    blocs_types = [b for b in s.get('blocks', []) if b.get('type') != '@app']
+    n_blocs = sum(len([x for x in b.get('settings', []) if x.get('id')]) for b in blocs_types)
+    coup = [f'<span><b>{n_reg}</b> section settings</span>']
+    if blocs_types:
+        coup.append(f'<span><b>{len(blocs_types)}</b> block type{"s" if len(blocs_types) > 1 else ""} · {n_blocs} settings</span>')
+    if any(b.get('type') == '@app' for b in s.get('blocks', [])):
+        coup.append('<span>Accepts <b>app blocks</b></span>')
+    coup.append(f'<span>{e(disponibilite(h, s).rstrip("."))}</span>')
+    corps.append(f'<div class="glance">{"".join(coup)}</div>')
     corps.append(figure(h, alt=f'The {nom} section on the Opaline demo store'))
     corps.append('<div class="prose">')
 
@@ -614,6 +629,10 @@ def images():
         largeur = 1440 if nom.endswith('-desktop') or dossier == 'guides' else 780
         if im.width > largeur:
             im = im.resize((largeur, round(im.height * largeur / im.width)), Image.LANCZOS)
+        # Une section tres haute est rognee : la capture montre son debut.
+        plafond = 1700 if largeur == 1440 else 1600
+        if im.height > plafond:
+            im = im.crop((0, 0, im.width, plafond))
         im.save(dest, 'WEBP', quality=80, method=6)
         n += 1
     return n
