@@ -1395,9 +1395,9 @@ table.simple td:first-child {
   overflow: hidden;
   color: #f6f5f2;
   background:
-    radial-gradient(50% 60% at 88% 8%, rgba(88, 116, 214, 0.38), transparent 62%),
-    radial-gradient(45% 55% at 6% 96%, rgba(150, 104, 214, 0.26), transparent 62%),
-    linear-gradient(180deg, #0b1124, #0d1428);
+    radial-gradient(50% 60% at 88% 8%, rgba(34, 58, 146, 0.38), transparent 62%),
+    radial-gradient(45% 55% at 6% 96%, rgba(52, 46, 128, 0.26), transparent 62%),
+    linear-gradient(180deg, #040817, #060c1f);
   isolation: isolate;
 }
 .cine__bg {
@@ -1789,9 +1789,9 @@ table.simple td:first-child {
   min-height: 44rem;
   border-radius: 3.2rem;
   background:
-    radial-gradient(60% 80% at 85% 20%, rgba(150, 104, 214, 0.45), transparent 62%),
-    radial-gradient(60% 80% at 70% 100%, rgba(52, 146, 186, 0.4), transparent 62%),
-    linear-gradient(135deg, #1a2448 0%, #2b3a78 55%, #6d7fc4 100%);
+    radial-gradient(60% 80% at 85% 20%, rgba(52, 46, 128, 0.5), transparent 62%),
+    radial-gradient(60% 80% at 70% 100%, rgba(34, 58, 146, 0.45), transparent 62%),
+    linear-gradient(135deg, #040817 0%, #0a1230 55%, #15225a 100%);
   isolation: isolate;
 }
 .appel__panel {
@@ -2061,14 +2061,14 @@ table.simple td:first-child {
 .quete .cine__ribbon {
   overflow: hidden;
 }
-/* Fond en degrade : bleu nuit traverse de lueurs froides, qui derivent
-   lentement. */
+/* Fond en degrade : bleu marine profond traverse de lueurs froides, qui
+   derivent lentement. */
 .quete .cine__bg {
   background:
-    radial-gradient(55% 65% at 18% 24%, rgba(88, 116, 214, 0.55), transparent 62%),
-    radial-gradient(45% 55% at 84% 16%, rgba(150, 104, 214, 0.4), transparent 64%),
-    radial-gradient(70% 60% at 66% 100%, rgba(52, 146, 186, 0.34), transparent 62%),
-    linear-gradient(160deg, #0a1022 0%, #121b3a 52%, #090e1d 100%);
+    radial-gradient(55% 65% at 18% 24%, rgba(34, 58, 146, 0.5), transparent 62%),
+    radial-gradient(45% 55% at 84% 16%, rgba(52, 46, 128, 0.36), transparent 64%),
+    radial-gradient(70% 60% at 66% 100%, rgba(18, 62, 112, 0.32), transparent 62%),
+    linear-gradient(160deg, #040817 0%, #0a1230 52%, #03060f 100%);
   background-size: 140% 140%, 140% 140%, 140% 140%, 100% 100%;
   animation: derive 28s ease-in-out infinite alternate;
 }
