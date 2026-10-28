@@ -460,7 +460,7 @@ def _(p):
     p.appel(3, W / 2 + 130, 602, W / 2 + 80, 602)
 
 
-@section('lf-drag-rail', 'Heading', 'Filter tabs', 'Cards in a rail you can drag', 'Glass cursor that invites dragging')
+@section('lf-drag-rail', 'Heading', 'Filter tabs', 'Cards in a rail you can drag', 'Glass cursor that invites dragging, can be turned off')
 def _(p):
     p.mot(60, 110, 'Pieces designed', 46)
     p.mot(60, 162, 'for every day.', 46)
