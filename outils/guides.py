@@ -36,8 +36,7 @@ def _typo_avant(O):
 
 def _cartes_avant(O):
     return (
-        O['figure']('card-actions', 'A product card on hover: the quick view and quick add buttons in liquid glass, top right.', dossier='guides', seul=True,
-                    alt='Product card with quick view and quick add buttons')
+        O['planche']('guide-card-actions', 'A product card on hover: the quick view and quick add buttons in liquid glass, top right.')
         + '<p>Both buttons appear on every product card of the store: collection grids, featured collections, the scrolling product row, recommendations and search results. '
           'See the full guide: <a href="/docs/guides/quick-view">Quick view &amp; quick add</a>.</p>'
     )
@@ -94,8 +93,11 @@ def schemas_couleurs(O, reglage):
 
 # ── Pages ─────────────────────────────────────────────────────────────
 
+POPULAIRES = [('Quick view', 'quick view'), ('Color swatches', 'swatches'), ('Mega menu', 'mega menu'), ('Cinematic intro', 'cinematic intro'), ('Product gallery', 'gallery'), ('Translations', 'languages'), ('Age verifier', 'age')]
+
+
 def pages(O, SECTIONS_DOC, GROUPES, slug):
-    e, note, etapes, figure, image = O['e'], O['note'], O['etapes'], O['figure'], O['image']
+    e, note, etapes, planche = O['e'], O['note'], O['etapes'], O['planche']
     v = O['version']
     P = []
 
@@ -116,7 +118,6 @@ def pages(O, SECTIONS_DOC, GROUPES, slug):
                 f'<span class="card__go">Read →</span></a>')
 
     nb_sections = len(SECTIONS_DOC)
-    vign = lambda h: f'/img/sections/{h}-desktop.webp'
 
     # ── Accueil ──
     import contenu as C
@@ -139,21 +140,36 @@ def pages(O, SECTIONS_DOC, GROUPES, slug):
         f'{vignette(h, n)}'
         f'<span class="rail__cat">{e(cat)}</span><span class="rail__name">{e(n)}</span></a>'
         for h, sl, n, cat in SECTIONS_DOC)
+    pastilles = ''.join(f'<button type="button" data-requete="{q}">{e(t)}</button>' for t, q in POPULAIRES)
+    icone = lambda d: f'<svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="{d}" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+    sujets = ''.join(
+        f'<a class="sujet glass" href="{u}">{icone(d)}<span class="sujet__titre">{e(t)}</span><span class="sujet__texte">{e(x)}</span><span class="sujet__plus">{e(c)}</span></a>'
+        for u, d, t, x, c in (
+            ('/docs/install', 'M16 5v15m-6-6 6 6 6-6M7 25h18', 'Get started', 'Install Opaline, use the theme editor, update and go live.', '5 pages'),
+            ('/docs/sections/header', 'M6 6h8v8H6zM18 6h8v8h-8zM6 18h8v8H6zM18 18h8v8h-8z', 'Sections', 'Every section, drawn and explained with all its settings.', f'{nb_sections} sections'),
+            ('/docs/guides/product-page', 'M7 6h13l5 5v15H7zM20 6v5h5M11 16h10M11 20h7', 'Guides', 'Step-by-step guides for the features that make Opaline.', '10 guides'),
+            ('/docs/settings/logo', 'M6 10h12M22 10h4M6 22h4M14 22h12M20 7v6M12 19v6', 'Theme settings', 'Logo, colors, typography, layout, cards and motion.', f'{len(GROUPES)} groups'),
+            ('/docs/faq', 'M16 27a11 11 0 1 0-11-11M12.5 12.5a3.5 3.5 0 1 1 5 3.2c-1 .5-1.5 1.2-1.5 2.3M16 22v.5', 'FAQ', 'Short answers to the questions merchants ask most.', 'Answers'),
+            ('/support', 'M6 8h20v13H14l-6 5v-5H6z', 'Support', 'Write to the studio: an answer within one to two business days.', 'Contact'),
+        ))
     accueil = f'''
-<section class="cine">
+<section class="cine quete">
   <div class="cine__bg"><img src="/img/home/couvercle.webp" alt="" width="2000" height="948" fetchpriority="high"></div>
   <div class="cine__veil"></div>
-  <div class="cine__inner">
-    <div class="cine__copy">
-      <p class="eyebrow eyebrow--light">Opaline · Shopify theme · Version {e(v)}</p>
-      <h1 class="cine__title">Every detail,<br><em>documented.</em></h1>
-      <p class="cine__lead">Install, set up and shape your store with Opaline. Every section and every setting, explained step by step, with a diagram of each section and the demo store to compare.</p>
-      <button type="button" class="cine__search glass" data-search-open>{loupe}<span>Search {nb_sections} sections, every setting and guide</span><kbd>⌘K</kbd></button>
-      <div class="cine__actions">
-        <a class="pill pill--light" href="/docs">Start with the documentation</a>
-        <a class="pill pill--ghost-light" href="/support">Contact support</a>
-      </div>
+  <div class="quete__inner">
+    <p class="eyebrow eyebrow--light">Opaline · Shopify theme · Version {e(v)}</p>
+    <h1 class="cine__title">Every detail, <em>documented.</em></h1>
+    <div class="quete__boite" data-quete>
+      <label class="quete__champ">
+        {loupe}
+        <span class="visually-hidden">Search the documentation</span>
+        <input type="search" placeholder="Search a section, a setting or a guide" autocomplete="off" spellcheck="false"
+          role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="quete-resultats">
+        <kbd>⌘K</kbd>
+      </label>
+      <ul class="quete__resultats" id="quete-resultats" role="listbox" aria-label="Results" hidden></ul>
     </div>
+    <div class="quete__pop"><span>Popular</span>{pastilles}</div>
   </div>
   <div class="cine__ribbon" aria-hidden="true"><ul>{ruban}</ul></div>
 </section>
@@ -161,14 +177,10 @@ def pages(O, SECTIONS_DOC, GROUPES, slug):
 <section class="band">
   <div class="wrap">
     <div class="band__head">
-      <div><p class="eyebrow">Get started</p><h2>From install to launch, <em>in three steps.</em></h2></div>
+      <div><p class="eyebrow">Browse</p><h2>Or start <em>from a topic.</em></h2></div>
       <p class="band__intro">Opaline is set up entirely in the Shopify theme editor. No code, and every change previews before it goes live.</p>
     </div>
-    <ol class="trio">
-      <li class="glass"><span class="trio__n">01</span><h3>Install</h3><p>Add Opaline from the Theme Store and try it on your own products before you buy.</p><a class="lien-fleche" href="/docs/install">Install Opaline</a></li>
-      <li class="glass"><span class="trio__n">02</span><h3>Shape</h3><p>Set your colors and fonts, then compose each page from {nb_sections} sections and their blocks.</p><a class="lien-fleche" href="/docs/theme-editor">Use the theme editor</a></li>
-      <li class="glass"><span class="trio__n">03</span><h3>Launch</h3><p>Check your pages on desktop and mobile with our checklist, then publish.</p><a class="lien-fleche" href="/docs/launch-checklist">Before you go live</a></li>
-    </ol>
+    <div class="sujets">{sujets}</div>
   </div>
 </section>
 
@@ -202,12 +214,6 @@ def pages(O, SECTIONS_DOC, GROUPES, slug):
 
 <section class="band">
   <div class="wrap">
-    <div class="chiffres">
-      <div><b>{nb_sections}</b><span>sections, each documented with its settings</span></div>
-      <div><b>{len(GROUPES)}</b><span>groups of theme settings</span></div>
-      <div><b>5</b><span>storefront languages</span></div>
-      <div><b>1–2</b><span>business days to answer support</span></div>
-    </div>
     <div class="appel">
       <div class="appel__bg"><img src="/img/home/macro.webp" alt="" loading="lazy"></div>
       <div class="appel__panel glass">
@@ -339,7 +345,7 @@ def pages(O, SECTIONS_DOC, GROUPES, slug):
 
     # ── Guide : fiche produit ──
     corps = tete('Product page', 'Set up the gallery, the buying controls and the information blocks of your product pages.', [('Docs', '/docs'), ('Guides', None)], 'Guide')
-    corps += figure('lf-product', 'The product page of the demo store, with the stacked gallery and the information column.', alt='Opaline product page')
+    corps += planche('lf-product', 'The product page: the gallery on one side, the information column on the other.')
     corps += '<div class="prose">'
     corps += '<h2>Open the product page settings</h2>'
     corps += etapes(['In the theme editor, choose <strong>Products &gt; Default product</strong> in the page selector.', 'Click <strong>Product page</strong> in the sidebar.'])
@@ -349,11 +355,11 @@ def pages(O, SECTIONS_DOC, GROUPES, slug):
               '<tr><td>Stacked</td><td>Every image one below the other, scrolling with the page, while the information column stays in view.</td><td><strong>Media aspect ratio</strong> (Original by default), <strong>Show margins around media</strong> (on by default), <strong>Show thumbnails</strong> (off by default).</td></tr>'
               '<tr><td>Carousel</td><td>One image at a time in a shared frame, with arrows and swipe.</td><td><strong>Media aspect ratio</strong> (Portrait 5:6 by default), <strong>Show margins around media</strong> (off by default), <strong>Show thumbnails</strong> (on by default).</td></tr>'
               '</tbody></table></div>')
-    corps += figure('product-carousel', 'The carousel layout with thumbnails: a glass strip of thumbnails and a progress bar set over the image.', dossier='guides', alt='Product page carousel with thumbnails')
+    corps += planche('guide-product-carousel', 'The carousel layout with thumbnails: a glass strip of thumbnails and a progress bar set over the image.')
     corps += ('<ul><li><strong>Media aspect ratio</strong>: <strong>Original</strong> keeps each photo’s own proportions. The other ratios — portrait 5:6, 4:5, 3:4, square, landscape 16:9 — give every image the same frame and crop it to fill.</li>'
               '<li><strong>Show margins around media</strong>: a white border with rounded corners around the images. Off, the images run edge to edge with a thin line between them.</li>'
               '<li><strong>Show thumbnails</strong>: a small strip of thumbnails in liquid glass, with a progress bar. In the stacked layout it stays at the bottom of the screen while the gallery scrolls; clicking a thumbnail scrolls the page to that image.</li></ul>')
-    corps += figure('product-thumbs', 'The stacked layout with thumbnails turned on.', dossier='guides', seul=True, alt='Stacked product gallery with thumbnails')
+    corps += planche('guide-product-thumbs', 'The stacked layout with thumbnails turned on.')
     corps += note('Videos, YouTube and Vimeo videos and 3D models can sit in the gallery. Only one plays at a time: starting one pauses the others.')
     corps += '<h2>Variants and colors</h2>'
     corps += '<p>Under <strong>Variants</strong>:</p><ul><li><strong>Color swatches for variants</strong> shows round or square color chips for any option named Color, Colour, Couleur or Teinte. Choose the shape with <strong>Swatch shape</strong>.</li><li><strong>Hide photos of non-selected colors</strong> shows only the photos of the chosen color.</li></ul>'
@@ -383,7 +389,7 @@ def pages(O, SECTIONS_DOC, GROUPES, slug):
 
     # ── Guide : apercu rapide ──
     corps = tete('Quick view & quick add', 'Let visitors look at a product and add it to their cart from any product card, without leaving the page.', [('Docs', '/docs'), ('Guides', None)], 'Guide')
-    corps += figure('card-actions', 'On hover, two glass buttons appear at the top right of the card. Hovering one reveals its label.', dossier='guides', seul=True, alt='Product card with quick view and quick add buttons')
+    corps += planche('guide-card-actions', 'On hover, two glass buttons appear at the top right of the card. Hovering one reveals its label.')
     corps += '<div class="prose">'
     corps += '<h2>Turn them on or off</h2>'
     corps += etapes(['In the theme editor, open <strong>Theme settings &gt; Product cards</strong>.', 'Use <strong>Quick view</strong> and <strong>Quick add</strong>. Both are on by default.'])
@@ -396,7 +402,7 @@ def pages(O, SECTIONS_DOC, GROUPES, slug):
               '<tr><td>is sold out</td><td>No + button is shown.</td></tr>'
               '</tbody></table></div>')
     corps += '<h2>The quick view panel</h2>'
-    corps += figure('quick-view', 'The quick view panel slides in from the right on desktop and rises from the bottom on mobile.', dossier='guides', alt='Quick view panel in liquid glass')
+    corps += planche('guide-quick-view', 'The quick view panel slides in from the right on desktop and rises from the bottom on mobile.')
     corps += ('<p>The panel is a pane of liquid glass with the page blurred behind it. It shows a summary of the product page:</p>'
               '<ul><li>a strip of square photos to swipe;</li><li>the title, price and tax mention, and the start of the description;</li>'
               '<li>the same color swatches, quantity selector, subscription options and Add to cart button as the product page;</li>'
@@ -408,7 +414,7 @@ def pages(O, SECTIONS_DOC, GROUPES, slug):
 
     # ── Guide : couleurs ──
     corps = tete('Color variants & swatches', 'Show colors as swatches, and make the gallery follow the color a visitor chooses.', [('Docs', '/docs'), ('Guides', None)], 'Guide')
-    corps += O['planche']('guide-swatches', 'Color swatches on the product page: the selected color is ringed and named next to the option.')
+    corps += planche('guide-swatches', 'Color swatches on the product page: the selected color is ringed and named next to the option.')
     corps += '<div class="prose">'
     corps += '<h2>Show swatches</h2>'
     corps += etapes([
@@ -434,7 +440,7 @@ def pages(O, SECTIONS_DOC, GROUPES, slug):
 
     # ── Guide : navigation ──
     corps = tete('Navigation & mega menu', 'Choose how your main menu opens, and build a mega menu from your menu’s sub-levels.', [('Docs', '/docs'), ('Guides', None)], 'Guide')
-    corps += figure('mega-menu', 'The mega menu: a glass panel under the header, laid out from the categories nested in your menu.', dossier='guides', seul=True, alt='Opaline mega menu')
+    corps += planche('guide-mega-menu', 'The mega menu: a glass panel under the header, laid out from the categories nested in your menu.')
     corps += '<div class="prose">'
     corps += '<h2>Menu types</h2><p>The header shows the menu chosen in its <strong>Menu</strong> setting — your Main menu by default. <strong>Menu type</strong> decides how it opens on desktop:</p>'
     corps += ('<div class="table-wrap glass"><table class="simple"><thead><tr><th>Menu type</th><th>What it does</th></tr></thead><tbody>'
@@ -468,7 +474,7 @@ def pages(O, SECTIONS_DOC, GROUPES, slug):
     debut = next(i for i, x in enumerate(entete) if x.get('type') == 'header' and 'intro' in str(O['trad'](x.get('content'))).lower())
     fin = next((i for i in range(debut + 1, len(entete)) if entete[i].get('type') == 'header'), len(entete))
     corps = tete('Cinematic intro', 'Open your store with a short logo animation: your logo appears over frosted glass, a photograph or a solid color, then gives way to the page.', [('Docs', '/docs'), ('Guides', None)], 'Guide')
-    corps += figure('cinematic-intro', 'The intro over frosted glass: the logo holds for a moment, then the page appears.', dossier='guides', alt='Opaline cinematic intro')
+    corps += planche('guide-cinematic-intro', 'The intro over frosted glass: the logo holds for a moment, then moves into the header.')
     corps += '<div class="prose">'
     corps += '<h2>Turn it on</h2>'
     corps += etapes([
@@ -528,7 +534,7 @@ def pages(O, SECTIONS_DOC, GROUPES, slug):
 
     # ── Guide : verre ──
     corps = tete('Liquid glass', 'Liquid glass is Opaline’s signature: translucent, blurred panels with light edges, laid over photography.', [('Docs', '/docs'), ('Guides', None)], 'Guide')
-    corps += figure('lf-duo', 'The round badge and the media caption of the Duo panel sit on liquid glass.', alt='Liquid glass details in the Duo panel')
+    corps += planche('lf-duo', 'The round button and the captions of the Duo panel sit on liquid glass.')
     corps += '<div class="prose">'
     corps += '<h2>Where you will find it</h2><p>The header on scroll, the mega menu, the quick view panel and the card buttons, the product thumbnails, the promotional popup, the footer panel, and many sections: Colorways, Stacked chapters, Duo panel, Editorial grid, Product mosaic, Closing statement, Statement with images, Testimonials, Timeline and Scrolling text.</p>'
     corps += '<h2>Sections where you can switch it</h2>'

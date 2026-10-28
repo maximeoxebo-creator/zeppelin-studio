@@ -26,7 +26,6 @@ import schemas  # noqa: E402
 RACINE = os.path.dirname(ICI)
 SITE = os.path.join(RACINE, 'site')
 THEME = sys.argv[1] if len(sys.argv) > 1 else os.path.expanduser('~/Documents/la-fonderie-v2')
-CAPTURES = sys.argv[2] if len(sys.argv) > 2 else None
 URL_SITE = 'https://opaline.zeppelin-apps.com'
 
 
@@ -261,76 +260,23 @@ def etapes(liste):
     return '<ol class="steps">' + ''.join(f'<li>{x}</li>' for x in liste) + '</ol>'
 
 
-def taille(rel):
-    """Largeur et hauteur d'une image du site, pour reserver sa place."""
-    from PIL import Image
-    with Image.open(os.path.join(SITE, rel.lstrip('/'))) as im:
-        return im.size
-
-
-def vignette_capture(chemin, alt, telephone=False):
-    l, h = taille(chemin)
-    img = f'<img src="{chemin}" alt="{e(alt)}" width="{l}" height="{h}" loading="lazy">'
-    if telephone:
-        cadre = f'<div class="shot__phone">{img}</div>'
-    else:
-        cadre = f'<div class="shot__desk"><div class="shot__chrome" aria-hidden="true"><i></i><i></i><i></i></div>{img}</div>'
-    quoi = 'mobile' if telephone else 'desktop'
-    return (f'<button type="button" class="shot__zoom" data-zoom="{chemin}" data-alt="{e(alt)}" '
-            f'aria-label="Enlarge the {quoi} screenshot">{cadre}</button>')
-
-
-def figure(nom, legende='', dossier='sections', seul=False, alt='', nue=False):
-    """Capture ordinateur, et telephone a cote, chacune a son format naturel :
-    ni recadrage ni zoom."""
-    bureau = f'/img/{dossier}/{nom}-desktop.webp'
-    tel = f'/img/{dossier}/{nom}-mobile.webp'
-    a_bureau = os.path.exists(os.path.join(SITE, bureau[1:]))
-    a_tel = os.path.exists(os.path.join(SITE, tel[1:])) and not seul
-    if not a_bureau and not a_tel:
+def legende(h):
+    items = schemas.LEGENDES.get(h, [])
+    if not items:
         return ''
-    alt = alt or legende or nom
-    parties = []
-    if a_bureau:
-        parties.append(vignette_capture(bureau, alt + ' — desktop'))
-    if a_tel:
-        parties.append(vignette_capture(tel, alt + ' — mobile', telephone=True))
-    duo = ' shot__stage--duo' if a_bureau and a_tel else ''
-    scene = f'<div class="shot__stage{duo} glass">{"".join(parties)}</div>'
-    if nue:
-        return scene
-    cap = f'<figcaption>{legende}</figcaption>' if legende else ''
-    return f'<figure class="shot">{scene}{cap}</figure>'
-
-
-# Captures sans interet pour illustrer la section : le schema suffit.
-SANS_CAPTURE = {'main-page', 'page', 'lf-divider', 'custom-liquid', 'apps', 'email-signup-banner'}
+    return '<ol class="legende">' + ''.join(f'<li><b>{n}</b><span>{e(t)}</span></li>' for n, t in items) + '</ol>'
 
 
 def anatomie(h, nom):
-    """Schema au trait de la section et sa legende ; la capture de la demo,
-    quand elle apporte quelque chose, dans un second onglet."""
-    if h not in schemas.S:
-        return figure(h, alt=f'The {nom} section on the Opaline demo store', seul=True)
-    planche = (f'<div class="planche glass">{schemas.svg(h, titre=f"Diagram of the {nom} section")}'
-               + '<ol class="legende">'
-               + ''.join(f'<li><b>{n}</b><span>{e(t)}</span></li>' for n, t in schemas.LEGENDES.get(h, []))
-               + '</ol></div>')
-    capture = '' if h in SANS_CAPTURE else figure(h, alt=f'The {nom} section on the Opaline demo store', seul=True, nue=True)
-    if not capture:
-        return f'<figure class="anatomie">{planche}</figure>'
-    return (f'<figure class="anatomie" data-vues>'
-            f'<div class="vue glass" role="tablist" aria-label="Illustration">'
-            f'<button type="button" role="tab" id="vue-{h}-s" aria-selected="true" aria-controls="pan-{h}-s">Diagram</button>'
-            f'<button type="button" role="tab" id="vue-{h}-d" aria-selected="false" aria-controls="pan-{h}-d" tabindex="-1">Demo store</button></div>'
-            f'<div role="tabpanel" id="pan-{h}-s" aria-labelledby="vue-{h}-s">{planche}</div>'
-            f'<div role="tabpanel" id="pan-{h}-d" aria-labelledby="vue-{h}-d" hidden>{capture}</div></figure>')
+    """Schema au trait de la section, et sa legende."""
+    return (f'<figure class="anatomie"><div class="planche glass">{schemas.svg(h, titre=f"Diagram of the {nom} section")}'
+            f'{legende(h)}</div></figure>')
 
 
-def planche(h, legende=''):
-    """Illustration au trait dans un guide."""
-    cap = f'<figcaption>{legende}</figcaption>' if legende else ''
-    return f'<figure class="anatomie"><div class="planche glass">{schemas.svg(h, titre=legende)}</div>{cap}</figure>'
+def planche(h, texte=''):
+    """Schema au trait dans un guide, legende comprise s'il en a une."""
+    cap = f'<figcaption>{texte}</figcaption>' if texte else ''
+    return f'<figure class="anatomie"><div class="planche glass">{schemas.svg(h, titre=texte)}{legende(h)}</div>{cap}</figure>'
 
 
 def ecrire_schemas():
@@ -344,16 +290,7 @@ def ecrire_schemas():
         open(os.path.join(dossier, h + '.svg'), 'w', encoding='utf-8').write(schemas.svg(h, mini=True, encre=encre))
 
 
-def image(chemin, alt, legende=''):
-    if not os.path.exists(os.path.join(SITE, chemin.lstrip('/'))):
-        return ''
-    cap = f'<figcaption>{legende}</figcaption>' if legende else ''
-    return (f'<figure class="shot"><div class="shot__stage shot__stage--single glass">'
-            f'<button type="button" class="shot__zoom" data-zoom="{chemin}" data-alt="{e(alt)}" aria-label="Enlarge the screenshot">'
-            f'<div class="shot__desk"><img src="{chemin}" alt="{e(alt)}" loading="lazy"></div></button></div>{cap}</figure>')
-
-
-OUTILS = {'note': note, 'etapes': etapes, 'figure': figure, 'image': image, 'planche': planche, 'tableau': tableau,
+OUTILS = {'note': note, 'etapes': etapes, 'planche': planche, 'tableau': tableau,
           'schemas': SCHEMAS, 'trad': trad, 'e': e, 'version': VERSION, 'donnees': DONNEES}
 
 
@@ -669,35 +606,6 @@ def page_reglages(g):
 
 # ── Images ────────────────────────────────────────────────────────────
 
-def images():
-    """Convertit les captures PNG en WebP, aux tailles du site."""
-    if not CAPTURES or not os.path.isdir(CAPTURES):
-        return 0
-    from PIL import Image
-    n = 0
-    for f in glob.glob(os.path.join(CAPTURES, '*.png')):
-        nom = os.path.basename(f)[:-4]
-        dossier = 'sections'
-        if nom.startswith('guide-'):
-            dossier = 'guides'
-            nom = nom[6:]
-        dest = os.path.join(SITE, 'img', dossier, nom + '.webp')
-        if os.path.exists(dest) and os.path.getmtime(dest) > os.path.getmtime(f):
-            continue
-        os.makedirs(os.path.dirname(dest), exist_ok=True)
-        im = Image.open(f).convert('RGB')
-        largeur = 1440 if nom.endswith('-desktop') or dossier == 'guides' else 780
-        if im.width > largeur:
-            im = im.resize((largeur, round(im.height * largeur / im.width)), Image.LANCZOS)
-        # Une section tres haute est rognee : la capture montre son debut.
-        plafond = 1700 if largeur == 1440 else 1600
-        if im.height > plafond:
-            im = im.crop((0, 0, im.width, plafond))
-        im.save(dest, 'WEBP', quality=80, method=6)
-        n += 1
-    return n
-
-
 # ── Assemblage ────────────────────────────────────────────────────────
 
 ASSET = re.compile(r'(?<=["\'(])(/(?:assets|fonts|img)/[^"\'()?#\s]+\.(?:css|js|webp|png|jpg|svg))(?=["\')])')
@@ -718,7 +626,6 @@ def versionne(page):
 
 
 def main():
-    n = images()
     ecrire_schemas()
     shutil.copy(os.path.join(RACINE, 'logo.svg'), os.path.join(SITE, 'assets', 'logo.svg'))
 
@@ -747,7 +654,7 @@ def main():
     open(os.path.join(SITE, 'sitemap.xml'), 'w').write(
         f'<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{urls}</urlset>')
     open(os.path.join(SITE, 'robots.txt'), 'w').write(f'User-agent: *\nAllow: /\nSitemap: {URL_SITE}/sitemap.xml\n')
-    print(f'{len(PAGES)} pages, {n} images converties, {len(SECTIONS_DOC)} sections documentees')
+    print(f'{len(PAGES)} pages, {len(schemas.S)} schemas, {len(SECTIONS_DOC)} sections documentees')
 
 
 if __name__ == '__main__':

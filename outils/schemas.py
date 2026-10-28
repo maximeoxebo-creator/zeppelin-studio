@@ -1,8 +1,8 @@
 """Schemas au trait des sections d'Opaline.
 
 Chaque section est dessinee en SVG, comme une planche d'architecte : cadre
-de navigateur, aplats hachures pour les photos, cocotte au trait pour les
-produits, titres en serif, lignes grises pour le texte. Les reperes
+de navigateur, aplats hachures pour les photos, t-shirt au trait pour les
+produits (le visuel d'attente de Shopify), titres en serif, lignes grises pour le texte. Les reperes
 numerotes renvoient a la legende sous le schema.
 
   svg(h)            -> schema complet, reperes compris (insere dans la page)
@@ -92,16 +92,15 @@ class Planche:
             self.rect(x, y, w, h, r, o=o)
 
     def produit(self, x, y, w, h, r=8, echelle=None, o=1.0, cadre=True):
-        """Visuel produit : cadre et cocotte au trait au centre."""
+        """Visuel produit : cadre et t-shirt au trait au centre."""
         if cadre:
             self.rect(x, y, w, h, r, o=0.55 * o)
         s = echelle or min(w, h) / 150
-        self.cocotte(x + w / 2, y + h / 2 + 6 * s, s, o=o)
+        self.teeshirt(x + w / 2, y + h / 2 + 2 * s, s, o=o)
 
-    def cocotte(self, cx, cy, s=1.0, o=1.0):
-        d = ('M-46,-6 C-40,-26 40,-26 46,-6 M-52,-6 L52,-6 M-7,-21 L-10,-30 L10,-30 L7,-21 '
-             'M-45,-6 L-43,22 C-42,31 -35,35 -26,35 L26,35 C35,35 42,31 43,22 L45,-6 '
-             'M-44,2 L-56,2 L-56,11 L-44,11 M44,2 L56,2 L56,11 L44,11')
+    def teeshirt(self, cx, cy, s=1.0, o=1.0):
+        d = ('M-14,-38 C-8,-31 8,-31 14,-38 L38,-30 L56,-6 L40,4 L34,-4 L34,40 L-34,40 L-34,-4 L-40,4 L-56,-6 L-38,-30 Z '
+             'M-14,-38 C-10,-26 10,-26 14,-38 M50,-14 L36,-4 M-50,-14 L-36,-4')
         self.out.append(f'<path d="{d}" transform="translate({cx} {cy}) scale({s})" '
                         f'stroke="{self.encre}" stroke-width="{2 * self.k / s:.2f}" stroke-opacity="{o}" fill="none" '
                         f'stroke-linecap="round" stroke-linejoin="round"/>')
@@ -200,7 +199,7 @@ def _(p):
     p.chemin(f'M{W - 144},74 C{W - 144},63 {W - 120},63 {W - 120},74')
     p.chemin(f'M{W - 86},52 L{W - 64},52 L{W - 61},76 L{W - 89},76 Z M{W - 81},52 C{W - 81},43 {W - 69},43 {W - 69},52')
     p.surtitre(70, 420)
-    p.mot(70, 500, 'Made to cook.', 64)
+    p.mot(70, 500, 'New season', 64)
     p.texte(70, 548, 380, 2)
     p.bouton(70, 590, 170, 44)
     p.appel(1, W / 2, 160, W / 2, 84)
@@ -235,7 +234,7 @@ def _(p):
         x = 24 + (W - 48) / 4 * i
         if i:
             p.ligne(x, 236, x, 326, o=0.35, sw=1.6)
-        p.mot(x + (W - 48) / 8, 272, ('Free shipping', 'Made in France', 'Warranty', 'Repairs')[i], 22, 'middle')
+        p.mot(x + (W - 48) / 8, 272, ('Free shipping', 'Easy returns', 'Warranty', 'Secure payment')[i], 22, 'middle')
         p.ligne(x + 80, 298, x + (W - 48) / 4 - 80, 298, o=0.4, sw=2.2)
     p.ligne(60, 346, W - 60, 346, o=0.3, sw=1.4)
     p.mot(70, 410, 'Logo', 30)
@@ -304,7 +303,7 @@ def _(p):
     fond_photo(p)
     p.entete(0, 80, o=0.55, transparent=True)
     p.surtitre(60, 360)
-    p.mot(60, 450, 'Made to cook. Built to last.', 68)
+    p.mot(60, 450, 'Designed to last.', 68)
     p.texte(60, 494, 420, 2)
     p.bouton(60, 556, 180, 46)
     p.lien(268, 568, 120)
@@ -339,7 +338,7 @@ def _(p):
     p.ligne(W / 2 - 6, 0, W / 2 - 6, H, o=0.5, sw=1.6)
     p.ligne(W / 2 + 6, 0, W / 2 + 6, H, o=0.5, sw=1.6)
     p.mot(60, 140, 'The first', 54)
-    p.mot(60, 200, 'range', 54, italique=True)
+    p.mot(60, 200, 'collection', 54, italique=True)
     p.texte(60, 240, 300, 2)
     p.lien(60, 560, 140)
     p.mot(W / 2 + 60, 560, 'The second', 44)
@@ -356,9 +355,9 @@ def _(p):
     p.photo(W / 2, 0, W / 2, H, 0, o=0)
     p.ligne(W / 2, 0, W / 2, H, o=0.5, sw=1.6)
     p.mot(140, 230, '“', 160, o=0.2)
-    p.mot(W / 4, 300, 'Gentle heat', 54, 'middle', italique=True)
-    p.mot(W / 4, 360, 'makes great', 54, 'middle', italique=True)
-    p.mot(W / 4, 420, 'recipes.', 54, 'middle', italique=True)
+    p.mot(W / 4, 300, 'Made with care,', 54, 'middle', italique=True)
+    p.mot(W / 4, 360, 'meant to be', 54, 'middle', italique=True)
+    p.mot(W / 4, 420, 'kept.', 54, 'middle', italique=True)
     p.ligne(W / 4 - 50, 480, W / 4 + 50, 480, o=0.6, sw=2)
     p.ligne(W / 4 - 70, 504, W / 4 + 70, 504, o=0.35, sw=2)
     p.appel(1, 60, 360, 130, 350)
@@ -371,8 +370,8 @@ def _(p):
 def _(p):
     p.photo(140, 60, 200, 240, 12)
     p.photo(760, 40, 300, 220, 12)
-    p.mot(W / 2, 330, 'GENTLE', 190, 'middle', espace=-0.03)
-    p.mot(W / 2, 520, 'COOKING', 190, 'middle', espace=-0.03)
+    p.mot(W / 2, 330, 'NEW', 190, 'middle', espace=-0.03)
+    p.mot(W / 2, 520, 'SEASON', 190, 'middle', espace=-0.03)
     p.photo(600, 380, 200, 260, 12)
     p.verre(620, 590, 160, 40, 20)
     p.ligne(650, 610, 750, 610, o=0.5, sw=2)
@@ -399,18 +398,12 @@ def _(p):
     p.appel(3, 100, 600, 150, 550)
 
 
-def fiche_produit(p, vignettes=True):
-    p.rect(40, 40, 520, 520, 14, o=0.5)
-    p.produit(40, 40, 520, 520, cadre=False, echelle=2.6)
-    if vignettes:
-        p.verre(150, 580, 300, 64, 16)
-        for i in range(5):
-            p.rect(164 + i * 56, 592, 44, 40, 8, o=1 if i == 0 else 0.5)
-    x = 640
+def infos_produit(p, x=640):
+    """Colonne d'informations d'une fiche produit."""
     p.surtitre(x, 70)
     p.mot(x, 140, 'Product title', 48)
     p.ligne(x, 180, x + 440, 180, o=0.3, sw=1.4)
-    p.mot(x, 236, '$109.90', 36)
+    p.mot(x, 236, '$49.00', 36)
     p.ligne(x, 262, x + 90, 262, o=0.35, sw=2)
     p.ligne(x, 306, x + 70, 306, o=0.6, sw=2)
     p.pastille(x + 14, 340, 14, plein=True)
@@ -419,6 +412,16 @@ def fiche_produit(p, vignettes=True):
     p.bouton(x + 136, 392, 304, 48, plein=True)
     p.bouton(x, 456, 440, 46)
     return x
+
+
+def fiche_produit(p, vignettes=True):
+    p.rect(40, 40, 520, 520, 14, o=0.5)
+    p.produit(40, 40, 520, 520, cadre=False, echelle=2.6)
+    if vignettes:
+        p.verre(150, 580, 300, 64, 16)
+        for i in range(5):
+            p.rect(164 + i * 56, 592, 44, 40, 8, o=1 if i == 0 else 0.5)
+    return infos_produit(p)
 
 
 @section('featured-product', 'Product media', 'Title and price', 'Variant picker', 'Quantity and buy buttons')
@@ -457,7 +460,7 @@ def _(p):
 @section('lf-drag-rail', 'Heading', 'Filter tabs', 'Cards in a rail you can drag', 'Glass cursor that invites dragging')
 def _(p):
     p.mot(60, 110, 'Pieces designed', 46)
-    p.mot(60, 162, 'for every kitchen.', 46)
+    p.mot(60, 162, 'for every day.', 46)
     x = 600
     for i, lg in enumerate((120, 96, 96, 110)):
         p.rect(x, 128, lg, 38, 19, fill=p.encre if i == 0 else None)
@@ -521,23 +524,19 @@ def _(p):
         p.rect(700 + i * 130, 64, 118, 36, 18, fill=p.encre if i == 0 else None)
     for i in range(3):
         p.rect(700 + i * 76, 140, 64, 30, 15, fill=p.encre if i == 0 else None)
-    p.rond(200, 430, 110, sw=1.8)
-    p.rond(200, 430, 80, o=0.5, sw=1.4)
-    p.rond(200, 430, 46, o=0.5, sw=1.4)
-    p.cote(90, 296, 310, 296, '30 cm')
-    p.cote(60, 320, 60, 540, '22 cm')
-    p.cocotte(480, 420, 2.1)
-    p.cote(386, 520, 574, 520, '20 cm')
-    p.cote(640, 340, 640, 495, '13 cm')
+    p.teeshirt(250, 440, 2.6)
+    p.cote(162, 572, 338, 572, 'width 52 cm')
+    p.cote(440, 341, 440, 544, 'length 70 cm')
+    p.cote(349, 300, 396, 300, 'sleeve')
     for i in range(4):
         y = 300 + i * 70
         p.ligne(720, y, 1120, y, o=0.3, sw=1.4)
         p.ligne(720, y + 30, 800, y + 30, o=0.4, sw=2)
-        p.mot(1120, y + 40, ('22 cm', '3.3 L', '4.1 kg', '3 coats')[i], 26, 'end')
+        p.mot(1120, y + 40, ('S \u00b7 M \u00b7 L', '180 g/m\u00b2', '100% cotton', 'Regular fit')[i], 26, 'end')
     p.appel(1, 430, 110, 390, 110)
     p.appel(2, 1120, 40, 1090, 64)
     p.appel(3, 960, 155, 930, 155)
-    p.appel(4, 330, 620, 300, 560)
+    p.appel(4, 120, 620, 162, 572)
     p.appel(5, 1120, 620, 1090, 590)
 
 
@@ -552,7 +551,7 @@ def _(p):
 @section('lf-index-list', 'Each line: large type and a link', 'Side note', 'Preview image on hover')
 def _(p):
     p.ligne(40, 60, W - 40, 60, o=0.3, sw=1.4)
-    for i, m in enumerate(('DUTCH OVENS', 'FONDUE SETS', 'TAGINES')):
+    for i, m in enumerate(('NEW IN', 'ESSENTIALS', 'ACCESSORIES')):
         y = 60 + (i + 1) * 170
         p.mot(40, y - 64, '0' + str(i + 1), 16, famille=SANS, poids=400, o=0.6)
         p.mot(90, y - 50, m, 92, o=1 if i != 1 else 0.35)
@@ -571,7 +570,7 @@ def _(p):
     p.mot(60, 270, 'timeless shapes and a design', 66, o=0.45)
     p.mot(60, 350, 'made to last.', 66, italique=True, o=0.45)
     p.lien(60, 410, 120)
-    for i, t in enumerate(('1890', '300°', '98%', '30 years')):
+    for i, t in enumerate(('2010', '100%', '48 h', '5 years')):
         x = 60 + i * 200
         p.ligne(x, 500, x + 150, 500, o=0.5, sw=1.6)
         p.mot(x, 556, t, 40)
@@ -586,13 +585,13 @@ def _(p):
 def _(p):
     p.surtitre(W / 2, 170, 110, centre=True)
     p.mot(80, 300, 'Every detail,', 64)
-    p.cocotte(500, 284, 1.0)
-    p.mot(580, 300, 'reveals cast iron’s', 64)
+    p.teeshirt(500, 280, 0.95)
+    p.mot(580, 300, 'reveals the craft', 64)
     p.rond(220, 404, 36, o=0.6)
-    p.cocotte(220, 408, 0.42)
+    p.teeshirt(220, 405, 0.42)
     p.mot(290, 424, 'natural', 64)
     p.rond(560, 404, 36, o=0.6)
-    p.cocotte(560, 408, 0.42)
+    p.teeshirt(560, 405, 0.42)
     p.mot(630, 424, 'elegance', 64, italique=True)
     p.verre(430, 318, 150, 40, 20)
     p.ligne(460, 338, 550, 338, o=0.5, sw=2)
@@ -604,8 +603,8 @@ def _(p):
 @section('lf-sticky-story', 'Intro that stays in place', 'Chapter list', 'Images that scroll past')
 def _(p):
     p.surtitre(60, 80)
-    p.mot(60, 150, 'The secrets of', 48)
-    p.mot(60, 206, 'a good fondue', 48)
+    p.mot(60, 150, 'The making of', 48)
+    p.mot(60, 206, 'a timeless piece', 48)
     p.texte(60, 244, 400, 2)
     for i in range(3):
         y = 330 + i * 72
@@ -629,7 +628,7 @@ def _(p):
     p.out.append(f'<rect x="60" y="40" width="{W - 120}" height="600" rx="20" fill="#ffffff" fill-opacity="{0.08 if p.clair else 1}" stroke="none"/>')
     p.photo(60, 40, W - 120, 600, 20)
     p.surtitre(110, 400)
-    p.mot(110, 470, 'The art of slow cooking', 56)
+    p.mot(110, 470, 'The art of slow making', 56)
     p.bouton(110, 510, 160, 44)
     p.lien(300, 522, 120)
     p.appel(1, 1020, 100, 980, 160)
@@ -649,7 +648,7 @@ def _(p):
     p.photo(640, 40, 480, 470, 16)
     p.ligne(60, 590, W - 60, 590, o=0.4, sw=1.4)
     p.ligne(60, 590, 520, 590, o=1, sw=2.6)
-    for i, a in enumerate(('1890', '1934', '1972', '2024')):
+    for i, a in enumerate(('2010', '2015', '2020', '2025')):
         x = 60 + i * (W - 120) / 3
         p.pastille(x, 590, 6, plein=i < 2)
         p.mot(x, 626, a, 16, 'middle', famille=SANS, poids=400, o=0.7)
@@ -695,10 +694,10 @@ def _(p):
 def _(p):
     p.ligne(0, 230, W, 230, o=0.3, sw=1.4)
     p.ligne(0, 420, W, 420, o=0.3, sw=1.4)
-    p.mot(-60, 352, 'Cast in sand', 84)
+    p.mot(-60, 352, 'Made to last', 84)
     p.chemin('M478,300 L486,320 L506,328 L486,336 L478,356 L470,336 L450,328 L470,320 Z', o=0.8)
-    p.cocotte(600, 330, 0.9)
-    p.mot(690, 352, 'Enamelled by hand', 84)
+    p.teeshirt(600, 326, 0.9)
+    p.mot(690, 352, 'Designed with care', 84)
     p.chemin('M200,500 L960,500 M940,488 L960,500 L940,512', o=0.6)
     p.appel(1, 300, 190, 260, 290)
     p.appel(2, 600, 190, 600, 290)
@@ -708,7 +707,7 @@ def _(p):
 @section('rich-text', 'Heading', 'Text', 'Button')
 def _(p):
     p.surtitre(W / 2, 200, 100, centre=True)
-    p.mot(W / 2, 290, 'Essentials for the kitchen', 56, 'middle')
+    p.mot(W / 2, 290, 'Essentials for every day', 56, 'middle')
     p.texte(W / 2 - 260, 340, 520, 2, fin=0.8)
     p.lien(W / 2 - 55, 420, 110)
     p.appel(1, W / 2 + 400, 270, W / 2 + 350, 270)
@@ -720,8 +719,8 @@ def _(p):
 def _(p):
     p.photo(40, 80, 560, 520, 16)
     p.surtitre(680, 240)
-    p.mot(680, 310, 'Cast in sand,', 46)
-    p.mot(680, 362, 'finished by hand', 46)
+    p.mot(680, 310, 'Made by hand,', 46)
+    p.mot(680, 362, 'finished with care', 46)
     p.texte(680, 404, 380, 3)
     p.bouton(680, 480, 200, 46, plein=True)
     p.appel(1, 320, 640, 320, 600)
@@ -731,7 +730,7 @@ def _(p):
 
 @section('multicolumn', 'Heading', 'Columns: image, title and text', 'Button')
 def _(p):
-    p.mot(40, 80, 'Made for a lifetime of cooking', 40)
+    p.mot(40, 80, 'Made for everyday life', 40)
     for i in range(3):
         x = 40 + i * 370
         p.photo(x, 120, 340, 300, 12)
@@ -887,7 +886,7 @@ def _(p):
     p.ligne(60, 338, W - 60, 338, sw=2.4)
     p.cote(1100, 262, 1100, 330, 'above')
     p.cote(1100, 346, 1100, 414, 'below')
-    p.mot(60, 500, 'Made for a lifetime', 40, o=0.3)
+    p.mot(60, 500, 'Made for everyday life', 40, o=0.3)
     p.texte(60, 540, 500, 2, o=0.2)
     p.cote(60, 300, 1040, 300)
     p.appel(1, 400, 390, 400, 340)
@@ -982,11 +981,11 @@ def _(p):
 
 @section('main-article', 'Title, date and author', 'Article image', 'Article content')
 def _(p):
-    p.mot(W / 2, 90, 'Inside the foundry', 54, 'middle')
+    p.mot(W / 2, 90, 'Inside the studio', 54, 'middle')
     p.ligne(W / 2 - 80, 124, W / 2 + 80, 124, o=0.5, sw=1.8)
     p.photo(160, 160, W - 320, 300, 14)
     p.texte(260, 500, W - 520, 3, pas=20)
-    p.mot(260, 600, 'A mould made of sand', 30)
+    p.mot(260, 600, 'Behind the scenes', 30)
     p.texte(260, 630, W - 520, 2, pas=20)
     p.appel(1, W / 2 + 330, 80, W / 2 + 270, 80)
     p.appel(2, W - 100, 300, W - 160, 300)
@@ -1025,7 +1024,7 @@ def _(p):
     p.produit(670, 96, 300, 300, 14, echelle=1.5)
     p.rect(990, 96, 120, 300, 14, o=0.4)
     p.mot(670, 452, 'Product title', 34)
-    p.mot(670, 498, '$109.90', 26)
+    p.mot(670, 498, '$49.00', 26)
     p.pastille(684, 548, 13, plein=True)
     p.pastille(722, 548, 13)
     p.rect(670, 590, 120, 46, 23)
@@ -1035,6 +1034,44 @@ def _(p):
 @illustration('guide-product-page')
 def _(p):
     fiche_produit(p)
+
+
+@illustration('guide-product-carousel')
+def _(p):
+    p.rect(40, 40, 520, 600, 14, o=0.5)
+    p.produit(40, 40, 520, 600, cadre=False, echelle=2.6)
+    for cx, sens in ((84, -1), (516, 1)):
+        p.verre(cx - 22, 318, 44, 44, 22)
+        p.fleche(cx, 340, sens, 10)
+    p.verre(150, 548, 300, 56, 16)
+    for i in range(5):
+        p.rect(162 + i * 56, 556, 44, 40, 8, o=1 if i == 0 else 0.5)
+    p.ligne(150, 620, 450, 620, o=0.3, sw=3)
+    p.ligne(150, 620, 230, 620, o=1, sw=3)
+    infos_produit(p)
+
+
+@illustration('guide-product-thumbs')
+def _(p):
+    p.verre(40, 40, 72, 340, 18)
+    for i in range(5):
+        p.rect(52, 52 + i * 64, 48, 52, 8, o=1 if i == 0 else 0.5)
+    for y in (40, 360):
+        p.rect(132, y, 428, 300, 14, o=0.5)
+        p.produit(132, y, 428, 300, cadre=False, echelle=1.8)
+    infos_produit(p)
+
+
+@illustration('guide-card-actions')
+def _(p):
+    cartes(p, 70, 3, w=320, x0=60, h=420)
+    p.verre(640, 92, 52, 52, 26)
+    p.rond(664, 116, 9)
+    p.ligne(671, 123, 679, 131)
+    p.verre(470, 92, 156, 52, 26)
+    p.croix(498, 118, 9)
+    p.ligne(522, 118, 598, 118, o=0.6, sw=2.2)
+    p.chemin('M560,150 L560,186 L569,177 L576,192 L582,189 L575,175 L588,175 Z', sw=1.6, fill='#ffffff' if not p.clair else None)
 
 
 @illustration('guide-cinematic-intro')
@@ -1064,7 +1101,7 @@ def _(p):
 def _(p):
     p.produit(40, 60, 520, 556, 16, echelle=2.6)
     p.mot(640, 150, 'Product title', 48)
-    p.mot(640, 220, '$109.90', 34)
+    p.mot(640, 220, '$49.00', 34)
     p.ligne(640, 296, 700, 296, o=0.7, sw=2)
     p.ligne(716, 296, 800, 296, o=0.4, sw=2)
     for i in range(4):
