@@ -152,9 +152,11 @@ def pages(O, SECTIONS_DOC, GROUPES, slug):
             ('/docs/faq', 'M16 27a11 11 0 1 0-11-11M12.5 12.5a3.5 3.5 0 1 1 5 3.2c-1 .5-1.5 1.2-1.5 2.3M16 22v.5', 'FAQ', 'Short answers to the questions merchants ask most.', 'Answers'),
             ('/support', 'M6 8h20v13H14l-6 5v-5H6z', 'Support', 'Write to the studio: an answer within one to two business days.', 'Contact'),
         ))
+    chevron = lambda d: f'<svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="{d}" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+    chevron_g, chevron_d = chevron('M12.5 4.5 7 10l5.5 5.5'), chevron('M7.5 4.5 13 10l-5.5 5.5')
     accueil = f'''
 <section class="cine quete">
-  <div class="cine__bg"><img src="/img/home/couvercle.webp" alt="" width="2000" height="948" fetchpriority="high"></div>
+  <div class="cine__bg" aria-hidden="true"></div>
   <div class="cine__veil"></div>
   <div class="quete__inner">
     <p class="eyebrow eyebrow--light">Opaline · Shopify theme · Version {e(v)}</p>
@@ -165,7 +167,6 @@ def pages(O, SECTIONS_DOC, GROUPES, slug):
         <span class="visually-hidden">Search the documentation</span>
         <input type="search" placeholder="Search a section, a setting or a guide" autocomplete="off" spellcheck="false"
           role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="quete-resultats">
-        <kbd>⌘K</kbd>
       </label>
       <ul class="quete__resultats" id="quete-resultats" role="listbox" aria-label="Results" hidden></ul>
     </div>
@@ -190,13 +191,15 @@ def pages(O, SECTIONS_DOC, GROUPES, slug):
       <div><p class="eyebrow">Sections</p><h2>{nb_sections} sections, <em>one signature.</em></h2></div>
       <div class="filtres" data-filtres>{filtres}</div>
     </div>
-    <div class="rail" data-rail>{cartes}</div>
-    <div class="rail__nav"><button type="button" class="glass" data-rail-prev aria-label="Previous sections">←</button><button type="button" class="glass" data-rail-next aria-label="Next sections">→</button></div>
+    <div class="rail__cadre">
+      <button type="button" class="rail__fleche rail__fleche--prec glass" data-rail-prev aria-label="Previous sections" disabled>{chevron_g}</button>
+      <div class="rail" data-rail>{cartes}</div>
+      <button type="button" class="rail__fleche rail__fleche--suiv glass" data-rail-next aria-label="Next sections">{chevron_d}</button>
+    </div>
   </div>
 </section>
 
 <section class="sombre">
-  <div class="sombre__bg"><img src="/img/home/fondue.webp" alt="" loading="lazy"></div>
   <div class="wrap">
     <div class="band__head">
       <div><p class="eyebrow eyebrow--light">Guides</p><h2>The features <em>behind the look.</em></h2></div>
@@ -215,7 +218,6 @@ def pages(O, SECTIONS_DOC, GROUPES, slug):
 <section class="band">
   <div class="wrap">
     <div class="appel">
-      <div class="appel__bg"><img src="/img/home/macro.webp" alt="" loading="lazy"></div>
       <div class="appel__panel glass">
         <p class="eyebrow">Support</p>
         <h2>Need a hand?</h2>
@@ -320,7 +322,7 @@ def pages(O, SECTIONS_DOC, GROUPES, slug):
         'When everything looks right, click <strong>Publish</strong> on the updated copy.',
     ])
     corps += note('Changes you made in the code editor are not carried over to the updated copy. Note them down before updating so you can apply them again.')
-    corps += f'<h2>Check your version</h2><p>In the theme editor, open <strong>Theme settings</strong> and scroll to <strong>Theme information</strong>. The current version is <strong>{e(v)}</strong>; see <a href="/docs/changelog">What’s new</a>.</p>'
+    corps += f'<h2>Check your version</h2><p>In the theme editor, open <strong>Theme settings</strong> and scroll to <strong>Theme information</strong>. The current version is <strong>{e(v)}</strong>.</p>'
     corps += '</div>'
     ajoute('/docs/update', 'Update Opaline', 'How to update Opaline without losing your settings and content.', corps, 'Get started')
 
@@ -615,29 +617,6 @@ def pages(O, SECTIONS_DOC, GROUPES, slug):
     corps += note('Can’t find your answer? <a href="/support">Write to us</a> — every message is answered within one to two business days.', 'tip')
     corps += '</div>'
     ajoute('/docs/faq', 'FAQ', 'Answers to frequent questions about Opaline: updates, mobile, glass, templates, menus and fonts.', corps, 'Help')
-
-    # ── Nouveautes ──
-    corps = tete('What’s new', 'The changes in each version of Opaline.', [('Docs', '/docs'), ('Help', None)], 'Help')
-    corps += '<div class="prose">'
-    corps += f'<h2>{e(v)}</h2>'
-    corps += ('<ul>'
-              '<li><strong>Quick view and quick add</strong> on every product card, in liquid glass, with two new settings under Theme settings &gt; Product cards.</li>'
-              '<li><strong>Product page gallery</strong>: thumbnails and a media aspect ratio for the stacked layout, and margins around media for both layouts.</li>'
-              '<li><strong>Stock limit</strong>: the quantity stops at the available stock, with a message, and the cart refreshes after a refused add.</li>'
-              '<li><strong>Videos</strong>: only one product video plays at a time, including YouTube and Vimeo.</li>'
-              '<li><strong>Featured product</strong>: styled add-to-cart button, video frames, and options as pills.</li>'
-              '<li><strong>Statement with images</strong>: product photos sized to the text, tighter line spacing, captions under each product.</li>'
-              '<li><strong>Technical drawings</strong>: tabs fill on hover. <strong>Manifesto</strong>: italic accents no longer break across lines.</li>'
-              '<li><strong>Accessibility</strong>: text contrast checked across every page; translated messages display apostrophes correctly.</li>'
-              '<li>The draggable product row is now called <strong>Scrolling product row</strong>, and the popup counts in days.</li>'
-              '</ul>')
-    corps += '<h2>1.3.0</h2>'
-    corps += ('<ul><li>The variant SKU can be shown on the product page and the featured product.</li>'
-              '<li>Unavailable option values are crossed out in the variant picker.</li>'
-              '<li>Accelerated checkout buttons are hidden on sold-out variants.</li>'
-              '<li>Gift cards require a recipient email when sent to someone else.</li></ul>')
-    corps += '</div>'
-    ajoute('/docs/changelog', "What's new", 'Release notes for each version of Opaline.', corps, 'Help')
 
     # ── Page introuvable ──
     introuvable = (

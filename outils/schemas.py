@@ -107,7 +107,10 @@ class Planche:
 
     def verre(self, x, y, w, h, r=18, o=1.0):
         """Panneau de verre : voile clair, contour, reflet."""
-        op = 0.1 if self.clair else 0.78
+        if self.clair:
+            # Sur fond sombre : un voile qui estompe ce qui passe dessous.
+            self.out.append(f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="{r}" fill="#121a2b" fill-opacity=".55" stroke="none"/>')
+        op = 0.08 if self.clair else 0.78
         self.out.append(f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="{r}" fill="#ffffff" fill-opacity="{op}" stroke="none"/>')
         if o:
             self.rect(x, y, w, h, r, o=o)
@@ -1012,12 +1015,12 @@ def illustration(h):
 
 @illustration('guide-quick-view')
 def _(p):
-    cartes(p, 60, 3, w=200, x0=40, h=250)
-    p.verre(500, 60, 56, 56, 28)
-    p.croix(528, 88, 9)
-    p.verre(436, 60, 56, 56, 28)
-    p.rond(462, 86, 9)
-    p.ligne(468, 92, 476, 100)
+    cartes(p, 60, 3, w=180, x0=40, h=250)
+    p.verre(370, 74, 44, 44, 22)
+    p.croix(392, 96, 8)
+    p.verre(320, 74, 44, 44, 22)
+    p.rond(340, 94, 8)
+    p.ligne(346, 100, 352, 106)
     p.verre(640, 20, 500, 640, 26)
     p.ligne(670, 62, 760, 62, o=0.6, sw=1.8)
     p.rond(1100, 60, 16)

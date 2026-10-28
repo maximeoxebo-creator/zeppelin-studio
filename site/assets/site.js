@@ -309,6 +309,19 @@
     var suiv = document.querySelector('[data-rail-next]');
     if (prec) prec.addEventListener('click', function () { pas(-1); });
     if (suiv) suiv.addEventListener('click', function () { pas(1); });
+    // Chaque fleche s'efface au bout du rail.
+    var bornes = function () {
+      if (prec) prec.disabled = rail.scrollLeft < 8;
+      if (suiv) suiv.disabled = rail.scrollLeft + rail.clientWidth > rail.scrollWidth - 8;
+    };
+    rail.addEventListener('scroll', bornes, { passive: true });
+    window.addEventListener('resize', bornes);
+    document.querySelectorAll('[data-filtres] button').forEach(function (b) {
+      b.addEventListener('click', function () {
+        setTimeout(bornes, 400);
+      });
+    });
+    bornes();
   }
 
   document.querySelectorAll('[data-year]').forEach(function (n) {

@@ -319,7 +319,7 @@ NAV = [
 ]
 for cle, titre, liste in contenu.CATEGORIES:
     NAV.append(('Sections — ' + titre, [(n, '/docs/sections/' + sl) for h, sl, n, c in SECTIONS_DOC if c == titre]))
-NAV.append(('Help', [('FAQ', '/docs/faq'), ("What's new", '/docs/changelog'), ('Contact support', '/support')]))
+NAV.append(('Help', [('FAQ', '/docs/faq'), ('Contact support', '/support')]))
 
 ORDRE = [u for _, liens in NAV for _, u in liens if u.startswith('/docs')]
 TITRES = {u: t for _, liens in NAV for t, u in liens}
@@ -385,7 +385,7 @@ def gabarit(*, titre, description, chemin, contenu_html, mise='docs', toc=None, 
     """La page entiere : en-tete de verre, contenu, pied de page."""
     plein_titre = f'{titre} — Opaline documentation' if chemin != '/' else 'Opaline — Documentation & support by Zeppelin Studio'
     nav_actif = lambda p: ' aria-current="page"' if (chemin == p or (p != '/' and chemin.startswith(p) and p != '/docs')) else ''
-    doc_actif = ' aria-current="page"' if (chemin.startswith('/docs') and '/guides' not in chemin and 'changelog' not in chemin) else ''
+    doc_actif = ' aria-current="page"' if (chemin.startswith('/docs') and '/guides' not in chemin) else ''
     entete = (
         '<a class="skip" href="#contenu">Skip to content</a>'
         '<div class="ambiance" aria-hidden="true"><span></span><span></span><span></span></div>'
@@ -395,9 +395,8 @@ def gabarit(*, titre, description, chemin, contenu_html, mise='docs', toc=None, 
         '<nav class="site-nav" aria-label="Main">'
         + '<a href="/docs"' + doc_actif + '>Documentation</a>'
         + '<a href="/docs/guides/product-page"' + nav_actif('/docs/guides') + '>Guides</a>'
-        + '<a href="/docs/changelog"' + nav_actif('/docs/changelog') + ">What's new</a>"
         + '<a href="/support"' + nav_actif('/support') + '>Support</a></nav>'
-        f'<button type="button" class="search-trigger" data-search-open aria-label="Search the documentation">{ICONE_LOUPE}<span>Search the docs</span><kbd>⌘K</kbd></button>'
+        f'<button type="button" class="search-trigger" data-search-open aria-label="Search the documentation">{ICONE_LOUPE}<span>Search the docs</span></button>'
         + ('<button type="button" class="menu-toggle" data-menu-toggle aria-expanded="false" aria-controls="sidebar" aria-label="Documentation menu">'
            '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 8h16M4 16h16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>'
            if mise == 'docs' else '')
@@ -415,7 +414,7 @@ def gabarit(*, titre, description, chemin, contenu_html, mise='docs', toc=None, 
         '<p>Opaline is an editorial Shopify theme by Zeppelin Studio: large photography, fine serif headings and liquid glass.</p></div>'
         '<div><h3>Get started</h3><ul><li><a href="/docs">Introduction</a></li><li><a href="/docs/install">Install Opaline</a></li><li><a href="/docs/theme-editor">Theme editor</a></li><li><a href="/docs/update">Update</a></li></ul></div>'
         '<div><h3>Guides</h3><ul><li><a href="/docs/guides/product-page">Product page</a></li><li><a href="/docs/guides/quick-view">Quick view</a></li><li><a href="/docs/guides/cinematic-intro">Cinematic intro</a></li><li><a href="/docs/guides/liquid-glass">Liquid glass</a></li></ul></div>'
-        '<div><h3>Help</h3><ul><li><a href="/docs/faq">FAQ</a></li><li><a href="/docs/changelog">What’s new</a></li><li><a href="/support">Contact support</a></li><li><a href="mailto:contact.zeppelin.studio@gmail.com">Email us</a></li></ul></div>'
+        '<div><h3>Help</h3><ul><li><a href="/docs/faq">FAQ</a></li><li><a href="/support">Contact support</a></li><li><a href="mailto:contact.zeppelin.studio@gmail.com">Email us</a></li></ul></div>'
         f'<div class="pied__bas"><span>© <span data-year>2026</span> Zeppelin Studio</span><span>Opaline {e(VERSION)} · Built for Shopify Online Store 2.0</span></div>'
         '</div></footer>'
     )
