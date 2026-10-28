@@ -48,17 +48,18 @@ for (const [vp, nom, mob] of [[D, 'desktop', false], [M, 'mobile', true]]) {
   await p.screenshot({ path: `${sortie}/guide-product-thumbs-desktop.png` });
   ok('thumbs'); await p.close(); }
 
-// Pastilles
-{ const p = await page(D);
+// Pastilles : du prix aux pastilles, en double resolution pour rester nette
+{ const ctx = await browser.newContext({ viewport: D, deviceScaleFactor: 2 });
+  const p = await ctx.newPage();
+  await p.addInitScript(() => { new MutationObserver(() => document.querySelectorAll('[data-lf-popup]').forEach(e => e.remove())).observe(document, { childList: true, subtree: true }); });
   await p.goto(B + '/products/alma22', { waitUntil: 'load' }); await p.waitForTimeout(1500);
-  // Du titre aux pastilles : le cadre commence au-dessus du nom du produit.
   const info = p.locator('.lf-product__info').first();
-  const t = p.locator('.lf-product__title').first(); await t.scrollIntoViewIfNeeded(); await p.waitForTimeout(500);
+  const t = p.locator('.lf-product__price').first(); await t.scrollIntoViewIfNeeded(); await p.waitForTimeout(500);
   const v = p.locator('.lf-product__variants').first();
   const bi = await info.boundingBox(); const bt = await t.boundingBox(); const bv = await v.boundingBox();
-  const haut = Math.max(0, bt.y - 32);
-  await p.screenshot({ path: `${sortie}/guide-swatches-desktop.png`, clip: { x: bi.x, y: haut, width: bi.width, height: bv.y + bv.height + 16 - haut } });
-  ok('swatches'); await p.close(); }
+  const haut = Math.max(0, bt.y - 28);
+  await p.screenshot({ path: `${sortie}/guide-swatches-desktop.png`, clip: { x: bi.x - 24, y: haut, width: bi.width + 48, height: bv.y + bv.height + 24 - haut } });
+  ok('swatches'); await ctx.close(); }
 
 // Mega menu
 { const p = await page(D);

@@ -126,16 +126,13 @@ def pages(O, SECTIONS_DOC, GROUPES, slug):
     ruban = ''.join(f'<li>{e(n)}</li>' for n in noms + noms)
     filtres = '<button type="button" aria-pressed="true" data-filtre="all">All</button>' + ''.join(
         f'<button type="button" aria-pressed="false" data-filtre="{cle}">{e(titre)}</button>' for cle, titre, _ in C.CATEGORIES)
-    # Les captures en bandeau (en-tete, barre d'annonce) se recadrent au
-    # centre et finiraient identiques : l'en-tete montre sa navigation.
-    cadrage = {'header': ' style="object-position: left bottom"'}
-    # Sections sans rendu propre (applications, Liquid personnalise...) :
-    # leur nom en grand sur un verre, plutot qu'une image absente.
+    # Chaque carte montre le schema au trait de sa section ; a defaut, son
+    # nom en grand sur un verre.
     import os
-    captures = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'site', 'img', 'sections')
+    traits = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'site', 'img', 'schemas')
     vignette = lambda h, n: (
-        f'<div class="rail__img"><img src="{vign(h)}" alt="" loading="lazy"{cadrage.get(h, "")}></div>'
-        if os.path.exists(os.path.join(captures, h + '-desktop.webp'))
+        f'<div class="rail__img"><img src="/img/schemas/{h}.svg" alt="" loading="lazy"></div>'
+        if os.path.exists(os.path.join(traits, h + '.svg'))
         else f'<div class="rail__img rail__img--nom" aria-hidden="true"><span>{e(n)}</span></div>')
     cartes = ''.join(
         f'<a class="rail__card glass" href="/docs/sections/{sl}" data-cat="{cle_cat.get(cat, "")}">'
@@ -144,25 +141,18 @@ def pages(O, SECTIONS_DOC, GROUPES, slug):
         for h, sl, n, cat in SECTIONS_DOC)
     accueil = f'''
 <section class="cine">
-  <div class="cine__bg"><img src="/img/home/hero.webp" alt="" width="2200" height="1477" fetchpriority="high"></div>
+  <div class="cine__bg"><img src="/img/home/couvercle.webp" alt="" width="2000" height="948" fetchpriority="high"></div>
   <div class="cine__veil"></div>
   <div class="cine__inner">
     <div class="cine__copy">
       <p class="eyebrow eyebrow--light">Opaline · Shopify theme · Version {e(v)}</p>
       <h1 class="cine__title">Every detail,<br><em>documented.</em></h1>
-      <p class="cine__lead">Install, set up and shape your store with Opaline. Every section and every setting, explained step by step with screenshots from the demo store.</p>
+      <p class="cine__lead">Install, set up and shape your store with Opaline. Every section and every setting, explained step by step, with a diagram of each section and the demo store to compare.</p>
       <button type="button" class="cine__search glass" data-search-open>{loupe}<span>Search {nb_sections} sections, every setting and guide</span><kbd>⌘K</kbd></button>
       <div class="cine__actions">
         <a class="pill pill--light" href="/docs">Start with the documentation</a>
         <a class="pill pill--ghost-light" href="/support">Contact support</a>
       </div>
-    </div>
-    <div class="cine__stage" aria-hidden="true">
-      <div class="device device--desk glass"><div class="device__bar"><i></i><i></i><i></i><span>Opaline demo store</span></div><div class="device__screen"><img src="{vign('lf-hero-cinematic')}" alt=""></div></div>
-      <div class="device device--phone"><img src="/img/sections/lf-hero-cinematic-mobile.webp" alt=""></div>
-      <span class="float-chip glass" style="top:0;right:12%">Liquid glass</span>
-      <span class="float-chip glass" style="top:46%;left:-4%;animation-delay:-2s"><b>+</b>Quick add</span>
-      <span class="float-chip glass" style="bottom:6%;left:20%;animation-delay:-4s">{nb_sections} sections</span>
     </div>
   </div>
   <div class="cine__ribbon" aria-hidden="true"><ul>{ruban}</ul></div>
@@ -201,11 +191,11 @@ def pages(O, SECTIONS_DOC, GROUPES, slug):
       <p class="band__intro">Step-by-step guides for what makes Opaline different, with the exact name of every setting.</p>
     </div>
     <div class="bento">
-      <a class="tile tile--a glass" href="/docs/guides/quick-view"><div class="tile__img"><img src="/img/guides/quick-view-desktop.webp" alt="" loading="lazy"></div><span class="tile__kicker">Guide</span><span class="tile__title">Quick view &amp; quick add</span><p>Shop from any product card, in a panel of liquid glass.</p></a>
-      <a class="tile tile--b glass" href="/docs/guides/product-page"><div class="tile__img"><img src="/img/guides/product-carousel-mobile.webp" alt="" loading="lazy"></div><span class="tile__kicker">Guide</span><span class="tile__title">Product page</span><p>Stacked or carousel gallery, thumbnails, swatches.</p></a>
-      <a class="tile tile--c glass" href="/docs/guides/cinematic-intro"><div class="tile__img"><img src="/img/guides/cinematic-intro-desktop.webp" alt="" loading="lazy"></div><span class="tile__kicker">Guide</span><span class="tile__title">Cinematic intro</span></a>
-      <a class="tile tile--c glass" href="/docs/guides/navigation"><div class="tile__img"><img src="/img/guides/mega-menu-desktop.webp" alt="" loading="lazy"></div><span class="tile__kicker">Guide</span><span class="tile__title">Mega menu</span></a>
-      <a class="tile tile--c glass" href="/docs/guides/color-variants"><div class="tile__img"><img src="/img/guides/swatches-desktop.webp" alt="" loading="lazy"></div><span class="tile__kicker">Guide</span><span class="tile__title">Color swatches</span></a>
+      <a class="tile tile--a glass" href="/docs/guides/quick-view"><div class="tile__img"><img src="/img/schemas/guide-quick-view.svg" alt="" loading="lazy"></div><span class="tile__kicker">Guide</span><span class="tile__title">Quick view &amp; quick add</span><p>Shop from any product card, in a panel of liquid glass.</p></a>
+      <a class="tile tile--b glass" href="/docs/guides/product-page"><div class="tile__img"><img src="/img/schemas/guide-product-page.svg" alt="" loading="lazy"></div><span class="tile__kicker">Guide</span><span class="tile__title">Product page</span><p>Stacked or carousel gallery, thumbnails, swatches.</p></a>
+      <a class="tile tile--c glass" href="/docs/guides/cinematic-intro"><div class="tile__img"><img src="/img/schemas/guide-cinematic-intro.svg" alt="" loading="lazy"></div><span class="tile__kicker">Guide</span><span class="tile__title">Cinematic intro</span></a>
+      <a class="tile tile--c glass" href="/docs/guides/navigation"><div class="tile__img"><img src="/img/schemas/guide-mega-menu.svg" alt="" loading="lazy"></div><span class="tile__kicker">Guide</span><span class="tile__title">Mega menu</span></a>
+      <a class="tile tile--c glass" href="/docs/guides/color-variants"><div class="tile__img"><img src="/img/schemas/guide-swatches.svg" alt="" loading="lazy"></div><span class="tile__kicker">Guide</span><span class="tile__title">Color swatches</span></a>
     </div>
   </div>
 </section>
@@ -418,7 +408,7 @@ def pages(O, SECTIONS_DOC, GROUPES, slug):
 
     # ── Guide : couleurs ──
     corps = tete('Color variants & swatches', 'Show colors as swatches, and make the gallery follow the color a visitor chooses.', [('Docs', '/docs'), ('Guides', None)], 'Guide')
-    corps += figure('swatches', 'Color swatches on the product page. The selected color is named next to the option.', dossier='guides', seul=True, alt='Color swatches on the product page')
+    corps += O['planche']('guide-swatches', 'Color swatches on the product page: the selected color is ringed and named next to the option.')
     corps += '<div class="prose">'
     corps += '<h2>Show swatches</h2>'
     corps += etapes([

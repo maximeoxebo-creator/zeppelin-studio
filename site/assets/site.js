@@ -238,6 +238,30 @@
     if (suiv) suiv.addEventListener('click', function () { pas(1); });
   }
 
+  /* ---- Schema ou demo : les onglets des pages de section ---- */
+  document.querySelectorAll('[data-vues]').forEach(function (fig) {
+    var onglets = Array.prototype.slice.call(fig.querySelectorAll('[role="tab"]'));
+    function choisir(o, focus) {
+      onglets.forEach(function (x) {
+        var actif = x === o;
+        x.setAttribute('aria-selected', String(actif));
+        x.tabIndex = actif ? 0 : -1;
+        document.getElementById(x.getAttribute('aria-controls')).hidden = !actif;
+      });
+      if (focus) o.focus();
+    }
+    onglets.forEach(function (o, i) {
+      o.addEventListener('click', function () {
+        choisir(o);
+      });
+      o.addEventListener('keydown', function (e) {
+        if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+        e.preventDefault();
+        choisir(onglets[(i + (e.key === 'ArrowRight' ? 1 : onglets.length - 1)) % onglets.length], true);
+      });
+    });
+  });
+
   document.querySelectorAll('[data-year]').forEach(function (n) {
     n.textContent = new Date().getFullYear();
   });
