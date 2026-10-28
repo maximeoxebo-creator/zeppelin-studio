@@ -8,6 +8,7 @@ version. Les textes rediges vivent dans contenu.py et guides.py.
     python3 outils/build.py [chemin-du-theme] [dossier-des-captures]
 """
 
+import hashlib
 import glob
 import html
 import json
@@ -25,7 +26,7 @@ RACINE = os.path.dirname(ICI)
 SITE = os.path.join(RACINE, 'site')
 THEME = sys.argv[1] if len(sys.argv) > 1 else os.path.expanduser('~/Documents/la-fonderie-v2')
 CAPTURES = sys.argv[2] if len(sys.argv) > 2 else None
-URL_SITE = 'https://zeppelin-studio.zeppelin-apps.com'
+URL_SITE = 'https://opaline.zeppelin-apps.com'
 
 
 # ── Lecture du theme ──────────────────────────────────────────────────
@@ -640,6 +641,23 @@ def images():
 
 # ── Assemblage ────────────────────────────────────────────────────────
 
+ASSET = re.compile(r'(?<=["\'(])(/(?:assets|fonts|img)/[^"\'()?#\s]+\.(?:css|js|webp|png|jpg|svg))(?=["\')])')
+_empreintes = {}
+
+
+def versionne(page):
+    """Ajoute l'empreinte du fichier a chaque adresse de feuille, script ou
+    image : une nouvelle version a une nouvelle adresse, que ni Cloudflare
+    ni le navigateur n'ont en cache (ils gardent ces fichiers un jour)."""
+    def pose(m):
+        rel = m.group(1)
+        if rel not in _empreintes:
+            f = os.path.join(SITE, rel.lstrip('/'))
+            _empreintes[rel] = hashlib.sha1(open(f, 'rb').read()).hexdigest()[:10] if os.path.exists(f) else None
+        return rel + ('?v=' + _empreintes[rel] if _empreintes[rel] else '')
+    return ASSET.sub(pose, page)
+
+
 def main():
     n = images()
     shutil.copy(os.path.join(RACINE, 'logo.svg'), os.path.join(SITE, 'assets', 'logo.svg'))
@@ -659,7 +677,7 @@ def main():
         rel = 'index.html' if chemin == '/' else chemin.strip('/') + '.html'
         dest = os.path.join(SITE, rel)
         os.makedirs(os.path.dirname(dest), exist_ok=True)
-        open(dest, 'w', encoding='utf-8').write(page)
+        open(dest, 'w', encoding='utf-8').write(versionne(page))
 
     index = [{'t': titre, 'u': chemin, 'c': cat, 'h': h[:600], 'x': texte[:6000]}
              for chemin, page, titre, cat, texte, h in PAGES if chemin not in ('/', '/404')]

@@ -129,9 +129,17 @@ def pages(O, SECTIONS_DOC, GROUPES, slug):
     # Les captures en bandeau (en-tete, barre d'annonce) se recadrent au
     # centre et finiraient identiques : l'en-tete montre sa navigation.
     cadrage = {'header': ' style="object-position: left bottom"'}
+    # Sections sans rendu propre (applications, Liquid personnalise...) :
+    # leur nom en grand sur un verre, plutot qu'une image absente.
+    import os
+    captures = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'site', 'img', 'sections')
+    vignette = lambda h, n: (
+        f'<div class="rail__img"><img src="{vign(h)}" alt="" loading="lazy"{cadrage.get(h, "")}></div>'
+        if os.path.exists(os.path.join(captures, h + '-desktop.webp'))
+        else f'<div class="rail__img rail__img--nom" aria-hidden="true"><span>{e(n)}</span></div>')
     cartes = ''.join(
         f'<a class="rail__card glass" href="/docs/sections/{sl}" data-cat="{cle_cat.get(cat, "")}">'
-        f'<div class="rail__img"><img src="{vign(h)}" alt="" loading="lazy"{cadrage.get(h, "")}></div>'
+        f'{vignette(h, n)}'
         f'<span class="rail__cat">{e(cat)}</span><span class="rail__name">{e(n)}</span></a>'
         for h, sl, n, cat in SECTIONS_DOC)
     accueil = f'''

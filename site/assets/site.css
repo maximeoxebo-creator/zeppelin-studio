@@ -1882,6 +1882,25 @@ table.simple td:first-child {
   border-radius: 1.4rem;
   background: var(--paper);
 }
+.rail__img--nom {
+  display: grid;
+  place-items: center;
+  padding: 2rem;
+  background:
+    radial-gradient(120% 90% at 15% 0%, rgba(233, 199, 154, 0.55), transparent 60%),
+    radial-gradient(90% 80% at 100% 100%, rgba(24, 38, 80, 0.22), transparent 65%),
+    var(--paper);
+}
+.rail__img--nom span {
+  font-family: var(--serif);
+  font-size: 3.2rem;
+  font-weight: 300;
+  font-style: italic;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  text-align: center;
+  color: var(--ink);
+}
 .rail__img img {
   width: 100%;
   height: 100%;

@@ -3,7 +3,8 @@
   et le point d'envoi de l'accuse de reception du formulaire de support.
 
   Il reprend ce que faisait Vercel : adresses sans « .html », sans barre
-  finale, et /api/accuse. Aucune dependance hors nodemailer, utilise par
+  finale, et /api/accuse. Toute autre adresse en .zeppelin-apps.com que
+  DOMAINE y est renvoyee. Aucune dependance hors nodemailer, utilise par
   l'accuse.
 
   Variables d'environnement (reglages de l'application dans Coolify) :
@@ -17,6 +18,9 @@ const path = require('path');
 const accuse = require('./api/accuse');
 
 const RACINE = path.join(__dirname, 'site');
+// Adresse du site. L'ancienne (zeppelin-studio.zeppelin-apps.com) y renvoie
+// pour toujours : elle figure dans des versions publiees du theme.
+const DOMAINE = 'opaline.zeppelin-apps.com';
 const PORT = Number(process.env.PORT) || 3000;
 
 const TYPES = {
@@ -92,6 +96,11 @@ http
       chemin = decodeURIComponent(url.pathname);
     } catch (e) {
       return introuvable(res);
+    }
+
+    const hote = (req.headers.host || '').split(':')[0];
+    if (hote.endsWith('.zeppelin-apps.com') && hote !== DOMAINE) {
+      return rediriger(res, 301, 'https://' + DOMAINE + url.pathname + url.search);
     }
 
     if (chemin === '/api/accuse') return accuse(req, res);
