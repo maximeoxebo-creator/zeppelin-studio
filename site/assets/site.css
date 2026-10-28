@@ -1268,6 +1268,31 @@ table.simple td:first-child {
 
 /* ── Etroit ─────────────────────────────────────────────── */
 
+.site-nav a {
+  white-space: nowrap;
+}
+
+/* Entre tablette et grand ecran, le menu et la recherche se disputaient la
+   barre : les liens passaient a la ligne. La recherche se reduit a sa loupe. */
+@media (max-width: 1240px) {
+  .brand__theme {
+    display: none;
+  }
+  .site-nav a {
+    padding: 0.8rem 1rem;
+  }
+  .search-trigger {
+    min-width: 0;
+    width: 4.4rem;
+    padding: 0;
+    justify-content: center;
+  }
+  .search-trigger span,
+  .search-trigger kbd {
+    display: none;
+  }
+}
+
 @media (max-width: 1240px) {
   .docs {
     grid-template-columns: var(--sidebar-w) minmax(0, 1fr);
