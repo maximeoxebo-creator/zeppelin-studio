@@ -622,7 +622,7 @@ def versionne(page):
         rel = m.group(1)
         if rel not in _empreintes:
             f = os.path.join(SITE, rel.lstrip('/'))
-            _empreintes[rel] = hashlib.sha1(open(f, 'rb').read()).hexdigest()[:10] if os.path.exists(f) else None
+            _empreintes[rel] = hashlib.sha1(open(f, 'rb').read()).hexdigest()[:12] if os.path.exists(f) else None
         return rel + ('?v=' + _empreintes[rel] if _empreintes[rel] else '')
     return ASSET.sub(pose, page)
 

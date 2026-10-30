@@ -15,6 +15,7 @@
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
 const accuse = require('./api/accuse');
 
 const RACINE = path.join(__dirname, 'site');
@@ -50,13 +51,19 @@ function cache(ext) {
   return 'public, max-age=86400';
 }
 
-function servir(res, fichier, code) {
+// Pendant un deploiement, l'ancien et le nouveau conteneur repondent tous
+// les deux : une page neuve peut demander site.css?v=<nouvelle empreinte> a
+// l'ancien, qui renvoie l'ancien fichier. Cloudflare le gardait alors un jour
+// sous la nouvelle adresse. Une empreinte qui ne correspond pas au fichier
+// servi n'est donc jamais mise en cache.
+function servir(res, fichier, code, version) {
   const ext = path.extname(fichier);
   fs.readFile(fichier, (err, donnees) => {
     if (err) return introuvable(res);
+    const perimee = version && !crypto.createHash('sha1').update(donnees).digest('hex').startsWith(version);
     res.writeHead(code || 200, Object.assign({}, ENTETES, {
       'Content-Type': TYPES[ext] || 'application/octet-stream',
-      'Cache-Control': cache(ext),
+      'Cache-Control': perimee ? 'no-store' : cache(ext),
     }));
     res.end(donnees);
   });
@@ -121,7 +128,7 @@ http
     if (!cible.startsWith(RACINE)) return introuvable(res);
 
     if (chemin === '/') return servir(res, path.join(RACINE, 'index.html'));
-    if (existe(cible)) return servir(res, cible);
+    if (existe(cible)) return servir(res, cible, 200, url.searchParams.get('v'));
     if (existe(cible + '.html')) return servir(res, cible + '.html');
     return introuvable(res);
   })
