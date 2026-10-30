@@ -2340,10 +2340,36 @@ table.simple td:first-child {
 }
 
 /* Entrees par theme */
-.sujets {
+.sujets,
+.verre-cartes {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1.6rem;
+}
+
+/* Bande « Liquid glass » de l'accueil : le réglage le plus important du
+   thème. Des lueurs froides derrière les cartes leur donnent quelque
+   chose à flouter, comme le verre du thème lui-même. */
+.verre-bande {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+.verre-bande::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(38% 60% at 16% 72%, rgba(120, 140, 210, 0.32), transparent 70%),
+    radial-gradient(32% 55% at 84% 30%, rgba(150, 128, 210, 0.26), transparent 70%),
+    radial-gradient(40% 50% at 55% 100%, rgba(90, 150, 200, 0.2), transparent 70%);
+}
+.verre-lien {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.6rem 3.2rem;
+  margin: 4rem 0 0;
 }
 .sujet {
   display: grid;
@@ -2386,6 +2412,9 @@ table.simple td:first-child {
 @media (max-width: 990px) {
   .sujets {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .verre-cartes {
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 

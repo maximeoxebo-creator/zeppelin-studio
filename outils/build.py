@@ -315,7 +315,9 @@ NAV = [
         ('Before you go live', '/docs/launch-checklist'),
     ]),
     ('Guides', [(g['titre'], '/docs/guides/' + g['slug']) for g in guides.GUIDES]),
-    ('Theme settings', [(g['name'], '/docs/settings/' + slug(g['name'])) for g in GROUPES_THEME]),
+    # Liquid glass en tete : c'est le reglage qui decide de l'allure du theme.
+    ('Theme settings', [(g['name'], '/docs/settings/' + slug(g['name']))
+                        for g in sorted(GROUPES_THEME, key=lambda g: g.get('name') != 'Liquid glass')]),
 ]
 for cle, titre, liste in contenu.CATEGORIES:
     NAV.append(('Sections — ' + titre, [(n, '/docs/sections/' + sl) for h, sl, n, c in SECTIONS_DOC if c == titre]))

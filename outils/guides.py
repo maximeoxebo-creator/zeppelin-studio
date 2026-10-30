@@ -42,7 +42,42 @@ def _cartes_avant(O):
     )
 
 
+# Les 13 surfaces de verre du groupe Liquid glass, telles que l'editeur
+# les nomme, avec ce que chacune devient une fois decochee.
+VERRE_CASES = [
+    ('Panels', 'Cart drawer', 'The side panel that opens on add to cart.'),
+    ('Panels', 'Menus and mega menu', 'Drop-down menus and the mega menu panel.'),
+    ('Panels', 'Filter panel', 'The filter drawer of collection and search pages.'),
+    ('Panels', 'Mobile menu', 'The menu drawer on phones and tablets.'),
+    ('Panels', 'Search', 'Search suggestions and the search field.'),
+    ('Panels', 'Popup', 'The promotional popup.'),
+    ('Panels', 'Store pickup panel', 'Pickup availability on the product page.'),
+    ('Panels', 'Blur behind open panels', 'The page behind an open panel; off, a plain dark veil.'),
+    ('Buttons', 'Carousel arrows', 'Arrows of sliders and product rows.'),
+    ('Buttons', 'Back-to-top button', 'The round button that returns to the top.'),
+    ('Buttons', 'Quick view and quick add buttons', 'The round buttons on product cards.'),
+    ('Buttons', 'Drag cursor', 'The round cursor over scrolling rows.'),
+    ('Images', 'Labels and buttons on images', 'Tags, captions, years and buttons laid over photos.'),
+]
+
+
+def verre_tableau(e):
+    lignes = ''.join(f'<tr><td>{e(r)}</td><td><strong>{e(n)}</strong></td><td>{e(t)}</td></tr>' for r, n, t in VERRE_CASES)
+    return ('<div class="table-wrap glass"><table class="simple"><thead><tr><th>Group</th><th>Setting</th><th>Surface</th></tr></thead>'
+            f'<tbody>{lignes}</tbody></table></div>')
+
+
+def _verre_avant(O):
+    e = O['e']
+    return ('<p>Every glass surface of Opaline has its own checkbox. All are on by default, so the theme opens in liquid glass. '
+            'Turn one off and that surface becomes solid, in its own tone: smoked glass turns into solid black with white text, '
+            'clear glass into solid paper with dark text, and veils keep their shade without the blur.</p>'
+            + verre_tableau(e)
+            + O['note']('Sections with their own glass controls keep them: header, footer, announcement bar, scrolling text, age verifier, editorial grid, product mosaic and image banner. See the <a href="/docs/guides/liquid-glass">Liquid glass guide</a>.'))
+
+
 REGLAGES_INTRO = {
+    'Liquid glass': {'lead': 'Choose, surface by surface, what is liquid glass and what is solid: panels, buttons and the labels laid over your photos. Everything is glass by default.', 'avant': _verre_avant},
     'Logo': {'lead': 'The logo and favicon used outside the header: on the password page, the gift card page, the age check and your search-engine listing. The header has its own logo settings.'},
     'Colors': {'lead': 'Color schemes are named sets of colors — background, text, buttons — that every section can use. Change a scheme once and every section using it follows.'},
     'Typography': {'lead': 'Choose the fonts of the store, their scale, and an optional sans-serif for headings.', 'avant': _typo_avant},
@@ -93,7 +128,7 @@ def schemas_couleurs(O, reglage):
 
 # ── Pages ─────────────────────────────────────────────────────────────
 
-POPULAIRES = [('Quick view', 'quick view'), ('Color swatches', 'swatches'), ('Mega menu', 'mega menu'), ('Cinematic intro', 'cinematic intro'), ('Product gallery', 'gallery'), ('Translations', 'languages'), ('Age verifier', 'age')]
+POPULAIRES = [('Liquid glass', 'liquid glass'), ('Quick view', 'quick view'), ('Color swatches', 'swatches'), ('Mega menu', 'mega menu'), ('Cinematic intro', 'cinematic intro'), ('Product gallery', 'gallery'), ('Translations', 'languages'), ('Age verifier', 'age')]
 
 
 def pages(O, SECTIONS_DOC, GROUPES, slug):
@@ -150,6 +185,13 @@ def pages(O, SECTIONS_DOC, GROUPES, slug):
             ('/docs/faq', 'M16 27a11 11 0 1 0-11-11M12.5 12.5a3.5 3.5 0 1 1 5 3.2c-1 .5-1.5 1.2-1.5 2.3M16 22v.5', 'FAQ', 'Short answers to the questions merchants ask most.', 'Answers'),
             ('/support', 'M6 8h20v13H14l-6 5v-5H6z', 'Support', 'Write to the studio: an answer within one to two business days.', 'Contact'),
         ))
+    verre_cartes = ''.join(
+        f'<a class="sujet glass" href="/docs/settings/liquid-glass">{icone(d)}<span class="sujet__titre">{e(t)}</span><span class="sujet__texte">{e(x)}</span><span class="sujet__plus">{e(c)}</span></a>'
+        for d, t, x, c in (
+            ('M5 7h22v18H5zM19 7v18', 'Panels', 'Cart, menus, filters, mobile menu, search, popup, store pickup and the blur behind them.', '8 settings'),
+            ('M16 27a11 11 0 1 0 0-22 11 11 0 0 0 0 22zM13 16h6M16 13v6', 'Buttons', 'Carousel arrows, back to top, quick view and quick add, drag cursor.', '4 settings'),
+            ('M5 7h22v18H5zM5 21l7-7 5 5 4-4 6 6M9 11h6', 'Images', 'Tags, captions, years and buttons laid over your photographs.', '1 setting'),
+        ))
     chevron = lambda d: f'<svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="{d}" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>'
     chevron_g, chevron_d = chevron('M12.5 4.5 7 10l5.5 5.5'), chevron('M7.5 4.5 13 10l-5.5 5.5')
     accueil = f'''
@@ -172,7 +214,18 @@ def pages(O, SECTIONS_DOC, GROUPES, slug):
   </div>
 </section>
 
-<section class="band">
+<section class="band verre-bande">
+  <div class="wrap">
+    <div class="band__head">
+      <div><p class="eyebrow">Signature</p><h2>Liquid glass, <em>your way.</em></h2></div>
+      <p class="band__intro">Every glass surface has its own switch in Theme settings › Liquid glass. All glass by default; untick any of them to make it solid.</p>
+    </div>
+    <div class="verre-cartes">{verre_cartes}</div>
+    <p class="verre-lien"><a class="lien-fleche" href="/docs/settings/liquid-glass">See the 13 settings</a><a class="lien-fleche" href="/docs/guides/liquid-glass">Read the guide</a></p>
+  </div>
+</section>
+
+<section class="band" style="padding-top:0">
   <div class="wrap">
     <div class="band__head">
       <div><p class="eyebrow">Browse</p><h2>Or start <em>from a topic.</em></h2></div>
@@ -545,6 +598,12 @@ def pages(O, SECTIONS_DOC, GROUPES, slug):
     corps = tete('Liquid glass', 'Liquid glass is Opaline’s signature: translucent, blurred panels with light edges, laid over photography.', [('Docs', '/docs'), ('Guides', None)], 'Guide')
     corps += planche('lf-duo', 'The round button and the captions of the Duo panel sit on liquid glass.')
     corps += '<div class="prose">'
+    corps += ('<h2>Turn it on or off, surface by surface</h2>'
+              '<p>Open <strong>Theme settings › Liquid glass</strong>. Each of the 13 glass surfaces has its own checkbox, all on by default. '
+              'Untick one to make it solid: smoked glass becomes solid black with white text, clear glass solid paper with dark text, '
+              'and the veil behind open panels keeps its shade without the blur.</p>')
+    corps += verre_tableau(e)
+    corps += '<p><a class="lien-fleche" href="/docs/settings/liquid-glass">All Liquid glass settings</a></p>'
     corps += '<h2>Where you will find it</h2><p>The header on scroll, the mega menu, the quick view panel and the card buttons, the product thumbnails, the promotional popup, the footer panel, and many sections: Colorways, Stacked chapters, Duo panel, Editorial grid, Product mosaic, Closing statement, Statement with images, Testimonials, Timeline and Scrolling text.</p>'
     corps += '<h2>Sections where you can switch it</h2>'
     corps += ('<div class="table-wrap glass"><table class="simple"><thead><tr><th>Section</th><th>Setting</th></tr></thead><tbody>'
@@ -555,11 +614,11 @@ def pages(O, SECTIONS_DOC, GROUPES, slug):
               '<tr><td>Age verifier</td><td>Frosted glass effect</td></tr>'
               '<tr><td>Image / video banner</td><td>Background behind text: glass box, with Glass opacity and Glass blur</td></tr>'
               '</tbody></table></div>')
-    corps += '<p>Elsewhere the glass is part of the design: what you control is the photograph behind it and the text color on top.</p>'
+    corps += '<p>Everything else is switched in <strong>Theme settings › Liquid glass</strong>, above.</p>'
     corps += '<h2>Getting a clean effect</h2><ul><li>Glass needs something to blur. Photographs with depth and color read best; a flat, near-white image gives the effect nothing to work with.</li><li>Check the text against the photograph, not against the panel: a light photograph needs dark text, a dark one light text.</li><li>Panels that carry text use a denser glass, so prices and options stay readable on any background.</li></ul>'
     corps += note('Visitors who ask their device to reduce transparency see solid panels instead of glass, automatically.')
     corps += '</div>'
-    ajoute('/docs/guides/liquid-glass', 'Liquid glass', 'Where Opaline uses liquid glass, which sections let you switch it, and how to get a clean effect.', corps, 'Guide')
+    ajoute('/docs/guides/liquid-glass', 'Liquid glass', 'Turn liquid glass on or off surface by surface, see where Opaline uses it, and get a clean effect.', corps, 'Guide')
 
     # ── Guide : mobile ──
     corps = tete('Mobile layouts', 'Many Opaline sections can be tuned for phones without touching the desktop layout.', [('Docs', '/docs'), ('Guides', None)], 'Guide')
