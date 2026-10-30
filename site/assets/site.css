@@ -391,6 +391,16 @@ kbd {
   --glass-alpha: 0.26;
   scrollbar-width: thin;
 }
+/* Accueil et support : le meme menu, au telephone seulement. Sur le fond
+   sombre de l'accueil, un verre plus dense garde le menu lisible. */
+.is-home .sidebar {
+  --glass-alpha: 0.78;
+}
+@media (min-width: 991px) {
+  .sidebar--tiroir {
+    display: none;
+  }
+}
 .sidebar__group + .sidebar__group {
   margin-top: 2.2rem;
 }
@@ -1254,11 +1264,16 @@ table.simple td:first-child {
     grid-template-columns: minmax(0, 1fr);
     padding-top: 2.4rem;
   }
+  /* Chrome aligne desormais les boites fixes selon align-self : herite de
+     la grille (start), il collait le menu en haut de l'ecran, par-dessus
+     l'en-tete, a la hauteur de son contenu et sans defilement. */
   .sidebar {
     position: fixed;
     inset: calc(var(--header-h) + 2.4rem) 1.2rem 1.2rem;
+    align-self: stretch;
     z-index: 60;
     max-height: none;
+    overscroll-behavior: contain;
     --glass-tint: 250, 249, 246;
     --glass-alpha: 0.44;
     transform: translateY(1.2rem);
@@ -1367,7 +1382,8 @@ table.simple td:first-child {
 .is-home .site-nav a[aria-current='page'] {
   background: rgba(255, 255, 255, 0.12);
 }
-.is-home .search-trigger {
+.is-home .search-trigger,
+.is-home .menu-toggle {
   border-color: rgba(255, 255, 255, 0.22);
   background: rgba(255, 255, 255, 0.1);
   color: rgba(246, 245, 242, 0.8);
@@ -1439,45 +1455,6 @@ table.simple td:first-child {
 .pill--ghost-light:hover {
   background: rgba(255, 255, 255, 0.12);
   border-color: #f6f5f2;
-}
-
-/* Bandeau des sections */
-.cine__ribbon {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 3.2rem;
-  overflow: hidden;
-  mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
-}
-.cine__ribbon ul {
-  display: flex;
-  gap: 4.8rem;
-  width: max-content;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  animation: defile 120s linear infinite;
-}
-.cine__ribbon li {
-  display: flex;
-  align-items: center;
-  gap: 4.8rem;
-  font-family: var(--serif);
-  font-size: 2.2rem;
-  font-weight: 300;
-  color: rgba(246, 245, 242, 0.6);
-  white-space: nowrap;
-}
-.cine__ribbon li::after {
-  content: '✦';
-  font-size: 1.2rem;
-  color: rgba(246, 245, 242, 0.45);
-}
-@keyframes defile {
-  to {
-    transform: translateX(-50%);
-  }
 }
 
 /* ── Bandes de l'accueil ───────────────────────────────── */
@@ -1791,11 +1768,37 @@ table.simple td:first-child {
   padding: 6.4rem;
   border-radius: 3.2rem;
   color: #f6f5f2;
+  /* Bleu nuit desature : les lueurs tirent vers le gris perle, plus vers
+     l'outremer. */
   background:
-    radial-gradient(60% 80% at 85% 20%, rgba(52, 46, 128, 0.5), transparent 62%),
-    radial-gradient(60% 80% at 70% 100%, rgba(34, 58, 146, 0.45), transparent 62%),
-    linear-gradient(135deg, #040817 0%, #0a1230 55%, #15225a 100%);
+    radial-gradient(55% 75% at 84% 26%, rgba(128, 142, 190, 0.2), transparent 64%),
+    radial-gradient(50% 70% at 64% 100%, rgba(78, 94, 146, 0.18), transparent 64%),
+    linear-gradient(135deg, #050915 0%, #0a1124 58%, #111933 100%);
   isolation: isolate;
+}
+/* Deux formes lumineuses derriere la carte : sans elles, le verre n'aurait
+   rien a refracter et resterait un aplat. */
+.appel::before,
+.appel::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  border-radius: 50%;
+  pointer-events: none;
+}
+.appel::before {
+  top: 8%;
+  right: 7%;
+  width: 24rem;
+  height: 24rem;
+  background: radial-gradient(circle at 34% 30%, rgba(226, 231, 246, 0.6), rgba(150, 164, 210, 0.28) 46%, transparent 70%);
+}
+.appel::after {
+  bottom: -6rem;
+  right: 30%;
+  width: 18rem;
+  height: 18rem;
+  background: radial-gradient(circle at 50% 40%, rgba(176, 188, 226, 0.34), transparent 68%);
 }
 .appel__texte h2 {
   color: #f6f5f2;
@@ -1815,15 +1818,69 @@ table.simple td:first-child {
   gap: 1.2rem;
 }
 /* Delai de reponse, sur un verre sombre */
+/* Carte de verre liquide : presque incolore, un flou court qui laisse voir
+   les formes du fond, un liseré lumineux en haut. Elle mene au support. */
 .appel__delai {
   --glass-tint: 255, 255, 255;
-  --glass-alpha: 0.07;
+  --glass-alpha: 0.035;
   display: grid;
   gap: 0.8rem;
   padding: 4rem;
-  border-color: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.26);
   border-radius: 2.6rem;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25), 0 30px 70px rgba(0, 0, 0, 0.3);
+  color: inherit;
+  text-decoration: none;
+  -webkit-backdrop-filter: blur(14px) saturate(115%);
+  backdrop-filter: blur(14px) saturate(115%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    inset 1px 0 0 rgba(255, 255, 255, 0.12),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.06),
+    0 30px 70px rgba(0, 0, 0, 0.32);
+  transition:
+    transform 520ms var(--ease),
+    border-color 320ms var(--ease),
+    box-shadow 520ms var(--ease);
+}
+.appel__delai::before {
+  background:
+    radial-gradient(90% 70% at 10% -10%, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0) 55%),
+    linear-gradient(160deg, rgba(255, 255, 255, 0) 55%, rgba(255, 255, 255, 0.06) 100%);
+}
+.appel__delai:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 255, 255, 0.42);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.65),
+    inset 1px 0 0 rgba(255, 255, 255, 0.16),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.08),
+    0 40px 80px rgba(0, 0, 0, 0.38);
+}
+.appel__delai:focus-visible {
+  outline: 2px solid #f6f5f2;
+  outline-offset: 4px;
+}
+.appel__lien {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-top: 1.6rem;
+  font-size: 1.15rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.appel__lien::after {
+  content: '→';
+  transition: transform 420ms var(--ease);
+}
+.appel__delai:hover .appel__lien::after {
+  transform: translateX(0.4rem);
+}
+@media (prefers-reduced-transparency: reduce) {
+  .appel__delai {
+    background: rgba(24, 31, 54, 0.94);
+  }
 }
 .appel__delai svg {
   width: 4rem;
@@ -2073,6 +2130,18 @@ table.simple td:first-child {
   .appel__delai {
     padding: 2.8rem;
   }
+  /* La carte passe sous le texte : la forme lumineuse la suit. */
+  .appel::before {
+    top: auto;
+    bottom: 20%;
+    right: -4rem;
+    width: 20rem;
+    height: 20rem;
+  }
+  .appel::after {
+    right: auto;
+    left: 10%;
+  }
   .pied__inner {
     grid-template-columns: 1fr;
     padding: 3.2rem;
@@ -2086,7 +2155,6 @@ table.simple td:first-child {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .cine__ribbon ul,
   .quete .cine__bg {
     animation: none;
   }
@@ -2097,12 +2165,11 @@ table.simple td:first-child {
   z-index: 3;
   display: grid;
   min-height: 92svh;
-  /* Les resultats debordent sous le heros : seuls la photo et le bandeau
-     restent tenus dans leur cadre. */
+  /* Les resultats debordent sous le heros : seule la photo reste tenue
+     dans son cadre. */
   overflow: visible;
 }
-.quete .cine__bg,
-.quete .cine__ribbon {
+.quete .cine__bg {
   overflow: hidden;
 }
 /* Fond en degrade : bleu marine profond traverse de lueurs froides, qui
@@ -2128,7 +2195,7 @@ table.simple td:first-child {
   align-self: center;
   width: min(100%, 84rem);
   margin: 0 auto;
-  padding: 16rem 2.4rem 14rem;
+  padding: 16rem 2.4rem 10rem;
   text-align: center;
 }
 .quete .eyebrow {
@@ -2323,8 +2390,20 @@ table.simple td:first-child {
 }
 
 @media (max-width: 640px) {
+  .quete {
+    min-height: 0;
+  }
   .quete__inner {
-    padding: 12rem 2rem 11rem;
+    padding: 13.6rem 2rem 8rem;
+  }
+  .quete .eyebrow {
+    letter-spacing: 0.18em;
+  }
+  .quete .eyebrow::before {
+    display: none;
+  }
+  .quete__champ input {
+    text-overflow: ellipsis;
   }
   .quete__champ {
     height: 6rem;

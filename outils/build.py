@@ -399,7 +399,7 @@ def gabarit(*, titre, description, chemin, contenu_html, mise='docs', toc=None, 
         f'<button type="button" class="search-trigger" data-search-open aria-label="Search the documentation">{ICONE_LOUPE}<span>Search the docs</span></button>'
         + ('<button type="button" class="menu-toggle" data-menu-toggle aria-expanded="false" aria-controls="sidebar" aria-label="Documentation menu">'
            '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 8h16M4 16h16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>'
-           if mise == 'docs' else '')
+           )
         + '</div></header>'
     )
     recherche = (
@@ -427,7 +427,10 @@ def gabarit(*, titre, description, chemin, contenu_html, mise='docs', toc=None, 
         corps = (f'<div class="docs{"" if sommaire else " docs--wide"}">{barre_laterale(chemin)}'
                  f'<main class="content" id="contenu">{contenu_html}</main>{sommaire}</div>')
     else:
-        corps = f'<main id="contenu">{contenu_html}</main>'
+        # Au telephone, le menu de la documentation s'ouvre aussi depuis
+        # l'accueil et le support : sans lui, rien n'y menait.
+        corps = (barre_laterale(chemin).replace('class="sidebar glass"', 'class="sidebar sidebar--tiroir glass"', 1)
+                 + f'<main id="contenu">{contenu_html}</main>')
     return (
         '<!doctype html><html lang="en"><head><meta charset="utf-8">'
         '<meta name="viewport" content="width=device-width, initial-scale=1">'

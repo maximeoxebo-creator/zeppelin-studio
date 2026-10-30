@@ -123,8 +123,6 @@ def pages(O, SECTIONS_DOC, GROUPES, slug):
     import contenu as C
     cle_cat = {titre: cle for cle, titre, _ in C.CATEGORIES}
     loupe = '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="6.5" stroke="currentColor" stroke-width="1.5"/><path d="M16 16l4.5 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>'
-    noms = [n for _, _, n, _ in SECTIONS_DOC]
-    ruban = ''.join(f'<li>{e(n)}</li>' for n in noms + noms)
     filtres = '<button type="button" aria-pressed="true" data-filtre="all">All</button>' + ''.join(
         f'<button type="button" aria-pressed="false" data-filtre="{cle}">{e(titre)}</button>' for cle, titre, _ in C.CATEGORIES)
     # Chaque carte montre le schema au trait de sa section ; a defaut, son
@@ -172,7 +170,6 @@ def pages(O, SECTIONS_DOC, GROUPES, slug):
     </div>
     <div class="quete__pop"><span>Popular</span>{pastilles}</div>
   </div>
-  <div class="cine__ribbon" aria-hidden="true"><ul>{ruban}</ul></div>
 </section>
 
 <section class="band">
@@ -227,12 +224,13 @@ def pages(O, SECTIONS_DOC, GROUPES, slug):
           <a class="pill pill--ghost-light" href="/docs/faq">Read the FAQ</a>
         </div>
       </div>
-      <div class="appel__delai glass">
+      <a class="appel__delai glass" href="/support">
         {icone('M6 8h20v13H14l-6 5v-5H6z')}
         <span class="appel__libelle">Reply within</span>
         <span class="appel__valeur">1–2 <em>business days</em></span>
         <span class="appel__note">Monday to Friday, by email.</span>
-      </div>
+        <span class="appel__lien">Write to the studio</span>
+      </a>
     </div>
   </div>
 </section>'''
