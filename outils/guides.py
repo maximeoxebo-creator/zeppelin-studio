@@ -56,7 +56,7 @@ VERRE_CASES = [
     ('Buttons', 'Carousel arrows', 'Arrows of sliders and product rows.'),
     ('Buttons', 'Back-to-top button', 'The round button that returns to the top.'),
     ('Buttons', 'Quick view and quick add buttons', 'The round buttons on product cards.'),
-    ('Buttons', 'Drag cursor', 'The round cursor over scrolling rows.'),
+    ('Buttons', 'Scroll cursor', 'The round cursor over scrolling rows.'),
     ('Images', 'Labels and buttons on images', 'Tags, captions, years and buttons laid over photos.'),
 ]
 
@@ -189,7 +189,7 @@ def pages(O, SECTIONS_DOC, GROUPES, slug):
         f'<a class="sujet glass" href="/docs/settings/liquid-glass">{icone(d)}<span class="sujet__titre">{e(t)}</span><span class="sujet__texte">{e(x)}</span><span class="sujet__plus">{e(c)}</span></a>'
         for d, t, x, c in (
             ('M5 7h22v18H5zM19 7v18', 'Panels', 'Cart, menus, filters, mobile menu, search, popup, store pickup and the blur behind them.', '8 settings'),
-            ('M16 27a11 11 0 1 0 0-22 11 11 0 0 0 0 22zM13 16h6M16 13v6', 'Buttons', 'Carousel arrows, back to top, quick view and quick add, drag cursor.', '4 settings'),
+            ('M16 27a11 11 0 1 0 0-22 11 11 0 0 0 0 22zM13 16h6M16 13v6', 'Buttons', 'Carousel arrows, back to top, quick view and quick add, scroll cursor.', '4 settings'),
             ('M5 7h22v18H5zM5 21l7-7 5 5 4-4 6 6M9 11h6', 'Images', 'Tags, captions, years and buttons laid over your photographs.', '1 setting'),
         ))
     chevron = lambda d: f'<svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="{d}" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>'
